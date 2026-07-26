@@ -32,7 +32,7 @@ def main():
     m = json.loads((HERE / "manifest.json").read_text(encoding="utf-8"))
     fs = m["findings"]
     ids = {f["id"] for f in fs}
-    problems, warnings = [], []
+    problems, warnings, unverifiable = [], [], []
 
     if len(ids) != len(fs):
         problems.append("finding ids are not unique")
@@ -49,11 +49,18 @@ def main():
         except (ValueError, KeyError):
             problems.append(f"[{fid}] bad or missing date")
 
-        # 1. referenced files exist
+        # 1. referenced files exist.
+        #    In the PUBLISHED copy the engine source deliberately is not shipped (it stays in the
+        #    private repo), so these paths are references INTO that repo and cannot be verified
+        #    from here. Say so explicitly rather than silently skipping the check — a check that
+        #    quietly does nothing is worse than no check.
         for key in ("code", "result_file"):
             p = f.get(key)
             if p and not (ROOT / p).exists():
-                problems.append(f"[{fid}] {key} does not exist: {p}")
+                if m.get("private") is False:
+                    unverifiable.append(f"[{fid}] {key} -> {p}")
+                else:
+                    problems.append(f"[{fid}] {key} does not exist: {p}")
 
         # 2. cross-references resolve and agree
         for key in ("supersedes", "superseded_by"):
@@ -93,14 +100,21 @@ def main():
                                 f"modality, but neither is named in the text")
 
     # 8. is the built site stale?
-    site = HERE / "site" / "index.html"
+    site = HERE / "docs" / "index.html"
     if site.exists():
         if site.stat().st_mtime < (HERE / "manifest.json").stat().st_mtime:
-            warnings.append("site/index.html is OLDER than manifest.json — run build.py")
+            warnings.append("docs/index.html is OLDER than manifest.json — run build.py")
     else:
-        warnings.append("site/index.html not built yet — run build.py")
+        warnings.append("docs/index.html not built yet — run build.py")
 
     print(f"manifest: {len(fs)} findings")
+    if unverifiable:
+        print(f"  NOTE  {len(unverifiable)} code/result paths point into the PRIVATE repo and "
+              f"cannot be verified from this published copy:")
+        for u in unverifiable[:4]:
+            print(f"          {u}")
+        if len(unverifiable) > 4:
+            print(f"          ... and {len(unverifiable)-4} more")
     for w in warnings:
         print(f"  WARN  {w}")
     for p in problems:

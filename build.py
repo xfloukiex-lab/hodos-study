@@ -10,7 +10,7 @@ Three tabs, and you land on the running log rather than the theory:
     method     how the tests work, and why the rules exist
     thesis     what the project actually claims
 
-    python study/build.py     -> study/site/index.html
+    python study/build.py     -> docs/index.html
     python study/serve.py     -> http://localhost:8800
 """
 from __future__ import annotations
@@ -303,7 +303,7 @@ def build():
 
 </div><script>{JS}</script></body></html>"""
 
-    out = HERE / "site"
+    out = HERE / "docs"   # Pages only serves / or /docs
     out.mkdir(exist_ok=True)
     (out / "index.html").write_text(doc, encoding="utf-8")
 
