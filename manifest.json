@@ -1,0 +1,398 @@
+{
+  "project": "Hodos",
+  "subtitle": "Comparing processes as curves of distributions",
+  "one_line": "A signal is a curve of probability distributions on a statistical manifold; comparison is a geodesic distance between curves.",
+  "byline": "Alexander Parnell · Vektorgeist",
+  "private": false,
+  "private_note": "Shared, not announced. A working research record: it contains negative results and retracted claims on purpose. Findings here predate their preprint DOIs. Not indexed.",
+  "status_meanings": {
+    "active": "Survives the controls it was tested against; currently believed.",
+    "provisional": "Measured, but on one task or at small scale; not yet replicated.",
+    "negative": "Tested and did NOT hold. Reported because a negative is a result.",
+    "retracted": "We claimed it, then our own measurement refuted it. Original wording kept visible.",
+    "untested": "Stated but never measured. Carries no weight."
+  },
+  "rungs": {
+    "1": "reasoned, unmeasured",
+    "2": "measured once, synthetic data",
+    "3": "measured on real data, one modality",
+    "4": "replicated on a second, unrelated modality",
+    "5": "survives a fair control designed to kill it",
+    "6": "survives comparison against a published method",
+    "7": "reproduced independently, outside this project"
+  },
+  "findings": [
+    {
+      "id": 1,
+      "date": "2026-07-21",
+      "title": "A process is literally a curve on a sphere",
+      "status": "active",
+      "rung": 5,
+      "claim": "The map p ↦ √p sends the simplex onto the unit sphere, under which Fisher–Rao becomes ordinary great-circle geometry. A signal over time is therefore a curve on a sphere, and comparing signals is comparing curves.",
+      "evidence": "2·geodesic == fisher_rao to 1e-9; chi² ≈ ¼·d_FR² with correlation 0.987 on real audio frames.",
+      "scope": "Mathematical identity, not an empirical claim. Prior art (information geometry); reused, not invented.",
+      "code": "hodos/sphere.py",
+      "controls": []
+    },
+    {
+      "id": 2,
+      "date": "2026-07-21",
+      "title": "Time-averaging is quadratically blind to a brief event",
+      "status": "provisional",
+      "rung": 2,
+      "claim": "Averaging a signal over time loses a short event at O(ρ²) while the curve distance loses it at Θ(ρ) — so pooling destroys exactly what a process comparison keeps.",
+      "evidence": "Log-log slopes 1.90 vs 1.00.",
+      "scope": "Holds under an interior/support condition (corrected by Lee's review, 2026-07-22). A novelty check found the underlying effect is KNOWN prior art in detection theory and the DTW-averaging literature — the exponent statement may be a small novel instance at most. Do NOT claim as a new theorem.",
+      "code": "hodos/",
+      "controls": [
+        "novelty check vs literature, 2026-07-22"
+      ]
+    },
+    {
+      "id": 3,
+      "date": "2026-07-23",
+      "title": "The information-geometry ground beats Euclidean on real speech across voices",
+      "status": "active",
+      "rung": 3,
+      "claim": "Recognising the same spoken word through a DIFFERENT human voice, the Fisher–Rao ground reduces error ~17% vs Euclidean.",
+      "evidence": "FSDD, 2000 triples, fresh seed: 0.1500±0.0080 vs 0.1805±0.0086 (~2.6σ).",
+      "scope": "Word-level ABX on FSDD, not the published phone-level ZeroSpeech leaderboard. Within-speaker is a TIE — the N=400 within-speaker 'win' did NOT replicate and was a small-sample mirage.",
+      "code": "validate/abx_fsdd.py",
+      "controls": [
+        "confirm-at-scale with a fresh seed",
+        "binomial standard errors"
+      ]
+    },
+    {
+      "id": 4,
+      "date": "2026-07-23",
+      "title": "The same win replicates on handwriting, with no audio at all",
+      "status": "active",
+      "rung": 4,
+      "claim": "The identical claim holds on pen motion — a completely different modality — and more strongly than on speech.",
+      "evidence": "UCI Character Trajectories, 2858 real handwritten characters, 4000 triples: paired McNemar z≈4.95 (Fisher–Rao fixes 49 errors, breaks 10).",
+      "scope": "Single-writer temporal recognition, not an across-body handwriting split. Not a published leaderboard.",
+      "code": "validate/abx_pen.py",
+      "controls": [
+        "paired McNemar",
+        "fresh seed"
+      ],
+      "note": "This is what took finding 3 from 'a sound trick' to a modality-independent claim. The method was never about sound."
+    },
+    {
+      "id": 5,
+      "date": "2026-07-23",
+      "title": "The method fails where identity is static — the predicted boundary",
+      "status": "retracted",
+      "rung": 3,
+      "claim": "ORIGINAL WORDING, NOW KNOWN TO BE WRONG: 'Fisher–Rao does not beat Euclidean on human-activity windows because activity identity in a short window is static — exactly what the principle predicts.'",
+      "evidence": "HAR: averaging won, 0.24 vs 0.26–0.27.",
+      "scope": "RETRACTED 2026-07-24. The null was OUR OWN BROKEN INPUT, not a property of the method.",
+      "code": "validate/nn_har_orientation.py",
+      "controls": [],
+      "retraction": "The adapter fed gravity-removed acceleration reduced to a MAGNITUDE — a representation with direction deleted. Sitting and standing are both 'at rest, no direction', so under that input they were identical BY CONSTRUCTION. The method was not failing on static identity; it was succeeding on an input from which the answer had already been removed. A null produced by a crippled representation is not a boundary.",
+      "superseded_by": 6
+    },
+    {
+      "id": 6,
+      "date": "2026-07-24",
+      "title": "The corrected boundary: two lanes, not one",
+      "status": "active",
+      "rung": 3,
+      "claim": "The GROUND earns its keep wherever identity lives in the relative-space pattern — INCLUDING static posture. The WARP earns its keep only where identity lives in temporal motion. These are separate lanes; the earlier single-axis 'motion vs static' framing conflated them.",
+      "evidence": "With a representation that preserves relative space (distribution over TOTAL acceleration orientation), subject-disjoint sit-vs-stand = 0.758 against chance 0.500. Fisher–Rao ground contributes +5.8 points over Euclidean on a task with NO motion; the warp contributes 0, correctly.",
+      "scope": "One dataset (UCI HAR). The two-lane structure is supported by findings 3, 4 and 17 jointly.",
+      "code": "validate/nn_har_orientation.py",
+      "controls": [
+        "subject-disjoint split"
+      ],
+      "supersedes": 5
+    },
+    {
+      "id": 7,
+      "date": "2026-07-22",
+      "title": "Pitch invariance by construction, not by training",
+      "status": "active",
+      "rung": 5,
+      "claim": "Quotienting the process space by the global bin-shift group gives a distance between ORBITS, making recognition invariant to transposition exactly — not approximately, and with no examples required.",
+      "evidence": "Same vowel shifted 6 bins: distance collapses 61× (0.4611→0.0075) while a DIFFERENT vowel is preserved (0.2911) — a 39× separation. The invariant recogniser REPAIRS a real base-engine misclassification.",
+      "scope": "Exact-zero only for an exact array roll; independently synthesised transpositions carry edge-tail truncation (D_inv ≈ 7.5e-3, not 1e-16). Pad-mode invariance is approximate.",
+      "code": "hodos/quotient.py",
+      "controls": [
+        "theorem verified |ΔD| = 4.4e-16",
+        "W1 claim self-corrected mid-build"
+      ],
+      "note": "Shipped into Auris, closing that project's own documented pitch-sensitivity limit."
+    },
+    {
+      "id": 8,
+      "date": "2026-07-22",
+      "title": "The distinctive ground does NOT generalise across light, echo and turbulence",
+      "status": "negative",
+      "rung": 5,
+      "claim": "The Fisher–Rao ground shows no edge over plain L2 on light spectra, sonar range-profiles or turbulence. It ties; it does not beat.",
+      "evidence": "1-NN LOO, 3 seeds, ground ablation, noise swept to break the ceiling. At 18/class: light 0.45 vs 0.44, echo 0.73 vs 0.75, turbulence 0.62 vs 0.68. The ground earns its keep in 0 of 3 modalities.",
+      "scope": "Recognition only. Does not test barycenter, morph, pooling or the physics reproduction.",
+      "code": "validate/crossmodal_benchmark.py",
+      "controls": [
+        "18/class robustness re-check after a 6/class small-sample artifact reversed the apparent result"
+      ],
+      "note": "This killed the universal-distinctiveness claim. It is the reason the paper's claim is narrow."
+    },
+    {
+      "id": 9,
+      "date": "2026-07-22",
+      "title": "The min-mean distance 'win' was a padding degeneracy",
+      "status": "retracted",
+      "rung": 5,
+      "claim": "ORIGINAL WORDING, NOW KNOWN TO BE WRONG: 'min-MEAN + Fisher–Rao beats standard DTW on light by +0.21 (0.61→0.82), and it survives 6→12/class.'",
+      "evidence": "The apparent win.",
+      "scope": "RETRACTED. Caught by Flouk: 'why does it track one better than the other — that doesn't make sense.'",
+      "code": "hodos/warp.py",
+      "controls": [
+        "mechanism investigation, scratchpad/diag_minmean.py"
+      ],
+      "retraction": "min-mean degenerates into long, padded, cheap-repeat paths (path padding 0.00 for standard DTW vs 0.61 for min-mean) which makes it behave MORE like plain averaging (correlation with mean-pool 0.779 → 0.845). Light is precisely the task where averaging wins — so it 'won' for the wrong reason, and the same collapse HURT on echo where timing is the signal. The object is Marzal–Vidal's Normalized Edit Distance (1993), proven non-metric. RETIRED.",
+      "note": "An unexplained win-here/lose-there is a red flag, not a result. Explain the mechanism BEFORE banking a win."
+    },
+    {
+      "id": 10,
+      "date": "2026-07-22",
+      "title": "Doppler / velocity measurement is not an edge",
+      "status": "negative",
+      "rung": 5,
+      "claim": "The conceptual link (Doppler is a time-warp, so the method should measure velocity) is real and elegant, but empirically purpose-built DSP measures it better.",
+      "evidence": "Matched filter is perfect (0.000 clean); Hodos ~0.13. On the velocity PROFILE — supposedly the structural edge — the Hodos warp-slope is too noisy (0.14–0.20) and loses even to a FLAT single-α baseline (0.07–0.12).",
+      "scope": "Two fair benchmarks. Stopped after two rather than trying a third variant.",
+      "code": "validate/doppler_benchmark.py",
+      "controls": [
+        "matched-filter baseline",
+        "flat-α baseline"
+      ]
+    },
+    {
+      "id": 11,
+      "date": "2026-07-23",
+      "title": "Against a published method: the field's warp is better, our ground still wins",
+      "status": "active",
+      "rung": 6,
+      "claim": "soft-DTW beats our hard-DTW warp — but the Fisher–Rao ground beats Euclidean under BOTH warps on BOTH modalities. The transferable contribution is the ground, and it composes with the field's better alignment.",
+      "evidence": "Handwriting z=2.75, errors 0.045→0.025 for soft-DTW over hard-DTW.",
+      "scope": "Recommended distance is therefore soft-DTW + Fisher–Rao — adopt the field's warp, keep our geometry.",
+      "code": "validate/abx_vs_softdtw.py",
+      "controls": [
+        "both warps × both grounds × both modalities"
+      ],
+      "note": "The claim survived contact with the field and got narrower and stronger."
+    },
+    {
+      "id": 12,
+      "date": "2026-07-24",
+      "title": "The win decomposes: trajectory > ground > warp",
+      "status": "active",
+      "rung": 4,
+      "claim": "The advantage over mean-pooling splits cleanly into three ingredients in a fixed order: using the trajectory at all, then the Fisher–Rao ground, then the alignment.",
+      "evidence": "FSDD across-speaker 5-shot, 3 seeds: FR+warp 0.657 / FR+nowarp 0.637 / L2raw+warp 0.602 / L2raw+nowarp 0.573 / mean-pool 0.483. Trajectory +9, ground +5–6, warp +2–3. Handwriting: same ordering, +25 / +3.4 / +1.8.",
+      "scope": "Same ordering on a sound task AND a non-sound task, so it is not a speech artifact.",
+      "code": "validate/nn_decompose.py",
+      "controls": [
+        "L2-on-RAW-frames arm — the earlier L2-on-sqrt arm was a BAD control (≈ Hellinger, same geometry) and produced a spurious 'FR doesn't help'"
+      ]
+    },
+    {
+      "id": 13,
+      "date": "2026-07-25",
+      "title": "The geometry needs 5–10× less data than a standard network",
+      "status": "active",
+      "rung": 4,
+      "claim": "Class-barycenter prototypes with NO training reach a standard method's 50-example accuracy using 5 examples (speech) or 10 (handwriting).",
+      "evidence": "Speech across-speaker: hodos 0.416/0.539/0.654/0.715/0.746 at 1/2/5/10/50 shots vs GRU 0.189/0.291/0.417/0.520/0.624. Handwriting: hodos 0.730→0.894 vs GRU 0.403→0.828. At ONE example the network is near chance (0.189 vs 0.10).",
+      "scope": "Two modalities, 5 seeds, 200 test items, full shot sweep to 50.",
+      "code": "kaggle_pack/hodos_science.py",
+      "controls": [
+        "1-NN L2",
+        "mean-pool + logistic regression",
+        "GRU classifier",
+        "all arms on identical splits and shots"
+      ],
+      "result_file": "kaggle_pack/out/hodos_science_result.json",
+      "note": "A pre-registered criterion predicted the gap would SHRINK with data (the signature of a prior). On handwriting it does, monotonically (+0.098→+0.018). On speech it RISES to a peak at 10 shots then falls — the local 5-shot sweep had only seen the rising half. Describing it as a 'prior' without that check would have been wrong."
+    },
+    {
+      "id": 14,
+      "date": "2026-07-26",
+      "title": "It does not forget — and cannot, by construction",
+      "status": "active",
+      "rung": 5,
+      "claim": "Taught classes in sequence, a standard network loses half to four-fifths of its first-task accuracy. This system loses nothing, because learning is appending to a store rather than overwriting weights.",
+      "evidence": "Forgetting measured against the joint-trained ceiling so the growing label space cancels. Speech: net +0.500, hodos +0.000. Handwriting: net +0.801, hodos +0.000. Per-seed hodos [0,0,0] on both. Learning INCREMENTALLY beats the network trained on EVERYTHING AT ONCE: 0.544 vs 0.422 (speech), 0.845 vs 0.702 (handwriting).",
+      "scope": "Two modalities, 3 seeds each. Handwriting uses a random per-class holdout (no speaker axis), a weaker split than the across-speaker speech version.",
+      "code": "validate/catastrophic_forgetting.py",
+      "controls": [
+        "joint-trained ceiling — without it, task difficulty masquerades as forgetting",
+        "replay (full retrain each step) — also 0.000 forgetting, but costs a retrain every step and still lands lower",
+        "ORDER INVARIANCE: building the store in REVERSE gives byte-identical answers, 1.000 on every seed"
+      ],
+      "result_file": "frontier/forgetting_result.json",
+      "note": "Order invariance at 1.000 is what makes this structural rather than lucky: the final state provably cannot depend on the sequence, so forgetting is impossible rather than merely absent. Two of our own errors were caught here — see findings 20 and 21."
+    },
+    {
+      "id": 15,
+      "date": "2026-07-25",
+      "title": "A compressed latent representation does NOT help",
+      "status": "negative",
+      "rung": 5,
+      "claim": "Squeezing characters onto a lower-dimensional concept simplex is monotonically worse, at matched parameters, with a working readout.",
+      "evidence": "13.545 (65 dims) → 16.089 (32) → 19.418 (16) → 23.113 (8) perplexity. No sweet spot.",
+      "scope": "Character language modelling, small local config.",
+      "code": "validate/lm_latent_sweep.py",
+      "controls": [
+        "parameter matching to within 1% — without it, a small-K model is simply a SMALLER model",
+        "sharp-readout arm to separate the readout from the dimension"
+      ],
+      "note": "The first version of this measured through a broken readout (see finding 16) and reached the right conclusion for the wrong reason."
+    },
+    {
+      "id": 16,
+      "date": "2026-07-25",
+      "title": "Anything between the landed point and the answer must start as a pass-through",
+      "status": "active",
+      "rung": 5,
+      "claim": "A randomly-initialised readout layer costs ~21 perplexity — a 2.5× degradation — regardless of its form. Initialised as a pass-through, the cost vanishes entirely.",
+      "evidence": "At identical dimension and parameters: no readout 13.528, random-init readout 34.318, identity-init readout 13.187. Both readout FORMS cost the same, so it is not which readout but having one.",
+      "scope": "Applies to anything built downstream of a landed point — the memory, reasoning and decoder organs all sit there.",
+      "code": "frontier/hodos_lm.py",
+      "controls": [
+        "mixture vs logit readout — identical, proving form is not the variable"
+      ],
+      "note": "The same disease the distance-attention layer had in June, and the same cure: start as identity so a layer can only refine, never replace."
+    },
+    {
+      "id": 17,
+      "date": "2026-07-25",
+      "title": "On discrete aligned data the warp HURTS and the ground is neutral",
+      "status": "active",
+      "rung": 5,
+      "claim": "For character contexts, the Fisher–Rao ground ties plain L2 exactly, and the entire performance gap is the alignment machinery.",
+      "evidence": "Per-arm tuned: full Hodos 3.1117, ground-without-warp 2.9949, L2 2.9903. Ground vs L2: −0.0046, p=0.586 — a dead tie. The warp costs +0.1168, the whole gap.",
+      "scope": "k-NN language modelling on TinyShakespeare against a unigram term.",
+      "code": "frontier/lm_memory_temp.py",
+      "controls": [
+        "plain-L2 retrieval arm",
+        "random-retrieval floor — hurts at every setting, proving the gain is real retrieval not smoothing",
+        "PER-ARM temperature tuning — a single temperature was unfair because the distances scale differently (FR sums linearly in mismatches, L2 as a square root); best temperatures differed by 40×"
+      ],
+      "result_file": "frontier/lm_memory_temp_result.json",
+      "note": "This is a MECHANISM for the demarcation rather than an observation: rigid aligned windows have no timing to align away, so warping can only manufacture false matches. Actionable: on discrete aligned data, use the ground WITHOUT the warp."
+    },
+    {
+      "id": 18,
+      "date": "2026-07-25",
+      "title": "Hierarchy does not beat a flat representation",
+      "status": "negative",
+      "rung": 5,
+      "claim": "Lifting a trajectory into nested levels gives no advantage over the flat version on either modality.",
+      "evidence": "Speech: flat 0.920, lifted 0.935 — but the SMOOTHING control also 0.935, identical. Handwriting: lifted 0.870 < flat 0.877.",
+      "scope": "FSDD utterances are 24 frames, so a lift yields ~5 — shallow. A null here means 'no benefit on short sequences', NOT 'no benefit'. The case hierarchy exists for is long sequences.",
+      "code": "kaggle_pack/hodos_science.py",
+      "controls": [
+        "bin-wise smoothing control — MATCHED it exactly, which is what killed it",
+        "length-matched subsampling control"
+      ],
+      "note": "A clean kill by a control built specifically so it could kill the idea."
+    },
+    {
+      "id": 19,
+      "date": "2026-07-24",
+      "title": "The geometry is not fp16-safe",
+      "status": "retracted",
+      "rung": 1,
+      "claim": "ORIGINAL WORDING, NOW KNOWN TO BE WRONG: 'sph_log takes arccos of an inner product very close to 1.0; fp16 resolution there is coarser than the guard clamp, so every Log map collapses to zero and the geometry dies silently.'",
+      "evidence": "None — this was reasoned, never measured. Rung 1.",
+      "scope": "RETRACTED 2026-07-24 by direct measurement on a T4.",
+      "code": "frontier/gpu_check/gpu_validate.py",
+      "controls": [
+        "real-text measurement",
+        "naive-autocast dtype check"
+      ],
+      "retraction": "Both halves were wrong. The premise is BACKWARDS: characters are label-smoothed one-hots, so two DIFFERENT consecutive characters are nearly ORTHOGONAL (real-text mean inner product 0.096), nowhere near 1.0. The fp16 danger band contains 0.0000 of real pairs and zero pairs lose real motion. And naive autocast never reaches the geometry anyway — the manifold tensors come out float32. The 'safety' code written to guard this imaginary hazard then introduced the only real bug the run found.",
+      "note": "The clearest example in this project of why reasoning is not evidence."
+    },
+    {
+      "id": 20,
+      "date": "2026-07-26",
+      "title": "Measurement error: a growing label space looked like memory decaying",
+      "status": "retracted",
+      "rung": 2,
+      "claim": "ORIGINAL WORDING, NOW KNOWN TO BE WRONG: 'the geometry forgets too — task-1 accuracy drops 0.500 as later tasks arrive.'",
+      "evidence": "The raw drop, which is real but means something else.",
+      "scope": "RETRACTED same day. This is a flaw in the METRIC, not in either system.",
+      "code": "validate/catastrophic_forgetting.py",
+      "controls": [
+        "comparison against the joint-trained ceiling"
+      ],
+      "retraction": "In class-incremental learning the LABEL SPACE GROWS: task 1 is a 2-way choice when first learned and a 10-way choice at the end. Comparing those two numbers makes the task getting harder look like memory degrading. Measuring against the joint-trained ceiling makes the growing label space cancel, leaving only the cost of having learned in sequence — which for this system is exactly zero. The file's own docstring warned about this trap before the first version was written that way anyway."
+    },
+    {
+      "id": 21,
+      "date": "2026-07-26",
+      "title": "An impossible value exposed a flaw that only a second dataset could reveal",
+      "status": "active",
+      "rung": 5,
+      "claim": "A negative forgetting score — sequential beating joint — is impossible if the store is order-invariant, and chasing that impossibility found a real defect in the comparison.",
+      "evidence": "Handwriting reported hodos forgetting −0.083 on one seed. Cause: an incomplete final chunk is dropped from the task list, but the joint comparison arms still iterated ALL classes — so joint faced a 17-way problem while sequential faced 16-way.",
+      "scope": "Speech divides evenly into pairs, so nothing was orphaned there and the flaw could ONLY surface on a second modality.",
+      "code": "validate/catastrophic_forgetting.py",
+      "controls": [],
+      "note": "After the fix the net's forgetting ROSE from 0.692 to 0.801 — the bug had been FLATTERING the opponent. Replication on a second modality is not just confirmation of a number; it is a different defect detector."
+    },
+    {
+      "id": 22,
+      "date": "2026-07-22",
+      "title": "The Riemann work reproduces known mathematics and proves nothing new",
+      "status": "negative",
+      "rung": 5,
+      "claim": "The distance works as a REFEREE — it correctly ranks a quantum-chaotic drum closest to the real Riemann zeros — but every attempt to use it to find a load-bearing arithmetic operator returned a null.",
+      "evidence": "Referee ranks GUE 0.0435 closest, GOE 0.0695 second, noise far. Reproduces Montgomery–Odlyzko (known). The relationship-kernel looked load-bearing at 4–6σ against random integers — but a density-matched control scored BETTER (0.062 vs 0.128), so the signal was a density-envelope artifact.",
+      "scope": "RH is not proven, not approached. The real limiter is resolution: an arithmetic fingerprint needs ~10³–10⁴ zeros and we have hundreds.",
+      "code": "validate/drum_referee.py",
+      "controls": [
+        "density-matched sharp control — this is what killed the 4σ result"
+      ],
+      "note": "Catching the artifact via the fair control IS the result. Kept as an honest appendix, not a claim."
+    },
+    {
+      "id": 23,
+      "date": "2026-07-25",
+      "title": "Character spacing is not Riemann level repulsion",
+      "status": "negative",
+      "rung": 5,
+      "claim": "The apparent 'empty band' in character separations is an artifact of one-hot encoding, not a repulsion signature.",
+      "evidence": "One-hot characters have exactly ONE distinct pairwise distance — all 2080 pairs at 1.498555, spread 0.00e+00. Arbitrary points on the SAME simplex give 1334 distinct distances, so the constraint is the encoding.",
+      "scope": "The structural question is genuinely shared — both ask what a distribution of separations looks like near zero. But level repulsion is a statement about a DENSE 1-D spectrum, and 65 points in 65 dimensions is the sparsest possible arrangement.",
+      "code": "validate/char_repulsion_null.py",
+      "controls": [
+        "coordinate-shuffle matched null",
+        "the repulsion statistic turned out to have NO dynamic range — a dead measurement, not a null"
+      ],
+      "note": "Reported as a failed measurement rather than a null result. A z of 0 against a null with zero spread means the instrument could not move."
+    },
+    {
+      "id": 24,
+      "date": "2026-07-25",
+      "title": "Memory helps a language model, but the geometry is not why",
+      "status": "active",
+      "rung": 5,
+      "claim": "Giving the model a memory of past contexts genuinely improves prediction. Retrieval is what helps; the geometric distance is not better than a flat one for this.",
+      "evidence": "Memory improves by +0.105 nats, p=2.7e-06. Plain L2 retrieval beats Hodos retrieval by 0.121 nats, p=7.35e-04, and this survives per-arm temperature tuning.",
+      "scope": "Character contexts — discrete, rigid, already aligned. See finding 17 for the mechanism.",
+      "code": "frontier/lm_memory.py",
+      "controls": [
+        "plain-L2 arm",
+        "random-retrieval floor",
+        "per-arm temperature tuning"
+      ],
+      "note": "Reported as it came out. An H1 pass alone would have been enough to claim a Hodos win; the control is what prevented that."
+    }
+  ]
+}
