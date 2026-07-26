@@ -62,14 +62,20 @@ def main():
                 else:
                     problems.append(f"[{fid}] {key} does not exist: {p}")
 
-        # 2. cross-references resolve and agree
+        # 2. cross-references resolve and agree.
+        #    `supersedes` may be a list: one corrected measurement can legitimately retire
+        #    several findings at once (25 supersedes both 17 and 24). `superseded_by` stays
+        #    scalar — a finding is retracted by exactly one thing.
+        def _targets(v):
+            return [] if v is None else (list(v) if isinstance(v, list) else [v])
+
         for key in ("supersedes", "superseded_by"):
-            t = f.get(key)
-            if t is not None and t not in ids:
-                problems.append(f"[{fid}] {key} points at missing finding {t}")
+            for t in _targets(f.get(key)):
+                if t not in ids:
+                    problems.append(f"[{fid}] {key} points at missing finding {t}")
         if f.get("superseded_by"):
             other = next(x for x in fs if x["id"] == f["superseded_by"])
-            if other.get("supersedes") != fid:
+            if fid not in _targets(other.get("supersedes")):
                 problems.append(f"[{fid}] says superseded_by {other['id']}, "
                                 f"but {other['id']} does not say it supersedes {fid}")
 

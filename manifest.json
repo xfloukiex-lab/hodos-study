@@ -271,11 +271,11 @@
       "id": 17,
       "date": "2026-07-25",
       "title": "On discrete aligned data the warp HURTS and the ground is neutral",
-      "status": "active",
+      "status": "retracted",
       "rung": 5,
-      "claim": "For character contexts, the Fisher–Rao ground ties plain L2 exactly, and the entire performance gap is the alignment machinery.",
+      "claim": "ORIGINAL WORDING, NOW KNOWN TO BE WRONG: 'For character contexts, the Fisher-Rao ground ties plain L2 exactly, and the entire performance gap is the alignment machinery.'",
       "evidence": "Per-arm tuned: full Hodos 3.1117, ground-without-warp 2.9949, L2 2.9903. Ground vs L2: −0.0046, p=0.586 — a dead tie. The warp costs +0.1168, the whole gap.",
-      "scope": "k-NN language modelling on TinyShakespeare against a unigram term.",
+      "scope": "RETRACTED 2026-07-26. The tie was forced by the representation, not observed.",
       "code": "frontier/lm_memory_temp.py",
       "controls": [
         "plain-L2 retrieval arm",
@@ -283,7 +283,9 @@
         "PER-ARM temperature tuning — a single temperature was unfair because the distances scale differently (FR sums linearly in mismatches, L2 as a square root); best temperatures differed by 40×"
       ],
       "result_file": "frontier/lm_memory_temp_result.json",
-      "note": "This is a MECHANISM for the demarcation rather than an observation: rigid aligned windows have no timing to align away, so warping can only manufacture false matches. Actionable: on discrete aligned data, use the ground WITHOUT the warp."
+      "note": "This is a MECHANISM for the demarcation rather than an observation: rigid aligned windows have no timing to align away, so warping can only manufacture false matches. Actionable: on discrete aligned data, use the ground WITHOUT the warp.",
+      "retraction": "Both of these were measured in a space where the Fisher-Rao ground is a CONSTANT FUNCTION. Contexts were built as label-smoothed one-hot rows, and on the actual vocabulary (V=65, eps=0.03) the Fisher-Rao distance between every pair of distinct characters is identical: min 2.9971, mean 2.9971, max 2.9971 -- spread exactly 0.0000. In that space Fisher-Rao and L2 induce the SAME ranking, so 'the ground ties L2' was an algebraic identity, not a measurement, and the warp was the only thing left that could move. The experiment could not have produced any other answer. Re-measured in a non-degenerate metric (finding 25) both conclusions reverse: the ground beats L2 and the warp HELPS.",
+      "superseded_by": 25
     },
     {
       "id": 18,
@@ -381,18 +383,63 @@
       "id": 24,
       "date": "2026-07-25",
       "title": "Memory helps a language model, but the geometry is not why",
-      "status": "active",
+      "status": "retracted",
       "rung": 5,
-      "claim": "Giving the model a memory of past contexts genuinely improves prediction. Retrieval is what helps; the geometric distance is not better than a flat one for this.",
+      "claim": "ORIGINAL WORDING, NOW KNOWN TO BE WRONG: 'Retrieval is what helps; the geometric distance is not better than a flat one for this.'",
       "evidence": "Memory improves by +0.105 nats, p=2.7e-06. Plain L2 retrieval beats Hodos retrieval by 0.121 nats, p=7.35e-04, and this survives per-arm temperature tuning.",
-      "scope": "Character contexts — discrete, rigid, already aligned. See finding 17 for the mechanism.",
+      "scope": "RETRACTED 2026-07-26. The geometry was never given a metric to work with.",
       "code": "frontier/lm_memory.py",
       "controls": [
         "plain-L2 arm",
         "random-retrieval floor",
         "per-arm temperature tuning"
       ],
-      "note": "Reported as it came out. An H1 pass alone would have been enough to claim a Hodos win; the control is what prevented that."
+      "note": "Reported as it came out. An H1 pass alone would have been enough to claim a Hodos win; the control is what prevented that.",
+      "retraction": "Both of these were measured in a space where the Fisher-Rao ground is a CONSTANT FUNCTION. Contexts were built as label-smoothed one-hot rows, and on the actual vocabulary (V=65, eps=0.03) the Fisher-Rao distance between every pair of distinct characters is identical: min 2.9971, mean 2.9971, max 2.9971 -- spread exactly 0.0000. In that space Fisher-Rao and L2 induce the SAME ranking, so 'the ground ties L2' was an algebraic identity, not a measurement, and the warp was the only thing left that could move. The experiment could not have produced any other answer. Re-measured in a non-degenerate metric (finding 25) both conclusions reverse: the ground beats L2 and the warp HELPS. The H1 half of this finding -- that memory helps a language model at all -- survives and is carried into finding 25. Only the control's verdict on the geometry is withdrawn.",
+      "superseded_by": 25
+    },
+    {
+      "id": 25,
+      "date": "2026-07-26",
+      "title": "The Fisher-Rao ground IS a better retrieval key than L2 -- once characters have a learned metric",
+      "status": "active",
+      "rung": 5,
+      "claim": "Given character positions that carry a real metric, retrieving past contexts under the Hodos process distance predicts the next character better than retrieving under plain L2 over the identical frames. The only difference between the two arms is the distance function.",
+      "evidence": "Pooled over 5 seeds, 1000 held-out positions, each seed tuning its own temperature and blend weight on its own separate half: Hodos beats L2 by +0.0970 nats, p=2.0e-05. The warp HELPS by 0.0674 nats (p=2.5e-03) and the ground helps by 0.0296 nats (p=0.024) -- both reversing the retracted findings 17 and 24. The same experiment run in the old one-hot space reads -0.0249 nats, p=0.25: indistinguishable from zero, as a constant ground must be.",
+      "scope": "k-NN character language modelling on TinyShakespeare against a unigram term. The learned metric is the 4,225-parameter embedding table from the trained HODOS_embed language model, so this shows the geometry works ON a learned metric -- it does not show the metric can be obtained without learning one.",
+      "code": "frontier/lm_memory_pooled.py",
+      "controls": [
+        "ONE-HOT CONTROL ARM AS A MACHINE CHECK -- pre-registered to read zero, because the ground is provably constant there. It read -0.0249, p=0.25. Had it moved, the run was to be discarded rather than explained.",
+        "TUNE/TEST SPLIT -- each arm is swept over 9 temperatures x 7 blend weights = 63 settings; selecting the best of 63 on the same positions the verdict is read from would inflate the noisiest arm most. Selection happens on one half, every statistic is reported on the other.",
+        "REPRESENTATION ATTRIBUTION -- the learned edge exceeds the one-hot edge by +0.1219 nats, p=2.7e-07, position-paired within seed, so the effect is the representation and not the arm.",
+        "NO PREFILTER -- the exact distance is computed against the entire store. Learned frames are near-uniform (row entropy 4.133 of a 4.174 maximum), so a cheap signature shortlist would have been noise-dominated and would have silently decided the comparison.",
+        "BATCHED SOFT-DTW ASSERTED EQUAL to hodos.warp.soft_dtw before any result is produced (max abs err 6.6e-15). The first attempt disagreed at 2.4e-06, traced to float32 softmax rows that ground.bhattacharyya renormalises internally and this path did not.",
+        "random-retrieval floor (every trip of it was non-significant, all p > 0.17)",
+        "per-arm temperature tuning"
+      ],
+      "result_file": "frontier/lm_memory_pooled_result.json",
+      "note": "This is a CORRECTION of findings 17 and 24, not a new capability claim. It does not make the language model competitive -- the geodesic head still costs 16% perplexity against a matched GRU (5.29 vs 4.56, 30k steps, 4.07M params). What it establishes is narrower and was previously mis-measured: where the geometry has a metric to act on, it acts, and the alignment machinery earns its place rather than costing.",
+      "supersedes": [
+        17,
+        24
+      ]
+    },
+    {
+      "id": 26,
+      "date": "2026-07-26",
+      "title": "The learned character metric encodes linguistic class, and it is not frequency",
+      "status": "active",
+      "rung": 3,
+      "claim": "Trained only to predict the next character, the model places characters on the simplex so that Fisher-Rao distance tracks linguistic class -- case pairs, vowels, sentence terminators, whitespace -- and this is not explained by how often the characters occur.",
+      "evidence": "Off-diagonal Fisher-Rao spread 0.5050 (min 0.1298, max 0.6349) against exactly 0.0000 for one-hot. Correlation with frequency is nil: Spearman +0.009, ~0.0% of rank variance. After residualising distance on the frequency gap, within-class pairs are closer than cross-class pairs by 0.0226; a 10,000-shuffle permutation null over class labels gives z=+4.46, p=0.00010. Tightest classes are the terminators . ? ! (-0.256) and separators , ; : (-0.212).",
+      "scope": "One trained checkpoint (HODOS_embed, 30k steps, val ppl 5.29) on TinyShakespeare. Learned embeddings clustering by character class is a KNOWN property of neural language models and is not claimed as novel here. It is recorded because it is the precondition that makes finding 25 interpretable: without it there is no metric for the Fisher-Rao ground to act on.",
+      "code": "validate/char_metric_structure.py",
+      "controls": [
+        "FREQUENCY CONTROL -- the obvious confound, since vowels and whitespace are all common. Distance is residualised on the log-frequency gap before the class test.",
+        "PERMUTATION NULL -- 10,000 shuffles of the class labels, so 'looks clustered' cannot be eyeballed into a result.",
+        "INTERNAL NEGATIVE CONTROL -- the grab-bag 'other' category (digits, quotes, $, &) is not a linguistic class, and it is the ONE category with a POSITIVE residual (+0.117): its members are FURTHER apart than frequency predicts. The non-class is the one that does not cluster."
+      ],
+      "note": "This is what the 4,225 parameters buy, and it is worth 7x perplexity on its own: the same architecture with characters pinned to one-hot corners scores 37.63 against 5.29 with the positions learned, at matched parameters and identical steps."
     }
   ]
 }
