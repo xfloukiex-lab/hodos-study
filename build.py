@@ -76,6 +76,12 @@ td.n{font-variant-numeric:tabular-nums;color:var(--dim);width:34px}
 .lab{color:var(--dim);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;
   margin:12px 0 2px}
 .f p{margin:0}
+.eqtag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 10px}
+.eqtag.own{color:var(--ok);font-weight:700}
+.eqf{background:#11171b;border:1px solid var(--line);border-radius:6px;padding:12px 14px;
+  margin:0 0 12px;overflow-x:auto;font-size:12.5px;line-height:1.65;white-space:pre;
+  font-family:'Cascadia Code',Consolas,monospace;color:#cfe0e6}
+.eqprov{color:var(--dim);font-size:13.5px}
 .retr{background:#3a2320;border-left:3px solid var(--ret);padding:11px 14px;margin:12px 0 0;
   border-radius:0 6px 6px 0}
 .note{border-left:3px solid var(--acc);padding:9px 14px;margin:12px 0 0;color:var(--dim);
@@ -171,6 +177,23 @@ def build():
 
     cards = "".join(finding_card(f, rungs) for f in sorted(fs, key=lambda x: -x["id"]))
 
+    # The equations tab. Tags come straight from EQUATIONS.md and are NOT softened on the way
+    # here -- ASSEMBLED / KNOWN / OURS being stated plainly is the entire point of that sheet.
+    def equation_card(q):
+        # NB: not class="tag"/"prov" — those are the status-pill styles and would render these
+        # paragraphs as bordered pills.
+        own = "OURS" in q["tag"]
+        bits = [f'<h3><span class="id">§{q["n"]}</span> {e(q["title"])}</h3>',
+                f'<p class="eqtag{" own" if own else ""}">{e(q["tag"])}</p>',
+                f'<pre class="eqf">{e(q["formula"])}</pre>',
+                f'<p><b>Plain:</b> {e(q["plain"])}</p>',
+                f'<p class="eqprov"><b>Provenance:</b> {e(q["provenance"])}</p>']
+        if q.get("correction"):
+            bits.append(f'<p class="retr"><b>Correction:</b> {e(q["correction"])}</p>')
+        return '<div class="f">' + "".join(bits) + "</div>"
+
+    eqs = "".join(equation_card(q) for q in m.get("equations", {}).get("items", []))
+
     meanings = "".join(f'<tr><td><span class="tag {STATUS_CLASS[k]}">{k}</span></td>'
                        f'<td>{e(v)}</td></tr>' for k, v in m["status_meanings"].items())
     rung_rows = "".join(f'<tr><td class="n">{k}</td><td>{e(v)}</td></tr>'
@@ -191,6 +214,7 @@ def build():
   <div class="private">PRIVATE — {e(m['private_note'])}</div>
   <nav>
     <button class="on" data-t="findings">Findings</button>
+    <button data-t="equations">The equations</button>
     <button data-t="method">How the tests work</button>
     <button data-t="thesis">The thesis</button>
   </nav>
@@ -204,6 +228,15 @@ def build():
   <tbody>{rows}</tbody></table>
   <h2>The record, newest first</h2>
   {cards}
+</section>
+
+<section id="equations">
+  <h2>Every equation, with an honest label on each</h2>
+  <p class="lede">{e(m.get('equations', {}).get('lede', ''))}</p>
+  <p class="gen">{e(m.get('equations', {}).get('notation', ''))}</p>
+  {eqs}
+  <h2>The one-paragraph honest summary</h2>
+  <p>{e(m.get('equations', {}).get('summary', ''))}</p>
 </section>
 
 <section id="method">

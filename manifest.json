@@ -440,6 +440,88 @@
         "INTERNAL NEGATIVE CONTROL -- the grab-bag 'other' category (digits, quotes, $, &) is not a linguistic class, and it is the ONE category with a POSITIVE residual (+0.117): its members are FURTHER apart than frequency predicts. The non-class is the one that does not cluster."
       ],
       "note": "This is what the 4,225 parameters buy, and it is worth 7x perplexity on its own: the same architecture with characters pinned to one-hot corners scores 37.63 against 5.29 with the positions learned, at matched parameters and identical steps."
+    },
+    {
+      "id": 27,
+      "date": "2026-07-24",
+      "title": "The equation predicts the next step better than a trained network, with no training",
+      "status": "active",
+      "rung": 5,
+      "claim": "Continuing the curve along its geodesic — a closed-form step with zero learned parameters — predicts the next frame of a real signal 3-16x more accurately than a matched dense network that was trained to do it.",
+      "evidence": "Fisher-Rao error, lower is better. AUDIO (FSDD cochlea, F=32): geodesic continuation 0.0054 vs fair dense 0.0860 vs naive repeat-last 0.0866. PEN (handwriting, F=16): 0.1796 vs 0.3863 vs 0.3903. Paired: audio 646 wins / 2 losses, p=4e-190; pen 591/129, p=2e-71. The LEARNED geometry model beats fair dense on audio (p=2e-122) but only TIES on pen (397/353, p=0.12) — reported because it qualifies the headline: learning helps complex dynamics, not smooth real signals.",
+      "scope": "Next-step prediction on continuous real sequences, two unrelated modalities. This is one-step continuation, NOT generation over long horizons, and not language.",
+      "code": "validate/headtohead.py",
+      "controls": [
+        "THE FAIR-ANCHORED BASELINE, added after a red flag rather than before. The first dense baseline scored WORSE than naive repeat-last on audio, which is not a believable result for a trained net. The cause: it predicted an absolute frame while the geometry methods predict a STEP FROM THE LAST FRAME. `std_res` was rebuilt anchored the same way, which roughly halved its error (0.176 -> 0.086) — and the geometry still wins. The control strengthened the opponent and the result survived.",
+        "naive repeat-last floor — the fair dense net barely beats it on audio, the geometry beats it 16x",
+        "matched parameter budget across arms",
+        "paired per-sequence statistics rather than a difference of means"
+      ],
+      "note": "This is the result that separates PREDICTING from RECOGNISING, and it is the strongest form of the project's central claim: the prediction is not learned, it falls out of the geometry. Note what it does NOT say — one step ahead on smooth continuous signals is a long way from language, where the same continuation currently costs 16% perplexity against an ordinary recurrent net (finding 24's successor)."
     }
-  ]
+  ],
+  "equations": {
+    "lede": "Every equation the project rests on, with an honest label on each: ASSEMBLED from known parts, KNOWN and merely reused, or OURS. Hodos as a whole is a synthesis in a populated field (OTW, TiOT, TAOT, Riemannian Time Warping). The genuinely new pieces are small, and they are flagged rather than blurred into the rest.",
+    "notation": "A signal becomes a process P = (pⁱ, …, pᵀ), each frame a probability distribution over F bins. Δ^{F−1} is the probability simplex. BC(p,q) = Σᵇ √(pᵇ qᵇ) is the Bhattacharyya coefficient.",
+    "items": [
+      {
+        "n": 1,
+        "title": "The master distance",
+        "tag": "ASSEMBLED",
+        "formula": "D(P,Q) = ( min_{π ∈ Π_β}  Σ_{(i,j)∈π}  g(p⁽ⁱ⁾, q⁽ʲ⁾) )  /  |π★|",
+        "plain": "Line the two signals up in time so the total per-step difference is smallest, then divide by the length of that alignment.",
+        "provenance": "Dynamic Time Warping (Sakoe–Chiba 1978) composed with an information-geometry ground g. The warp is standard and reused — the contribution is the ground it is composed with. D is an alignment-tolerant divergence, NOT a metric; ordinary DTW fails the triangle inequality.",
+        "correction": "An earlier version of this sheet presented the minimum-MEAN alignment as 'the distinctive object'. That is RETIRED: minimising the mean directly is the Normalized Edit Distance (Marzal–Vidal 1993), whose optimum pads the path with cheap repeats and collapses toward plain averaging. Its one apparent benchmark win was that padding artifact (finding 9)."
+      },
+      {
+        "n": 2,
+        "title": "The ground metrics, frame against frame",
+        "tag": "KNOWN",
+        "formula": "chi2(p,q)       = ½ Σᵇ (pᵇ − qᵇ)² / (pᵇ + qᵇ)\nfisher_rao(p,q) = 2·arccos( BC(p,q) )\nhellinger(p,q)  = √( 1 − BC(p,q) )\nwasserstein1    = Σᵇ | CDF_p(b) − CDF_q(b) |",
+        "plain": "Five interchangeable ways to measure the difference between two single frames. All closed-form, none learned.",
+        "provenance": "All established — Le Cam / Topsøe, Rao 1945, Amari, Bhattacharyya, optimal transport. We reuse them; we do not claim them. Our only move here is making the ground pluggable in one engine."
+      },
+      {
+        "n": 3,
+        "title": "The sphere lemma — a process is literally a curve on a sphere",
+        "tag": "KNOWN, load-bearing framing",
+        "formula": "φ(p) = √p          maps the simplex onto the positive orthant of S^{F−1}\n‖√p‖² = Σᵇ pᵇ = 1\ngeodesic(p,q) = arccos( BC(p,q) )\nd_FR(p,q) = 2·arccos( BC(p,q) )",
+        "plain": "Taking the square root of a distribution puts it on a sphere, and the distance between distributions becomes the plain great-circle angle. So a signal over time is a curve on a sphere, and comparing signals is comparing curves.",
+        "provenance": "Classical information geometry (Rao 1945; Amari). Known — used as the exact geometric home of the engine. It is what makes the closed-form geodesics and means below possible."
+      },
+      {
+        "n": 4,
+        "title": "Geodesic operations on the sphere",
+        "tag": "KNOWN math, our operators",
+        "formula": "slerp(p,q,t)  = unembed[ ( sin((1−t)θ)·√p + sin(tθ)·√q ) / sin θ ]\nkarcher_mean({pᵢ}) = the point m minimising Σᵢ d_FR(m, pᵢ)²",
+        "plain": "How to walk between two distributions along the shortest path, and how to average a set of them without leaving the space.",
+        "provenance": "Standard Riemannian geometry and DTW-barycenter averaging (Petitjean 2011). Known. These drive the morph and barycenter operators, and the zero-training prototypes behind findings 13 and 27."
+      },
+      {
+        "n": 5,
+        "title": "The temporal-pooling information-loss theorem",
+        "tag": "OURS — the main new result",
+        "formula": "D(A,B)   = Θ( ρ · g(s,s′) )        — LINEAR in ρ\ng(ā, b̄) = O(ρ²)   under the interior/support condition\n         = O(ρ)    otherwise — the honest boundary\n\nso  D / g(ā,b̄) = Θ(1/ρ) → ∞",
+        "plain": "Averaging a signal over time is QUADRATICALLY blind to a brief event riding on an ongoing one — the final /t/ against /p/ on a sustained vowel — while the warp distance stays LINEARLY sensitive. Averaging can only lose; on brief transients it loses badly.",
+        "provenance": "OURS — the crisp O(ρ²)-versus-Θ(ρ) separation for an elastic Fisher–Rao path distance against temporal pooling, under the interior/support condition. NOVELTY NOT YET FULLY LITERATURE-CHECKED. That averaging attenuates brief features is folklore; the exact theorem is the part still to verify before novelty is claimed. Measured as finding 2."
+      },
+      {
+        "n": 6,
+        "title": "The pitch / shift quotient",
+        "tag": "OURS — new extension",
+        "formula": "D_inv(P,Q) = min_s  D(P, σ_s Q)\n\nisometry:  g(σ_s p, σ_s q) = g(p, q)  EXACTLY, for the full cyclic group   (verified to 4.4×10⁻¹⁶)",
+        "plain": "A pitch shift is a translation along a log-frequency axis, so quotient the space by that shift. What is left is relative formant spacing — which is identity. Invariance by construction, with nothing trained.",
+        "provenance": "OURS as an extension, BUT the idea — shift-invariant and transposition-invariant distances, chroma/CQT shift, quotient and orbit metrics — already exists in music information retrieval and group theory. A specific clean instance, not a first. Measured as finding 7: a same-vowel transposition collapses 61× while a different vowel is preserved."
+      },
+      {
+        "n": 7,
+        "title": "Instruments applied to the Riemann side",
+        "tag": "KNOWN — reproductions, NOT ours",
+        "formula": "R₂(r) = 1 − ( sin(πr)/(πr) )²      GUE pair correlation (Montgomery 1973)\nH = (XP + PX)/2                    Berry–Keating operator\nWeil/Connes explicit-formula operator",
+        "plain": "Established results run THROUGH Hodos as a referee, not equations we made.",
+        "provenance": "Everything reproduces known mathematics. RH is NOT proven. Hodos's role is the measuring instrument — it correctly ranks the GUE spectrum closest to the real zeros. Two exciting signals died to fair controls here (findings 22 and 23), both density artifacts. The honest limiter is resolution: the arithmetic fingerprint needs 10³–10⁴ zeros and we compute a few hundred."
+      }
+    ],
+    "summary": "We assembled a real, working, model-free engine — DTW plus an information-geometry (Fisher–Rao √-sphere) ground over sequences of distributions — with clean geodesic operators, one genuinely new theorem (temporal pooling), and one new quotient extension (pitch invariance). It lives in a populated field and is a specific variant, not a new frontier. The framing and the pooling theorem are the parts most likely to be ours, and both still need a proper literature check before novelty is claimed."
+  }
 }
