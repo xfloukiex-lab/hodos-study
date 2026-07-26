@@ -101,7 +101,7 @@
       "rung": 3,
       "claim": "The GROUND earns its keep wherever identity lives in the relative-space pattern — INCLUDING static posture. The WARP earns its keep only where identity lives in temporal motion. These are separate lanes; the earlier single-axis 'motion vs static' framing conflated them.",
       "evidence": "With a representation that preserves relative space (distribution over TOTAL acceleration orientation), subject-disjoint sit-vs-stand = 0.758 against chance 0.500. Fisher–Rao ground contributes +5.8 points over Euclidean on a task with NO motion; the warp contributes 0, correctly.",
-      "scope": "One dataset (UCI HAR). The two-lane structure is supported by findings 3, 4 and 17 jointly.",
+      "scope": "One dataset (UCI HAR). The two-lane structure is supported by findings 3, 4 and 17 jointly. PRIOR ART, added 2026-07-26: the same demarcation is already stated in the pooling literature — orderless pooling suffices for stationary or weakly nonstationary signals with little discriminative temporal structure, while order-aware pooling is needed where the cues are transient or phase-dependent. This finding independently REPRODUCES a known boundary; it does not establish a new one. It stays active because it is measured and it is true.",
       "code": "validate/nn_har_orientation.py",
       "controls": [
         "subject-disjoint split"
@@ -461,16 +461,16 @@
     }
   ],
   "equations": {
-    "lede": "Every equation the project rests on, with an honest label on each: ASSEMBLED from known parts, KNOWN and merely reused, or OURS. Hodos as a whole is a synthesis in a populated field (OTW, TiOT, TAOT, Riemannian Time Warping). The genuinely new pieces are small, and they are flagged rather than blurred into the rest.",
+    "lede": "Every equation the project rests on, with an honest label on each: ASSEMBLED from known parts, KNOWN and merely reused, or OURS. Read ASSEMBLED carefully — it is not a lesser category. Nearly every method in this field is a composition, and §1, the Hodos distance itself, is ASSEMBLED: the contribution is which ground it is composed with, and that composition is not something we found elsewhere. What the labels buy is that nothing here can be dismissed by pointing at a part of it.",
     "notation": "A signal becomes a process P = (pⁱ, …, pᵀ), each frame a probability distribution over F bins. Δ^{F−1} is the probability simplex. BC(p,q) = Σᵇ √(pᵇ qᵇ) is the Bhattacharyya coefficient.",
     "items": [
       {
         "n": 1,
         "title": "The master distance",
-        "tag": "ASSEMBLED",
+        "tag": "ASSEMBLED — the composition IS the contribution",
         "formula": "D(P,Q) = ( min_{π ∈ Π_β}  Σ_{(i,j)∈π}  g(p⁽ⁱ⁾, q⁽ʲ⁾) )  /  |π★|",
         "plain": "Line the two signals up in time so the total per-step difference is smallest, then divide by the length of that alignment.",
-        "provenance": "Dynamic Time Warping (Sakoe–Chiba 1978) composed with an information-geometry ground g. The warp is standard and reused — the contribution is the ground it is composed with. D is an alignment-tolerant divergence, NOT a metric; ordinary DTW fails the triangle inequality.",
+        "provenance": "Dynamic Time Warping (Sakoe–Chiba 1978) composed with an information-geometry ground g. The warp is standard and reused; the ground is classical; THE COMPOSITION IS THE CONTRIBUTION — an elastic distance whose local cost is the exact Fisher–Rao geodesic between distributions, with closed-form geodesic operators on top. A literature check on 2026-07-26 found the neighbouring families (OTW, TiOT, TAOT, Riemannian Time Warping) but not this composition as a working engine with these operators. D is an alignment-tolerant divergence, NOT a metric; ordinary DTW fails the triangle inequality.",
         "correction": "An earlier version of this sheet presented the minimum-MEAN alignment as 'the distinctive object'. That is RETIRED: minimising the mean directly is the Normalized Edit Distance (Marzal–Vidal 1993), whose optimum pads the path with cheap repeats and collapses toward plain averaging. Its one apparent benchmark win was that padding artifact (finding 9)."
       },
       {
@@ -500,10 +500,11 @@
       {
         "n": 5,
         "title": "The temporal-pooling information-loss theorem",
-        "tag": "OURS — the main new result",
+        "tag": "ASSEMBLED — downgraded from OURS on 2026-07-26",
         "formula": "D(A,B)   = Θ( ρ · g(s,s′) )        — LINEAR in ρ\ng(ā, b̄) = O(ρ²)   under the interior/support condition\n         = O(ρ)    otherwise — the honest boundary\n\nso  D / g(ā,b̄) = Θ(1/ρ) → ∞",
         "plain": "Averaging a signal over time is QUADRATICALLY blind to a brief event riding on an ongoing one — the final /t/ against /p/ on a sustained vowel — while the warp distance stays LINEARLY sensitive. Averaging can only lose; on brief transients it loses badly.",
-        "provenance": "OURS — the crisp O(ρ²)-versus-Θ(ρ) separation for an elastic Fisher–Rao path distance against temporal pooling, under the interior/support condition. NOVELTY NOT YET FULLY LITERATURE-CHECKED. That averaging attenuates brief features is folklore; the exact theorem is the part still to verify before novelty is claimed. Measured as finding 2."
+        "provenance": "DOWNGRADED after the literature check this section had been carrying a warning about since 2026-07-22. It splits into three parts and they do not have equal status. (a) The O(ρ²) half is CLASSICAL: every smooth f-divergence is locally quadratic, its second derivative IS the Fisher information, and for chi-squared the literature states χ²(P₁‖P₂) = (θ₁−θ₂)² I_F + o(·) directly. Our proof is that expansion applied to the perturbation ρu. (b) Our 'honest boundary' — the O(ρ) case where mass moves where the baseline is ≈0 — is the classical regularity condition under which the local expansion holds at all. We rediscovered the caveat that ships with the theorem. (c) The warp's Θ(ρ) half is one line from the definition, and that averaging dilutes brief events is not only known but actively engineered around (attention pooling exists for it). The COMPOSED separation Θ(1/ρ)→∞ was not found anywhere — but six web searches are weak evidence of absence, and a composition of two textbook facts is a thin novelty claim regardless. Full write-up: paper/LITERATURE-CHECK-S5.md.",
+        "correction": "This section was tagged 'OURS — the main new result' from 2026-07-22 to 2026-07-26, always carrying its own warning that its novelty was unchecked. The check was run and the warning was justified. The measured consequence (finding 2 — averaging is quadratically blind to a brief event) STANDS and is unaffected; what changes is only the claim to have discovered the mathematics behind it."
       },
       {
         "n": 6,
@@ -522,6 +523,6 @@
         "provenance": "Everything reproduces known mathematics. RH is NOT proven. Hodos's role is the measuring instrument — it correctly ranks the GUE spectrum closest to the real zeros. Two exciting signals died to fair controls here (findings 22 and 23), both density artifacts. The honest limiter is resolution: the arithmetic fingerprint needs 10³–10⁴ zeros and we compute a few hundred."
       }
     ],
-    "summary": "We assembled a real, working, model-free engine — DTW plus an information-geometry (Fisher–Rao √-sphere) ground over sequences of distributions — with clean geodesic operators, one genuinely new theorem (temporal pooling), and one new quotient extension (pitch invariance). It lives in a populated field and is a specific variant, not a new frontier. The framing and the pooling theorem are the parts most likely to be ours, and both still need a proper literature check before novelty is claimed."
+    "summary": "We assembled a real, working, model-free engine — DTW plus an information-geometry (Fisher–Rao √-sphere) ground over sequences of distributions — with clean geodesic operators and a quotient extension for pitch invariance. The composition in §1 and the quotient in §6 are the parts that are ours. §5 was demoted on 2026-07-26 when the literature check it had been flagged for was finally run. The strongest results in this project are not in this tab at all — they are the MEASUREMENTS (findings 13, 14 and 27), which were built with controls designed to kill them and survived."
   }
 }
