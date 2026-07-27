@@ -223,7 +223,7 @@ def build():
 <section id="findings" class="on">
   <div class="counts">{pills}</div>
   <p class="gen">Counts and the table below are generated from <code>manifest.json</code>, so they
-     cannot disagree with the record. Built {datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
+     cannot disagree with the record. Newest finding: {max(f['date'] for f in fs)}.</p>
   <table><thead><tr><th></th><th>Finding</th><th>Status</th><th>Rung</th><th>Date</th></tr></thead>
   <tbody>{rows}</tbody></table>
   <h2>The record, newest first</h2>
