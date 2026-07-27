@@ -1,0 +1,42 @@
+name: record integrity
+
+# The record is only worth something if it cannot quietly drift. Three ways it could,
+# each of which has ALREADY happened once in this project:
+#   - the published page saying something the manifest does not     -> check.py
+#   - the README going stale after a retraction                     -> gen_docs.py --check
+#   - a measure being trusted that a cheating method would also pass -> lab/impostors.py
+# So all three run on every push, and a failure blocks rather than warns.
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install numpy (the impostor suite needs it; nothing else does)
+        run: python -m pip install --quiet numpy
+
+      - name: The page must not disagree with the record
+        run: python check.py
+
+      - name: The README must be regenerated from the manifest, not hand-edited
+        run: python gen_docs.py --check
+
+      - name: The docs build must be reproducible from the manifest
+        run: |
+          python build.py
+          git diff --exit-code -- docs/ \
+            || (echo "::error::docs/ is out of date — run 'python build.py' and commit"; exit 1)
+
+      - name: Every cheating method must be caught by a control
+        run: python lab/impostors.py
