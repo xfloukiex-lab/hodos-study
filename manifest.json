@@ -42,7 +42,7 @@
       "rung": 2,
       "claim": "Averaging a signal over time loses a short event at O(ρ²) while the curve distance loses it at Θ(ρ) — so pooling destroys exactly what a process comparison keeps.",
       "evidence": "Log-log slopes 1.90 vs 1.00.",
-      "scope": "Holds under an interior/support condition (corrected by Lee's review, 2026-07-22). A novelty check found the underlying effect is KNOWN prior art in detection theory and the DTW-averaging literature — the exponent statement may be a small novel instance at most. Do NOT claim as a new theorem.",
+      "scope": "Holds under an interior/support condition (corrected on review, 2026-07-22). A novelty check found the underlying effect is KNOWN prior art in detection theory and the DTW-averaging literature — the exponent statement may be a small novel instance at most. Do NOT claim as a new theorem.",
       "code": "hodos/",
       "controls": [
         "novelty check vs literature, 2026-07-22"

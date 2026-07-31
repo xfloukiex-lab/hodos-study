@@ -1,6 +1,6 @@
 """Build the Hodos study site from manifest.json. LOCAL ONLY — nothing here publishes.
 
-The design is copied from Lee/Elif's relational-metrics site, whose structural idea is the good
+The design is adapted from a relational-metrics reference site, whose structural idea is the good
 one: the MANIFEST is the single source of truth, and every number on the page — including the
 summary counts — is generated from it, so the summary cannot drift out of date. There is no
 hand-written HTML holding a stale figure.
