@@ -147,7 +147,7 @@
       "rung": 5,
       "claim": "ORIGINAL WORDING, NOW KNOWN TO BE WRONG: 'min-MEAN + Fisher–Rao beats standard DTW on light by +0.21 (0.61→0.82), and it survives 6→12/class.'",
       "evidence": "The apparent win.",
-      "scope": "RETRACTED. Caught by Flouk: 'why does it track one better than the other — that doesn't make sense.'",
+      "scope": "RETRACTED — the metric tracked one condition better than the other with no mechanism to explain it.",
       "code": "hodos/warp.py",
       "controls": [
         "mechanism investigation, scratchpad/diag_minmean.py"
