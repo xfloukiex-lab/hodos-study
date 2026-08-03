@@ -202,6 +202,13 @@ def build():
     n_ret = counts.get("retracted", 0)
     n_neg = counts.get("negative", 0)
 
+    # ---- papers of record: the DOIs this record underpins, clickable from the byline
+    papers_line = ""
+    if m.get("papers"):
+        links = " · ".join(
+            f'<a href="https://doi.org/{e(p["doi"])}">{e(p["title"])}</a>' for p in m["papers"])
+        papers_line = f'<p class="byline">Papers of record: {links}</p>'
+
     doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
@@ -211,6 +218,7 @@ def build():
   <h1>{e(m['project'])}</h1>
   <p class="sub">{e(m['subtitle'])}</p>
   <p class="byline">{e(m['byline'])}</p>
+  {papers_line}
   <div class="private">PRIVATE — {e(m['private_note'])}</div>
   <nav>
     <button class="on" data-t="findings">Findings</button>

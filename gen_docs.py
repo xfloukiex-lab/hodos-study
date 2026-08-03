@@ -41,6 +41,9 @@ def build() -> str:
     add(f"**Live record:** {m.get('study_url', 'https://xfloukiex-lab.github.io/hodos-study/')}\n")
     add(f"> {m['one_line']}\n")
     add(f"By **{m['byline']}**\n")
+    if m.get("papers"):
+        add("Papers of record: " + " · ".join(
+            f"[{p['title']}](https://doi.org/{p['doi']})" for p in m["papers"]) + "\n")
     add("*This file is GENERATED from `manifest.json` by `gen_docs.py`. Do not edit it by hand — "
         "a hand-written summary is the first thing to go stale after a retraction, and then the "
         "most-read file in the repo is the one that is wrong.*\n")

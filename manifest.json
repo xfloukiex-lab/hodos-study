@@ -3,6 +3,12 @@
   "subtitle": "Comparing processes as curves of distributions",
   "one_line": "A signal is a curve of probability distributions on a statistical manifold; comparison is a geodesic distance between curves.",
   "byline": "Alexander Parnell · Vektorgeist · vektorgeist.com/research",
+  "papers": [
+    {"title": "The Afferent Gnosis Model: Self-Knowledge Without Self-Control", "doi": "10.5281/zenodo.21613153"},
+    {"title": "The Vektorgeist Method: a Programme for Model-Free, Locally Sovereign AI", "doi": "10.5281/zenodo.21613155"},
+    {"title": "Comparing Processes as Curves of Distributions", "doi": "10.5281/zenodo.21612829"},
+    {"title": "Learning Without Weights", "doi": "10.5281/zenodo.21612831"}
+  ],
   "private": false,
   "private_note": "Shared, not announced. A working research record: it contains negative results and retracted claims on purpose. Findings here predate their preprint DOIs. Not indexed.",
   "status_meanings": {

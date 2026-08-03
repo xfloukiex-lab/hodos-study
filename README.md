@@ -6,6 +6,8 @@
 
 By **Alexander Parnell · Vektorgeist · vektorgeist.com/research**
 
+Papers of record: [The Afferent Gnosis Model: Self-Knowledge Without Self-Control](https://doi.org/10.5281/zenodo.21613153) · [The Vektorgeist Method: a Programme for Model-Free, Locally Sovereign AI](https://doi.org/10.5281/zenodo.21613155) · [Comparing Processes as Curves of Distributions](https://doi.org/10.5281/zenodo.21612829) · [Learning Without Weights](https://doi.org/10.5281/zenodo.21612831)
+
 *This file is GENERATED from `manifest.json` by `gen_docs.py`. Do not edit it by hand — a hand-written summary is the first thing to go stale after a retraction, and then the most-read file in the repo is the one that is wrong.*
 
 ## Where the record stands
