@@ -14,11 +14,11 @@ Papers of record: [The Afferent Gnosis Model: Self-Knowledge Without Self-Contro
 
 | Status | Count | Meaning |
 |---|---:|---|
-| Active | 17 | Survives the controls it was tested against; currently believed. |
+| Active | 19 | Survives the controls it was tested against; currently believed. |
 | Provisional | 1 | Measured, but on one task or at small scale; not yet replicated. |
 | Negative | 6 | Tested and did NOT hold. Reported because a negative is a result. |
 | Retracted | 6 | We claimed it, then our own measurement refuted it. Original wording kept visible. |
-| **Total** | **30** | |
+| **Total** | **32** | |
 
 **6 negative results and 6 retractions are in here on purpose.** A retraction keeps its original wording visible with the reason it was wrong next to it. `check.py` fails the build if a retraction carries no explanation — that would be a deletion, not a retraction.
 
@@ -54,6 +54,10 @@ Read **ASSEMBLED** carefully — it is not a lesser category. Nearly every metho
 
 ### Active
 
+- **[32] The decider is coverage-dependent, and blended evaluators suppress decode scores** — rung 3, 2026-08-04  
+  Which decision rule the loop should use depends on the memory regime. Across speakers (sparse, shifted), classification by consolidated barycentre prototypes beats the distance-weighted k-NN vote by 9.7 points mean over 3 seeds (0.672 vs 0.575; per-seed gains +10.5/+3.5/+15.0) — the loop as first measured in finding 28 was mis-wired. At dense personal coverage the ordering REVERSES: the raw vote wins (0.917/0.858/0.925) over prototypes (0.833/0.850/0.833), because the retrieved neighbourhood is the same speaker's own takes. Neither rule is 'the' decider; the loop should choose by regime.
+- **[31] The personal condition: the loop closes end-to-end as a function of coverage, with zero training** — rung 3, 2026-08-04  
+  When the store contains the speaker's own examples of each word — the personalization condition the architecture is for — the full retrieve-and-read-out loop crosses both pre-registered bars, on 3 seeds with full query sets: recognition 0.900 mean (0.917/0.858/0.925; bar 0.85) and decoded responses in-class 0.872 mean (0.867/0.850/0.900; bar 0.80, unblended 1-NN judge). Both legs rise monotonically with coverage (recognition 0.575 -> 0.800 -> ~0.9; decode 0.400 -> 0.700 -> ~0.87 as coverage goes none -> 2 -> 4 examples per voice-word pair), and every improvement costs exactly one append — no gradient step exists anywhere in the system.
 - **[30] Composition is task-dependent: blending helps the vote and hurts the artifact; the decode gap is structural** — rung 3, 2026-08-04  
   Three pre-registered follow-ups to finding 28's decode gap. (1) Blending hurts generation monotonically: reading out the single nearest memory verbatim lands in-class 0.475; the barycentre of the vote-winning cohort, 0.400; the consolidated all-members class prototype, 0.325 — the more memories are averaged into the artifact, the worse it gets. (2) The gap is structural, not data-starved: the best strategy swept at 5/10/20 examples per class gives 0.475/0.425/0.575 — no monotone rise, nowhere near the registered 0.70 bar. (3) At fixed shortlist width, index recall@5 degrades as the store grows (width 32: 0.980 -> 0.897 -> 0.797 over stores 50/100/200), yet the index arm's task accuracy is at or above the exact path at every width on the larger stores — the prefilter's misses are net-positive for the vote.
 - **[29] Order-invariance holds exactly through the composed retrieval path** — rung 3, 2026-08-03  

@@ -517,6 +517,41 @@
         "the shot sweep reuses the same base sampling per grid point rather than resampling, so store growth is the only variable"
       ],
       "note": "Together with finding 28's L1 (the cohort vote beats the single nearest for classification), this is an architecture rule, not a defect report: composition belongs on the recognition side of the loop — blend evidence to decide, read out the nearest memory to produce. The saturating exact accuracy (0.483 at both 50 and 200 entries) says the across-speaker ceiling is set by the speaker shift, not by memory size, consistent with the shot sweep. Provenance: two background runs were killed externally mid-flight; store-50/100 index rows are transcribed from the first run's line-buffered console output (same seed and protocol), the rest computed live by the resume-capable finisher — noted in the result JSON."
+    },
+    {
+      "id": 31,
+      "date": "2026-08-04",
+      "title": "The personal condition: the loop closes end-to-end as a function of coverage, with zero training",
+      "status": "active",
+      "rung": 3,
+      "track": "beyond-weights",
+      "claim": "When the store contains the speaker's own examples of each word — the personalization condition the architecture is for — the full retrieve-and-read-out loop crosses both pre-registered bars, on 3 seeds with full query sets: recognition 0.900 mean (0.917/0.858/0.925; bar 0.85) and decoded responses in-class 0.872 mean (0.867/0.850/0.900; bar 0.80, unblended 1-NN judge). Both legs rise monotonically with coverage (recognition 0.575 -> 0.800 -> ~0.9; decode 0.400 -> 0.700 -> ~0.87 as coverage goes none -> 2 -> 4 examples per voice-word pair), and every improvement costs exactly one append — no gradient step exists anywhere in the system.",
+      "evidence": "3 seeds x 120 queries each, store = 4 takes per (speaker, digit), queries = held-out takes of the same pairs, yardstick = a third disjoint slice. Mechanism measured, not argued: 0.964 of retrievals return a memory of the SAME speaker (per-seed 0.967/0.967/0.958) — the representation entangles who with what, which is simultaneously why the across-speaker condition fails (finding 30: right word, wrong voice) and why the personal condition works. The coverage curve's earlier points come from the seed-0 probes at sparse and 2-take coverage.",
+      "scope": "One dataset (spoken digits), one modality; the across-speaker condition remains open (finding 30) and identity-preserving quotients are the proposed route, not a result. Decode bar was originally hit exactly (0.800) on a 40-query subsample; the full 120-query sets confirm above it.",
+      "code": "validate/closed_loop_confirm.py",
+      "controls": [
+        "take-disjoint splits: store, queries, and judge slice share no clips",
+        "the judge is 1-NN over raw held-out clips — no blended prototypes anywhere in the evaluator (see finding 32's judge note)",
+        "full query sets rather than the subsample that first hit the bar exactly; per-seed results reported individually"
+      ],
+      "note": "This is the architecture's core promise measured: accuracy grows with every example remembered, both legs cross their bars at 4 examples per word, and learning is memory formation alone. The open frontier is transfer to unseen speakers, which is a representation problem (disentangling voice from content), not a memory problem."
+    },
+    {
+      "id": 32,
+      "date": "2026-08-04",
+      "title": "The decider is coverage-dependent, and blended evaluators suppress decode scores",
+      "status": "active",
+      "rung": 3,
+      "track": "beyond-weights",
+      "claim": "Which decision rule the loop should use depends on the memory regime. Across speakers (sparse, shifted), classification by consolidated barycentre prototypes beats the distance-weighted k-NN vote by 9.7 points mean over 3 seeds (0.672 vs 0.575; per-seed gains +10.5/+3.5/+15.0) — the loop as first measured in finding 28 was mis-wired. At dense personal coverage the ordering REVERSES: the raw vote wins (0.917/0.858/0.925) over prototypes (0.833/0.850/0.833), because the retrieved neighbourhood is the same speaker's own takes. Neither rule is 'the' decider; the loop should choose by regime.",
+      "evidence": "Same protocol and seeds as findings 28/31. Additionally: the decode evaluation itself is sensitive to finding 30's blending result — judging single-speaker responses against mixed-speaker barycentre prototypes suppressed the measured in-class rate (0.750 at t4) versus a 1-NN judge over raw clips (0.800 on the identical responses, registered before running as the final judge variant). Blending drifts artifacts off every real speaker's manifold, and that applies to yardsticks exactly as it applies to outputs.",
+      "scope": "One dataset, one modality, 3 seeds. The regime boundary (where the ordering flips between prototype and vote) is not yet mapped — only its two endpoints are measured.",
+      "code": "validate/closed_loop_confirm.py",
+      "controls": [
+        "identical splits and seeds across both deciders, so the comparison isolates the decision rule",
+        "the judge comparison re-scores the SAME 40 decoded responses under both judges rather than resampling"
+      ],
+      "note": "Two practical rules fall out: consolidate for transfer, vote for personalization; and never put a blended artifact on either side of a decode evaluation. The second one bit this project's own pre-registered criterion before it was caught."
     }
   ],
   "equations": {
