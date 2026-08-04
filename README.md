@@ -14,11 +14,11 @@ Papers of record: [The Afferent Gnosis Model: Self-Knowledge Without Self-Contro
 
 | Status | Count | Meaning |
 |---|---:|---|
-| Active | 14 | Survives the controls it was tested against; currently believed. |
+| Active | 16 | Survives the controls it was tested against; currently believed. |
 | Provisional | 1 | Measured, but on one task or at small scale; not yet replicated. |
 | Negative | 6 | Tested and did NOT hold. Reported because a negative is a result. |
 | Retracted | 6 | We claimed it, then our own measurement refuted it. Original wording kept visible. |
-| **Total** | **27** | |
+| **Total** | **29** | |
 
 **6 negative results and 6 retractions are in here on purpose.** A retraction keeps its original wording visible with the reason it was wrong next to it. `check.py` fails the build if a retraction carries no explanation — that would be a deletion, not a retraction.
 
@@ -54,6 +54,10 @@ Read **ASSEMBLED** carefully — it is not a lesser category. Nearly every metho
 
 ### Active
 
+- **[29] Order-invariance holds exactly through the composed retrieval path** — rung 3, 2026-08-03  
+  Building the identical 50-entry store all at once versus one class at a time produces identical per-class vote accuracy on every one of 10 classes — the end state provably does not depend on arrival order, through the full distance-weighted cohort vote, not just 1-NN recall.
+- **[28] The closed loop as a learner: retrieval and instant learning hold; the decode leg does not close** — rung 3, 2026-08-03  
+  The full retrieve-compose-decode loop, run end-to-end with pre-registered criteria on across-speaker spoken digits (5 shots/class): a distance-weighted 5-NN vote beats the single nearest memory by +2.7 points (positive on 3/3 seeds); a random-cohort control collapses to 0.175, so the vote is carried by which memories are retrieved; every class is recognisable the instant its five examples are appended, with zero gradient steps. The generation leg is the measured frontier: response trajectories composed from the vote-winning cohort land in-class only 0.400 of the time — below the vote's own accuracy.
 - **[27] The equation predicts the next step better than a trained network, with no training** — rung 5, 2026-07-24  
   Continuing the curve along its geodesic — a closed-form step with zero learned parameters — predicts the next frame of a real signal 3-16x more accurately than a matched dense network that was trained to do it.
 - **[26] The learned character metric encodes linguistic class, and it is not frequency** — rung 3, 2026-07-26  

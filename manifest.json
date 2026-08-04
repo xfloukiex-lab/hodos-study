@@ -464,6 +464,41 @@
         "paired per-sequence statistics rather than a difference of means"
       ],
       "note": "This is the result that separates PREDICTING from RECOGNISING, and it is the strongest form of the project's central claim: the prediction is not learned, it falls out of the geometry. Note what it does NOT say — one step ahead on smooth continuous signals is a long way from language, where the same continuation currently costs 16% perplexity against an ordinary recurrent net (finding 24's successor)."
+    },
+    {
+      "id": 28,
+      "date": "2026-08-03",
+      "title": "The closed loop as a learner: retrieval and instant learning hold; the decode leg does not close",
+      "status": "active",
+      "rung": 3,
+      "track": "beyond-weights",
+      "claim": "The full retrieve-compose-decode loop, run end-to-end with pre-registered criteria on across-speaker spoken digits (5 shots/class): a distance-weighted 5-NN vote beats the single nearest memory by +2.7 points (positive on 3/3 seeds); a random-cohort control collapses to 0.175, so the vote is carried by which memories are retrieved; every class is recognisable the instant its five examples are appended, with zero gradient steps. The generation leg is the measured frontier: response trajectories composed from the vote-winning cohort land in-class only 0.400 of the time — below the vote's own accuracy.",
+      "evidence": "Vote 0.575 vs 1-NN 0.548 (mean of seeds 0/1/2; smallest seed gain +0.5pt — the effect is real but modest). Random cohorts weighted by their real distances: 0.175. Instant learning: several classes at 1.000 immediately after append. Composed decode: 16/40 in-class against held-out-speaker prototypes. Two additional criteria FAILED AS REGISTERED and are kept: a retention criterion whose baseline was degenerate (measured the first class when it was the only class — a one-label classifier scores 1.000 for free; the drop it 'detected' is label-space growth, not damage — see finding 29 for the non-degenerate control), and an index-match criterion missed by literal floating-point epsilon (the index changed exactly 2 answers in 200 at shortlist 32, the registered 1-point boundary).",
+      "scope": "One dataset, one across-speaker split, 3 seeds for the composition arms and 1 for the rest. Recognition through the loop is the claim; generation through the loop is explicitly NOT closed at this shot count and split.",
+      "code": "validate/closed_loop.py",
+      "controls": [
+        "random-cohort control drawing random candidates but weighting them with their REAL distances (the corrected control form; a flat-weight random control would conflate cohort choice with weighting)",
+        "one fixed temperature rule for every weighted arm — weights = exp(-d/median(d)) — so no arm gets a peakier weighting than another (the per-arm temperature confound documented in the retrieval findings)",
+        "exact (exhaustive) retrieval in the composition arms, so composition quality is measured separately from index quality"
+      ],
+      "note": "The pre-registered retention criterion failing because of its own baseline design is reported as what it is: a registration error, kept visible for the same reason retractions are. The decode gap is the working frontier — follow-up arms (consolidated-prototype decode, shot sweep, index scaling) are the next entries."
+    },
+    {
+      "id": 29,
+      "date": "2026-08-03",
+      "title": "Order-invariance holds exactly through the composed retrieval path",
+      "status": "active",
+      "rung": 3,
+      "track": "beyond-weights",
+      "claim": "Building the identical 50-entry store all at once versus one class at a time produces identical per-class vote accuracy on every one of 10 classes — the end state provably does not depend on arrival order, through the full distance-weighted cohort vote, not just 1-NN recall.",
+      "evidence": "Per-class accuracies batch vs incremental: 0.350/0.450/0.300/0.150/0.550/0.900/0.400/0.950/0.800/0.550 — equal to the third decimal in all 10 cases. This is the non-degenerate control for finding 28's failed retention criterion: the first class's fall from 1.000 (alone in the store) to 0.350 (nine rivals present) is entirely rival arrival — task difficulty growing — and 0% forgetting.",
+      "scope": "Deterministic retrieval over an append-only store makes this near-structural; the measurement confirms the composed vote path introduces no order dependence either. One dataset, one split, seed 0.",
+      "code": "validate/closed_loop_batch_check.py",
+      "controls": [
+        "identical entry set both ways (same seed, same sampling), so the comparison isolates arrival order",
+        "evaluated through the same k=5 weighted vote as the main experiment, not through a simpler recall path"
+      ],
+      "note": "The earlier order-invariance result (finding 14's protocol) measured 1-NN recall; this extends it through cohort composition. It also converts finding 28's registered retention FAIL from an open question into a closed one: nothing was forgotten, the baseline was degenerate."
     }
   ],
   "equations": {
