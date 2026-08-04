@@ -14,11 +14,11 @@ Papers of record: [The Afferent Gnosis Model: Self-Knowledge Without Self-Contro
 
 | Status | Count | Meaning |
 |---|---:|---|
-| Active | 16 | Survives the controls it was tested against; currently believed. |
+| Active | 17 | Survives the controls it was tested against; currently believed. |
 | Provisional | 1 | Measured, but on one task or at small scale; not yet replicated. |
 | Negative | 6 | Tested and did NOT hold. Reported because a negative is a result. |
 | Retracted | 6 | We claimed it, then our own measurement refuted it. Original wording kept visible. |
-| **Total** | **29** | |
+| **Total** | **30** | |
 
 **6 negative results and 6 retractions are in here on purpose.** A retraction keeps its original wording visible with the reason it was wrong next to it. `check.py` fails the build if a retraction carries no explanation — that would be a deletion, not a retraction.
 
@@ -54,6 +54,8 @@ Read **ASSEMBLED** carefully — it is not a lesser category. Nearly every metho
 
 ### Active
 
+- **[30] Composition is task-dependent: blending helps the vote and hurts the artifact; the decode gap is structural** — rung 3, 2026-08-04  
+  Three pre-registered follow-ups to finding 28's decode gap. (1) Blending hurts generation monotonically: reading out the single nearest memory verbatim lands in-class 0.475; the barycentre of the vote-winning cohort, 0.400; the consolidated all-members class prototype, 0.325 — the more memories are averaged into the artifact, the worse it gets. (2) The gap is structural, not data-starved: the best strategy swept at 5/10/20 examples per class gives 0.475/0.425/0.575 — no monotone rise, nowhere near the registered 0.70 bar. (3) At fixed shortlist width, index recall@5 degrades as the store grows (width 32: 0.980 -> 0.897 -> 0.797 over stores 50/100/200), yet the index arm's task accuracy is at or above the exact path at every width on the larger stores — the prefilter's misses are net-positive for the vote.
 - **[29] Order-invariance holds exactly through the composed retrieval path** — rung 3, 2026-08-03  
   Building the identical 50-entry store all at once versus one class at a time produces identical per-class vote accuracy on every one of 10 classes — the end state provably does not depend on arrival order, through the full distance-weighted cohort vote, not just 1-NN recall.
 - **[28] The closed loop as a learner: retrieval and instant learning hold; the decode leg does not close** — rung 3, 2026-08-03  

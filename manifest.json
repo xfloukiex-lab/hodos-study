@@ -499,6 +499,24 @@
         "evaluated through the same k=5 weighted vote as the main experiment, not through a simpler recall path"
       ],
       "note": "The earlier order-invariance result (finding 14's protocol) measured 1-NN recall; this extends it through cohort composition. It also converts finding 28's registered retention FAIL from an open question into a closed one: nothing was forgotten, the baseline was degenerate."
+    },
+    {
+      "id": 30,
+      "date": "2026-08-04",
+      "title": "Composition is task-dependent: blending helps the vote and hurts the artifact; the decode gap is structural",
+      "status": "active",
+      "rung": 3,
+      "track": "beyond-weights",
+      "claim": "Three pre-registered follow-ups to finding 28's decode gap. (1) Blending hurts generation monotonically: reading out the single nearest memory verbatim lands in-class 0.475; the barycentre of the vote-winning cohort, 0.400; the consolidated all-members class prototype, 0.325 — the more memories are averaged into the artifact, the worse it gets. (2) The gap is structural, not data-starved: the best strategy swept at 5/10/20 examples per class gives 0.475/0.425/0.575 — no monotone rise, nowhere near the registered 0.70 bar. (3) At fixed shortlist width, index recall@5 degrades as the store grows (width 32: 0.980 -> 0.897 -> 0.797 over stores 50/100/200), yet the index arm's task accuracy is at or above the exact path at every width on the larger stores — the prefilter's misses are net-positive for the vote.",
+      "evidence": "Decode arms at 5 shots, 40 queries, identical yardstick as finding 28's L5 (held-out-speaker prototypes): nearest 0.475 / raw cohort 0.400 / consolidated 0.325. Shot sweep of the best arm: 0.475 (store 50) / 0.425 (100) / 0.575 (200). Index scaling: exact vote accuracy saturates across speakers at 0.483/0.500/0.483 while the store grows 4x; operating width (first width reproducing exact answers) 32 at store 50, 16 at store 100, none at store 200 — where every tested width scores ABOVE exact (0.550/0.517/0.517/0.500 vs 0.483), so the registered two-sided match criterion fails in the direction of improvement. Registered sublinear-width criterion: FAIL as stated.",
+      "scope": "Single seed, one across-speaker split, 40-query decode subsample and 60-query index subsample — at 60 queries one answer = 1.7 points, so the 1-point match criterion effectively demands identical answers. Follow-up probes; any headline use gets the full 3-seed, 200-query treatment first.",
+      "code": "validate/closed_loop_scale.py",
+      "controls": [
+        "all three decode strategies evaluated on identical queries against identical held-out prototypes, so the comparison isolates the composition operator",
+        "the same fixed exp(-d/median) weighting everywhere; exact retrieval in the decode arms so index quality is not confounded with composition quality",
+        "the shot sweep reuses the same base sampling per grid point rather than resampling, so store growth is the only variable"
+      ],
+      "note": "Together with finding 28's L1 (the cohort vote beats the single nearest for classification), this is an architecture rule, not a defect report: composition belongs on the recognition side of the loop — blend evidence to decide, read out the nearest memory to produce. The saturating exact accuracy (0.483 at both 50 and 200 entries) says the across-speaker ceiling is set by the speaker shift, not by memory size, consistent with the shot sweep. Provenance: two background runs were killed externally mid-flight; store-50/100 index rows are transcribed from the first run's line-buffered console output (same seed and protocol), the rest computed live by the resume-capable finisher — noted in the result JSON."
     }
   ],
   "equations": {
