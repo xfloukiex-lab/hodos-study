@@ -235,12 +235,13 @@ def build():
     n_clin = sum(1 for f in fs if f.get("track") == "clinical-rhythm")
     n_arch = sum(1 for f in fs if f.get("track") == "beyond-weights")
     track_intro = (
-        f"<b>Cardiac rhythm</b> ({n_clin} findings) — per-patient detection of atrial "
-        f"fibrillation from inter-beat intervals. Read these if you came for the medical work; "
-        f"they stand on their own. &nbsp;·&nbsp; <b>Architecture</b> ({n_arch} findings) — the "
-        f"memory-based learning method the cardiac work is built on, measured on speech. "
-        f"&nbsp;·&nbsp; The remaining findings are the underlying distance itself, tested on "
-        f"speech, handwriting and other signals. "
+        f"<b>This is the foundation record</b> — the distance itself and the method built on it, "
+        f"tested on speech, handwriting and other signals. Nothing here is a clinical claim. "
+        f"&nbsp;·&nbsp; The cardiac application has its own record: "
+        f"<a href=\"https://xfloukiex-lab.github.io/recordis-study/\">Recordis — the clinical "
+        f"study record</a> ({n_clin} findings, per-patient rhythm on public patient data). "
+        f"&nbsp;·&nbsp; The {n_arch} <b>architecture</b> findings below are the memory-based "
+        f"learning method the cardiac work stands on, measured on speech. "
         f"<b>A result in one line is not a claim about another.</b>")
 
     # ---- papers of record: the DOIs this record underpins, clickable from the byline
