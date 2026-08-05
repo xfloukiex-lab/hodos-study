@@ -14,11 +14,11 @@ Papers of record: [The Afferent Gnosis Model: Self-Knowledge Without Self-Contro
 
 | Status | Count | Meaning |
 |---|---:|---|
-| Active | 20 | Survives the controls it was tested against; currently believed. |
+| Active | 21 | Survives the controls it was tested against; currently believed. |
 | Provisional | 1 | Measured, but on one task or at small scale; not yet replicated. |
 | Negative | 8 | Tested and did NOT hold. Reported because a negative is a result. |
 | Retracted | 6 | We claimed it, then our own measurement refuted it. Original wording kept visible. |
-| **Total** | **35** | |
+| **Total** | **36** | |
 
 **8 negative results and 6 retractions are in here on purpose.** A retraction keeps its original wording visible with the reason it was wrong next to it. `check.py` fails the build if a retraction carries no explanation — that would be a deletion, not a retraction.
 
@@ -54,6 +54,8 @@ Read **ASSEMBLED** carefully — it is not a lesser category. Nearly every metho
 
 ### Active
 
+- **[36] The gap to the published field was data, not a ceiling: 0.983 at 64 examples per state** — rung 3, 2026-08-05  
+  Finding 35 recorded the loop BELOW the published 95-98% band at 0.935. Two follow-ups locate why, and it is not the method. First, a tune-on-dev / judge-on-held-out sweep over window length, sub-window and bin count moved held-out accuracy by exactly nothing (0.940 for both the swept-best and the hand-picked default, while the dev-set best rose 0.925 -> 0.945) — the hyperparameters are not the limit, and the dev gain was overfitting. Second, extending the store past the arbitrary 16 examples per state: accuracy 0.935 (16) -> 0.967 (32) -> 0.983 (64), still rising, with the plain-L2 control trailing at every level (0.898/0.942/0.947). The published comparison was between a tuned literature using full training data and a loop given 16 examples; matched for data, the loop reaches the top of that band.
 - **[34] Same organ, other side of the boundary: the loop works on cardiac RHYTHM, per patient** — rung 3, 2026-08-05  
   Finding 33 failed on single-beat shape. Asked instead about RHYTHM — atrial fibrillation, which is defined by irregularity over time and therefore sits on the temporal-evolution side of the two-lane boundary — the same loop works: per-patient recognition of AF vs that patient's own normal rhythm reaches 0.935 at 16 stored windows per state (chance 0.50), and the decode leg lands in-class 0.89-0.92 at every coverage level — the leg that never rose at all on beat morphology. The geometry beats a plain-L2 control on identical windows at all four coverage levels (+3.0/+5.5/+4.3/+3.7 points).
 - **[32] The decider is coverage-dependent, and blended evaluators suppress decode scores** — rung 3, 2026-08-04  
