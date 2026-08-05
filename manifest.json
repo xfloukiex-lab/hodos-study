@@ -552,6 +552,24 @@
         "the judge comparison re-scores the SAME 40 decoded responses under both judges rather than resampling"
       ],
       "note": "Two practical rules fall out: consolidate for transfer, vote for personalization; and never put a blended artifact on either side of a decode evaluation. The second one bit this project's own pre-registered criterion before it was caught."
+    },
+    {
+      "id": 33,
+      "date": "2026-08-05",
+      "title": "The coverage law does NOT transfer to heartbeats: direction survives, magnitude does not",
+      "status": "negative",
+      "rung": 3,
+      "track": "beyond-weights",
+      "claim": "Asked of a medical signal — one cardiac patient's heartbeats, 5 rhythm classes — the coverage law fails both pre-registered bars. Recognition does rise with coverage (0.370 -> 0.428 -> 0.517 -> 0.517 over stores of 1/2/4/8 examples per class, against a 0.200 chance floor) but plateaus at roughly half the bar of 0.85, and the decode leg never rises at all (0.407/0.450/0.417/0.467). The direction of the law transfers; its magnitude is modality-dependent.",
+      "evidence": "3 seeds per coverage point, beat-disjoint store/query/judge splits, unblended 1-NN judge, the same protocol and criteria as the speech confirmation. Deciders track each other closely (vote 0.370/0.411/0.472/0.511 vs prototype 0.370/0.422/0.511/0.483) — no regime flip is visible here, unlike speech.",
+      "scope": "One dataset, one patient, one encoder (the magnitude-weighted slope-bin representation already used for this data). This bounds the coverage law; it does not bound memory-based learning in general, and it says nothing about medical signals whose identity IS carried by temporal evolution.",
+      "code": "validate/coverage_law_ecg.py",
+      "controls": [
+        "identical pre-registered bars and protocol to the speech confirmation, frozen before running — the comparison is like-for-like",
+        "chance floor stated (0.200) so a weak-but-real effect is not read as failure",
+        "both deciders reported at every coverage point rather than the better one"
+      ],
+      "note": "This is COHERENT with the record's older domain nulls rather than a surprise: an earlier cross-domain test already found ECG a non-result for this metric (Fisher-Rao edging plain L2 by ~0.5 sigma) and named the confound — those domains ran a generic sliding-window frontend rather than a tuned one. The standing two-lane finding predicts it: the geometry earns its keep where identity lives in temporal EVOLUTION, and the identity of a single heartbeat is closer to a shape than to a motion. So the honest statement of the coverage law is now conditional: it holds where the metric holds. The methodological lesson is ours to keep — the prior null was in the record before this experiment was chosen, and reading it first would have predicted the outcome."
     }
   ],
   "equations": {

@@ -16,11 +16,11 @@ Papers of record: [The Afferent Gnosis Model: Self-Knowledge Without Self-Contro
 |---|---:|---|
 | Active | 19 | Survives the controls it was tested against; currently believed. |
 | Provisional | 1 | Measured, but on one task or at small scale; not yet replicated. |
-| Negative | 6 | Tested and did NOT hold. Reported because a negative is a result. |
+| Negative | 7 | Tested and did NOT hold. Reported because a negative is a result. |
 | Retracted | 6 | We claimed it, then our own measurement refuted it. Original wording kept visible. |
-| **Total** | **32** | |
+| **Total** | **33** | |
 
-**6 negative results and 6 retractions are in here on purpose.** A retraction keeps its original wording visible with the reason it was wrong next to it. `check.py` fails the build if a retraction carries no explanation — that would be a deletion, not a retraction.
+**7 negative results and 6 retractions are in here on purpose.** A retraction keeps its original wording visible with the reason it was wrong next to it. `check.py` fails the build if a retraction carries no explanation — that would be a deletion, not a retraction.
 
 ## Confidence rungs
 
@@ -100,6 +100,8 @@ Read **ASSEMBLED** carefully — it is not a lesser category. Nearly every metho
 
 ### Negative
 
+- **[33] The coverage law does NOT transfer to heartbeats: direction survives, magnitude does not** — rung 3, 2026-08-05  
+  Asked of a medical signal — one cardiac patient's heartbeats, 5 rhythm classes — the coverage law fails both pre-registered bars. Recognition does rise with coverage (0.370 -> 0.428 -> 0.517 -> 0.517 over stores of 1/2/4/8 examples per class, against a 0.200 chance floor) but plateaus at roughly half the bar of 0.85, and the decode leg never rises at all (0.407/0.450/0.417/0.467). The direction of the law transfers; its magnitude is modality-dependent.
 - **[23] Character spacing is not Riemann level repulsion** — rung 5, 2026-07-25  
   The apparent 'empty band' in character separations is an artifact of one-hot encoding, not a repulsion signature.
 - **[22] The Riemann work reproduces known mathematics and proves nothing new** — rung 5, 2026-07-22  
