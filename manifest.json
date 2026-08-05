@@ -4,10 +4,22 @@
   "one_line": "A signal is a curve of probability distributions on a statistical manifold; comparison is a geodesic distance between curves.",
   "byline": "Alexander Parnell · Vektorgeist · vektorgeist.com/research",
   "papers": [
-    {"title": "The Afferent Gnosis Model: Self-Knowledge Without Self-Control", "doi": "10.5281/zenodo.21613153"},
-    {"title": "The Vektorgeist Method: a Programme for Model-Free, Locally Sovereign AI", "doi": "10.5281/zenodo.21613155"},
-    {"title": "Comparing Processes as Curves of Distributions", "doi": "10.5281/zenodo.21612829"},
-    {"title": "Learning Without Weights", "doi": "10.5281/zenodo.21612831"}
+    {
+      "title": "The Afferent Gnosis Model: Self-Knowledge Without Self-Control",
+      "doi": "10.5281/zenodo.21613153"
+    },
+    {
+      "title": "The Vektorgeist Method: a Programme for Model-Free, Locally Sovereign AI",
+      "doi": "10.5281/zenodo.21613155"
+    },
+    {
+      "title": "Comparing Processes as Curves of Distributions",
+      "doi": "10.5281/zenodo.21612829"
+    },
+    {
+      "title": "Learning Without Weights",
+      "doi": "10.5281/zenodo.21612831"
+    }
   ],
   "private": false,
   "private_note": "Shared, not announced. A working research record: it contains negative results and retracted claims on purpose. Findings here predate their preprint DOIs. Not indexed.",
@@ -559,7 +571,7 @@
       "title": "The coverage law does NOT transfer to heartbeats: direction survives, magnitude does not",
       "status": "negative",
       "rung": 3,
-      "track": "beyond-weights",
+      "track": "clinical-rhythm",
       "claim": "Asked of a medical signal — one cardiac patient's heartbeats, 5 rhythm classes — the coverage law fails both pre-registered bars. Recognition does rise with coverage (0.370 -> 0.428 -> 0.517 -> 0.517 over stores of 1/2/4/8 examples per class, against a 0.200 chance floor) but plateaus at roughly half the bar of 0.85, and the decode leg never rises at all (0.407/0.450/0.417/0.467). The direction of the law transfers; its magnitude is modality-dependent.",
       "evidence": "3 seeds per coverage point, beat-disjoint store/query/judge splits, unblended 1-NN judge, the same protocol and criteria as the speech confirmation. Deciders track each other closely (vote 0.370/0.411/0.472/0.511 vs prototype 0.370/0.422/0.511/0.483) — no regime flip is visible here, unlike speech.",
       "scope": "One dataset, one patient, one encoder (the magnitude-weighted slope-bin representation already used for this data). This bounds the coverage law; it does not bound memory-based learning in general, and it says nothing about medical signals whose identity IS carried by temporal evolution.",
@@ -577,7 +589,7 @@
       "title": "Same organ, other side of the boundary: the loop works on cardiac RHYTHM, per patient",
       "status": "active",
       "rung": 3,
-      "track": "beyond-weights",
+      "track": "clinical-rhythm",
       "claim": "Finding 33 failed on single-beat shape. Asked instead about RHYTHM — atrial fibrillation, which is defined by irregularity over time and therefore sits on the temporal-evolution side of the two-lane boundary — the same loop works: per-patient recognition of AF vs that patient's own normal rhythm reaches 0.935 at 16 stored windows per state (chance 0.50), and the decode leg lands in-class 0.89-0.92 at every coverage level — the leg that never rose at all on beat morphology. The geometry beats a plain-L2 control on identical windows at all four coverage levels (+3.0/+5.5/+4.3/+3.7 points).",
       "evidence": "10 patients from a public AF database, each containing both their own AF and their own non-AF periods, so the store holds that patient's own examples of each state. 64-interval windows, window-disjoint store/judge/query splits, transition windows excluded (labels must be pure), unblended 1-NN judge, 60 queries per patient. Recognition by coverage (2/4/8/16 windows per state): 0.895/0.888/0.915/0.935. Plain L2 on identical windows: 0.865/0.833/0.872/0.898. Decode: 0.892/0.915/0.907/0.895. BOTH pre-registered criteria FAILED AS WRITTEN and are reported as such: A1 required monotonic rise AND >= 0.85 — the level was cleared comfortably but a 0.7-point dip between the first two coverage points breaks monotonicity; A2 required the geometry to beat L2 by >= 5 points at top coverage — the margin there is 3.7, though the geometry leads at every level and by 5.5 at one of them.",
       "scope": "Per-patient only. No cross-patient claim is made or tested — that is the transfer problem finding 31 leaves open, in a new domain. One database, one window size, seed 0, deltas-of-intervals representation. Two states, chance 0.50.",
@@ -595,7 +607,7 @@
       "title": "Measured against the field: below the published state of the art, and per-patient memory adds little on average",
       "status": "negative",
       "rung": 3,
-      "track": "beyond-weights",
+      "track": "clinical-rhythm",
       "claim": "Two honest comparisons, both unfavourable. (1) Published RR-interval AF detectors report 95-98% accuracy on this database (sensitivity ~96-97%, specificity ~97-98%); the untuned loop of finding 34 reaches 93.5%, so on raw accuracy this approach is BEHIND the field, not ahead of it. (2) With store size held equal, a store of the patient's OWN windows beats a store built from other patients' windows by only +2.7 points accuracy and +3.7 points specificity on average across 10 patients — both far under the pre-registered 10-point bars. The headline personalisation pitch does not survive its own test.",
       "evidence": "Personal vs population stores, 16 windows per class in BOTH arms so the comparison isolates WHOSE memories rather than how many, identical queries and splits per patient. Mean gains: accuracy +0.027, specificity +0.037, sensitivity -0.003. Four of ten patients showed exactly zero gain because the population store already scored 1.000 on them; three showed small negative gains. State-of-the-art figures are from the published literature on the same database, not re-measured here.",
       "scope": "One database, one window size, one representation, seed 0, per-patient evaluation. The loop is untuned — no window/bin/representation search was run — while published methods are tuned, so the accuracy comparison flatters the field somewhat; that does not change the direction of the result.",
@@ -613,7 +625,7 @@
       "title": "The gap to the published field was data, not a ceiling: 0.983 at 64 examples per state (pure windows only — see finding 37 for the harder protocol)",
       "status": "active",
       "rung": 3,
-      "track": "beyond-weights",
+      "track": "clinical-rhythm",
       "claim": "Finding 35 recorded the loop BELOW the published 95-98% band at 0.935. Two follow-ups locate why, and it is not the method. First, a tune-on-dev / judge-on-held-out sweep over window length, sub-window and bin count moved held-out accuracy by exactly nothing (0.940 for both the swept-best and the hand-picked default, while the dev-set best rose 0.925 -> 0.945) — the hyperparameters are not the limit, and the dev gain was overfitting. Second, extending the store past the arbitrary 16 examples per state: accuracy 0.935 (16) -> 0.967 (32) -> 0.983 (64), still rising, with the plain-L2 control trailing at every level (0.898/0.942/0.947). The published comparison was between a tuned literature using full training data and a loop given 16 examples; matched for data, the loop reaches the top of that band.",
       "evidence": "Coverage extension on 9 patients (one lacks enough windows at 64), 40 queries each, per-patient stores, same representation and splits as finding 34. Geometry vs plain L2: +3.7 / +2.5 / +3.6 points at 16 / 32 / 64. Tuning experiment: 11 configurations swept on 5 dev patients, verdict measured only on 5 patients never seen by the sweep; dev range 0.900-0.945, held-out difference between chosen and default 0.000.",
       "scope": "IMPORTANT AND UNFLATTERING: windows whose label is not pure are EXCLUDED, so rhythm-transition windows — onset and offset, the genuinely hard part — are not scored here, while published detectors are usually evaluated on continuous streams that include them. The comparison is therefore indicative, not like-for-like, and the number should not be quoted as beating those methods. Per-patient only; no cross-patient claim. 64 examples per state is roughly an hour of that patient's own labelled rhythm. One database, seed 0.",
@@ -631,7 +643,7 @@
       "title": "The excluded hard cases, scored: 0.966 on the continuous stream, and onset is caught on the first window",
       "status": "active",
       "rung": 3,
-      "track": "beyond-weights",
+      "track": "clinical-rhythm",
       "claim": "Findings 34 and 36 excluded windows straddling a rhythm change — the onsets and offsets a monitor exists to catch — which made their numbers non-comparable to published detectors evaluated on continuous streams. Scoring every window with nothing excluded, a mixed window labelled by its majority class: accuracy 0.966 across 9 patients, inside the published 95-98% band on the harder protocol. Transition windows do cost accuracy (0.902 on transitions vs 0.969 on pure windows) but they do not move the stream result out of band. Separately, onset is not slow: across 14 AF episodes the loop's first AF call comes on the FIRST window of the episode in every case (median lag 0 windows, 90th percentile 0).",
       "evidence": "Per-patient stores of 64 pure windows per state (finding 36's configuration); queries are the remainder of that patient's stream IN ORDER with nothing filtered, up to 150 windows each. Per-patient stream accuracy ranged 0.873-1.000, with the weakest patient the one carrying by far the most transitions (28 of 150 windows). Onset lag measured only on true AF runs of at least 3 windows.",
       "scope": "Per-patient only; no cross-patient claim. One database, seed 0, one window length (64 intervals), majority-label convention for mixed windows. Published detectors differ in episode-level scoring conventions, so this is a fair-protocol comparison rather than an identical-protocol one. 14 episodes is a small sample for the onset claim.",
@@ -708,5 +720,9 @@
       }
     ],
     "summary": "We assembled a real, working, model-free engine — DTW plus an information-geometry (Fisher–Rao √-sphere) ground over sequences of distributions — with clean geodesic operators and a quotient extension for pitch invariance. The composition in §1 and the quotient in §6 are the parts that are ours. §5 was demoted on 2026-07-26 when the literature check it had been flagged for was finally run. The strongest results in this project are not in this tab at all — they are the MEASUREMENTS (findings 13, 14 and 27), which were built with controls designed to kill them and survived."
+  },
+  "tracks": {
+    "beyond-weights": "Memory-based learning architecture: the loop, composition, coverage.",
+    "clinical-rhythm": "Cardiac rhythm application of the architecture; evidence base for a per-patient monitor. Application results, NOT architecture claims."
   }
 }
