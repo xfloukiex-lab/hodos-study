@@ -16,11 +16,11 @@ Papers of record: [The Afferent Gnosis Model: Self-Knowledge Without Self-Contro
 |---|---:|---|
 | Active | 20 | Survives the controls it was tested against; currently believed. |
 | Provisional | 1 | Measured, but on one task or at small scale; not yet replicated. |
-| Negative | 7 | Tested and did NOT hold. Reported because a negative is a result. |
+| Negative | 8 | Tested and did NOT hold. Reported because a negative is a result. |
 | Retracted | 6 | We claimed it, then our own measurement refuted it. Original wording kept visible. |
-| **Total** | **34** | |
+| **Total** | **35** | |
 
-**7 negative results and 6 retractions are in here on purpose.** A retraction keeps its original wording visible with the reason it was wrong next to it. `check.py` fails the build if a retraction carries no explanation — that would be a deletion, not a retraction.
+**8 negative results and 6 retractions are in here on purpose.** A retraction keeps its original wording visible with the reason it was wrong next to it. `check.py` fails the build if a retraction carries no explanation — that would be a deletion, not a retraction.
 
 ## Confidence rungs
 
@@ -102,6 +102,8 @@ Read **ASSEMBLED** carefully — it is not a lesser category. Nearly every metho
 
 ### Negative
 
+- **[35] Measured against the field: below the published state of the art, and per-patient memory adds little on average** — rung 3, 2026-08-05  
+  Two honest comparisons, both unfavourable. (1) Published RR-interval AF detectors report 95-98% accuracy on this database (sensitivity ~96-97%, specificity ~97-98%); the untuned loop of finding 34 reaches 93.5%, so on raw accuracy this approach is BEHIND the field, not ahead of it. (2) With store size held equal, a store of the patient's OWN windows beats a store built from other patients' windows by only +2.7 points accuracy and +3.7 points specificity on average across 10 patients — both far under the pre-registered 10-point bars. The headline personalisation pitch does not survive its own test.
 - **[33] The coverage law does NOT transfer to heartbeats: direction survives, magnitude does not** — rung 3, 2026-08-05  
   Asked of a medical signal — one cardiac patient's heartbeats, 5 rhythm classes — the coverage law fails both pre-registered bars. Recognition does rise with coverage (0.370 -> 0.428 -> 0.517 -> 0.517 over stores of 1/2/4/8 examples per class, against a 0.200 chance floor) but plateaus at roughly half the bar of 0.85, and the decode leg never rises at all (0.407/0.450/0.417/0.467). The direction of the law transfers; its magnitude is modality-dependent.
 - **[23] Character spacing is not Riemann level repulsion** — rung 5, 2026-07-25  

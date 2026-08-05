@@ -587,7 +587,25 @@
         "transition windows excluded — a window's label must be pure, or a mixed window would score as an error for either arm arbitrarily",
         "judge is 1-NN over held-out windows of the same patient, no blended prototypes (per finding 32)"
       ],
-      "note": "The scientific content is the CONTRAST with finding 33, not the accuracy alone: the same organ, the same patients' data, the same loop, and the same encoder family give a null on beat shape and a working system on rhythm dynamics — which is what the two-lane boundary predicts and is the sharpest confirmation of it so far. The registered failures are kept because they are the honest ones: a criterion that demands strict monotonicity across noisy coverage points, and a 5-point margin demand that a consistent 3-5 point advantage does not meet at the single point where it was checked."
+      "note": "The scientific content is the CONTRAST with finding 33, not the accuracy alone: the same organ, the same patients' data, the same loop, and the same encoder family give a null on beat shape and a working system on rhythm dynamics — which is what the two-lane boundary predicts and is the sharpest confirmation of it so far. The registered failures are kept because they are the honest ones: a criterion that demands strict monotonicity across noisy coverage points, and a 5-point margin demand that a consistent 3-5 point advantage does not meet at the single point where it was checked. Finding 35 places this against the published state of the art and against a population-memory control, and the answer there is not flattering."
+    },
+    {
+      "id": 35,
+      "date": "2026-08-05",
+      "title": "Measured against the field: below the published state of the art, and per-patient memory adds little on average",
+      "status": "negative",
+      "rung": 3,
+      "track": "beyond-weights",
+      "claim": "Two honest comparisons, both unfavourable. (1) Published RR-interval AF detectors report 95-98% accuracy on this database (sensitivity ~96-97%, specificity ~97-98%); the untuned loop of finding 34 reaches 93.5%, so on raw accuracy this approach is BEHIND the field, not ahead of it. (2) With store size held equal, a store of the patient's OWN windows beats a store built from other patients' windows by only +2.7 points accuracy and +3.7 points specificity on average across 10 patients — both far under the pre-registered 10-point bars. The headline personalisation pitch does not survive its own test.",
+      "evidence": "Personal vs population stores, 16 windows per class in BOTH arms so the comparison isolates WHOSE memories rather than how many, identical queries and splits per patient. Mean gains: accuracy +0.027, specificity +0.037, sensitivity -0.003. Four of ten patients showed exactly zero gain because the population store already scored 1.000 on them; three showed small negative gains. State-of-the-art figures are from the published literature on the same database, not re-measured here.",
+      "scope": "One database, one window size, one representation, seed 0, per-patient evaluation. The loop is untuned — no window/bin/representation search was run — while published methods are tuned, so the accuracy comparison flatters the field somewhat; that does not change the direction of the result.",
+      "code": "validate/afib_personal_vs_population.py",
+      "controls": [
+        "equal store size in both arms — the entire point, since a larger personal store would confound WHOSE memories with HOW MANY",
+        "population store balanced per class and drawn from all other patients",
+        "specificity reported separately from accuracy, because the clinical complaint about existing monitors is false alarms, and an accuracy gain carried by sensitivity would not answer it"
+      ],
+      "note": "POST-HOC OBSERVATION, explicitly not a claim and not pre-registered: the gains are not spread evenly. Personalisation gain correlates strongly NEGATIVELY with how well the population store already does (r = -0.86 for accuracy, -0.87 for specificity). For the three patients the population store handles poorly (<0.90) the mean gains are +0.100 accuracy and +0.189 specificity, and for the single worst case the population store's specificity of 0.387 — a majority-false-alarm regime — rises to 0.871 with that patient's own memories. For the seven it already handles well, the mean gain is -0.005. That pattern, IF it survives a pre-registered test on held-out patients, would reframe the architecture's role from 'a better detector' to 'a rescue layer for the atypical patients population models fail' — which is a narrower and more defensible claim than the one this finding refutes. Until that test exists, it is a hypothesis, and the recorded result is the negative one."
     }
   ],
   "equations": {
