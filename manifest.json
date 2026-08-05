@@ -569,7 +569,25 @@
         "chance floor stated (0.200) so a weak-but-real effect is not read as failure",
         "both deciders reported at every coverage point rather than the better one"
       ],
-      "note": "This is COHERENT with the record's older domain nulls rather than a surprise: an earlier cross-domain test already found ECG a non-result for this metric (Fisher-Rao edging plain L2 by ~0.5 sigma) and named the confound — those domains ran a generic sliding-window frontend rather than a tuned one. The standing two-lane finding predicts it: the geometry earns its keep where identity lives in temporal EVOLUTION, and the identity of a single heartbeat is closer to a shape than to a motion. So the honest statement of the coverage law is now conditional: it holds where the metric holds. The methodological lesson is ours to keep — the prior null was in the record before this experiment was chosen, and reading it first would have predicted the outcome."
+      "note": "This is COHERENT with the record's older domain nulls rather than a surprise: an earlier cross-domain test already found ECG a non-result for this metric (Fisher-Rao edging plain L2 by ~0.5 sigma) and named the confound — those domains ran a generic sliding-window frontend rather than a tuned one. The standing two-lane finding predicts it: the geometry earns its keep where identity lives in temporal EVOLUTION, and the identity of a single heartbeat is closer to a shape than to a motion. So the honest statement of the coverage law is now conditional: it holds where the metric holds. The methodological lesson is ours to keep — the prior null was in the record before this experiment was chosen, and reading it first would have predicted the outcome. Finding 34 asks the same organ the OTHER question and gets the opposite answer."
+    },
+    {
+      "id": 34,
+      "date": "2026-08-05",
+      "title": "Same organ, other side of the boundary: the loop works on cardiac RHYTHM, per patient",
+      "status": "active",
+      "rung": 3,
+      "track": "beyond-weights",
+      "claim": "Finding 33 failed on single-beat shape. Asked instead about RHYTHM — atrial fibrillation, which is defined by irregularity over time and therefore sits on the temporal-evolution side of the two-lane boundary — the same loop works: per-patient recognition of AF vs that patient's own normal rhythm reaches 0.935 at 16 stored windows per state (chance 0.50), and the decode leg lands in-class 0.89-0.92 at every coverage level — the leg that never rose at all on beat morphology. The geometry beats a plain-L2 control on identical windows at all four coverage levels (+3.0/+5.5/+4.3/+3.7 points).",
+      "evidence": "10 patients from a public AF database, each containing both their own AF and their own non-AF periods, so the store holds that patient's own examples of each state. 64-interval windows, window-disjoint store/judge/query splits, transition windows excluded (labels must be pure), unblended 1-NN judge, 60 queries per patient. Recognition by coverage (2/4/8/16 windows per state): 0.895/0.888/0.915/0.935. Plain L2 on identical windows: 0.865/0.833/0.872/0.898. Decode: 0.892/0.915/0.907/0.895. BOTH pre-registered criteria FAILED AS WRITTEN and are reported as such: A1 required monotonic rise AND >= 0.85 — the level was cleared comfortably but a 0.7-point dip between the first two coverage points breaks monotonicity; A2 required the geometry to beat L2 by >= 5 points at top coverage — the margin there is 3.7, though the geometry leads at every level and by 5.5 at one of them.",
+      "scope": "Per-patient only. No cross-patient claim is made or tested — that is the transfer problem finding 31 leaves open, in a new domain. One database, one window size, seed 0, deltas-of-intervals representation. Two states, chance 0.50.",
+      "code": "validate/coverage_law_afib.py",
+      "controls": [
+        "plain-L2 control on the IDENTICAL windows and splits, so the comparison isolates the metric rather than the representation or the loop",
+        "transition windows excluded — a window's label must be pure, or a mixed window would score as an error for either arm arbitrarily",
+        "judge is 1-NN over held-out windows of the same patient, no blended prototypes (per finding 32)"
+      ],
+      "note": "The scientific content is the CONTRAST with finding 33, not the accuracy alone: the same organ, the same patients' data, the same loop, and the same encoder family give a null on beat shape and a working system on rhythm dynamics — which is what the two-lane boundary predicts and is the sharpest confirmation of it so far. The registered failures are kept because they are the honest ones: a criterion that demands strict monotonicity across noisy coverage points, and a 5-point margin demand that a consistent 3-5 point advantage does not meet at the single point where it was checked."
     }
   ],
   "equations": {

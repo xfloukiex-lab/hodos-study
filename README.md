@@ -14,11 +14,11 @@ Papers of record: [The Afferent Gnosis Model: Self-Knowledge Without Self-Contro
 
 | Status | Count | Meaning |
 |---|---:|---|
-| Active | 19 | Survives the controls it was tested against; currently believed. |
+| Active | 20 | Survives the controls it was tested against; currently believed. |
 | Provisional | 1 | Measured, but on one task or at small scale; not yet replicated. |
 | Negative | 7 | Tested and did NOT hold. Reported because a negative is a result. |
 | Retracted | 6 | We claimed it, then our own measurement refuted it. Original wording kept visible. |
-| **Total** | **33** | |
+| **Total** | **34** | |
 
 **7 negative results and 6 retractions are in here on purpose.** A retraction keeps its original wording visible with the reason it was wrong next to it. `check.py` fails the build if a retraction carries no explanation — that would be a deletion, not a retraction.
 
@@ -54,6 +54,8 @@ Read **ASSEMBLED** carefully — it is not a lesser category. Nearly every metho
 
 ### Active
 
+- **[34] Same organ, other side of the boundary: the loop works on cardiac RHYTHM, per patient** — rung 3, 2026-08-05  
+  Finding 33 failed on single-beat shape. Asked instead about RHYTHM — atrial fibrillation, which is defined by irregularity over time and therefore sits on the temporal-evolution side of the two-lane boundary — the same loop works: per-patient recognition of AF vs that patient's own normal rhythm reaches 0.935 at 16 stored windows per state (chance 0.50), and the decode leg lands in-class 0.89-0.92 at every coverage level — the leg that never rose at all on beat morphology. The geometry beats a plain-L2 control on identical windows at all four coverage levels (+3.0/+5.5/+4.3/+3.7 points).
 - **[32] The decider is coverage-dependent, and blended evaluators suppress decode scores** — rung 3, 2026-08-04  
   Which decision rule the loop should use depends on the memory regime. Across speakers (sparse, shifted), classification by consolidated barycentre prototypes beats the distance-weighted k-NN vote by 9.7 points mean over 3 seeds (0.672 vs 0.575; per-seed gains +10.5/+3.5/+15.0) — the loop as first measured in finding 28 was mis-wired. At dense personal coverage the ordering REVERSES: the raw vote wins (0.917/0.858/0.925) over prototypes (0.833/0.850/0.833), because the retrieved neighbourhood is the same speaker's own takes. Neither rule is 'the' decider; the loop should choose by regime.
 - **[31] The personal condition: the loop closes end-to-end as a function of coverage, with zero training** — rung 3, 2026-08-04  
