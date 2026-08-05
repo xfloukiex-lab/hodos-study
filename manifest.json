@@ -610,7 +610,7 @@
     {
       "id": 36,
       "date": "2026-08-05",
-      "title": "The gap to the published field was data, not a ceiling: 0.983 at 64 examples per state",
+      "title": "The gap to the published field was data, not a ceiling: 0.983 at 64 examples per state (pure windows only — see finding 37 for the harder protocol)",
       "status": "active",
       "rung": 3,
       "track": "beyond-weights",
@@ -623,7 +623,7 @@
         "plain-L2 control carried at every coverage level, so the improvement cannot be attributed to more data alone",
         "the hand-picked default retained as a baseline arm rather than discarded once a better dev config existed"
       ],
-      "note": "The methodological content is worth more than the number: a result recorded as 'we are behind the field' turned out to be 'we gave it a sixteenth of the data', and the way that was established was by testing the boring explanation (knobs) before the flattering one (data). Both were run before this was written. The behaviour is also exactly what a memory-based learner should show — accuracy rising monotonically with stored experience, no retraining at any point — and it is the same curve shape as the speech coverage law, in a domain where the shape was in question. The exclusion caveat named in this finding's scope is closed by finding 37."
+      "note": "The methodological content is worth more than the number: a result recorded as 'we are behind the field' turned out to be 'we gave it a sixteenth of the data', and the way that was established was by testing the boring explanation (knobs) before the flattering one (data). Both were run before this was written. The behaviour is also exactly what a memory-based learner should show — accuracy rising monotonically with stored experience, no retraining at any point — and it is the same curve shape as the speech coverage law, in a domain where the shape was in question. The exclusion caveat named in this finding's scope is closed by finding 37, and 0.966 there — measured with nothing excluded — is the number that should be quoted, not the 0.983 in this title. The two differ because this one skips the windows where the rhythm changes mid-window, which are the hard ones."
     },
     {
       "id": 37,
