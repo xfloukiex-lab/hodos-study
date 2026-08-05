@@ -79,6 +79,28 @@ def build() -> str:
         add("\nRead **ASSEMBLED** carefully — it is not a lesser category. Nearly every method in "
             "this field is a composition; §1 is ASSEMBLED and is where the invention lives.\n")
 
+    # ---- lines of work, so a reader from one field is not made to wade through another
+    TRACK_NAME = {"clinical-rhythm": "Cardiac rhythm",
+                  "beyond-weights": "Memory-based learning architecture"}
+    tracked = [f for f in fs if f.get("track")]
+    if tracked:
+        add("## Lines of work\n")
+        add("This record covers more than one line of work. **A result in one line is not a "
+            "claim about another.**\n")
+        for key, name in TRACK_NAME.items():
+            ids = sorted((f["id"] for f in fs if f.get("track") == key), reverse=True)
+            if ids:
+                add(f"- **{name}** — findings "
+                    + ", ".join(str(i) for i in ids) + ".")
+        untracked = [f["id"] for f in fs if not f.get("track")]
+        if untracked:
+            add(f"- **The distance itself** — the remaining {len(untracked)} findings: how the "
+                "underlying comparison behaves, tested on speech, handwriting and other signals.")
+        add("\nIf you came for the cardiac work, findings "
+            + ", ".join(str(i) for i in sorted(
+                (f["id"] for f in fs if f.get("track") == "clinical-rhythm"), reverse=True))
+            + " stand on their own, and 33 and 35 are the ones that went against us.\n")
+
     add("## Findings\n")
     for s in ORDER:
         rows = [f for f in fs if f["status"] == s]
@@ -86,7 +108,9 @@ def build() -> str:
             continue
         add(f"### {LABEL[s]}\n")
         for f in sorted(rows, key=lambda x: -x["id"]):
-            add(f"- **[{f['id']}] {f['title']}** — rung {f['rung']}, {f['date']}  ")
+            trk = f.get("track")
+            badge = f" `[{TRACK_NAME.get(trk, trk).lower()}]`" if trk else ""
+            add(f"- **[{f['id']}] {f['title']}**{badge} — rung {f['rung']}, {f['date']}  ")
             add(f"  {f['claim']}")
             if s == "retracted" and f.get("retraction"):
                 add(f"  *Why it was wrong:* {f['retraction'][:400]}")

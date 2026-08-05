@@ -58,6 +58,17 @@ section.on{display:block}
   background:var(--panel)}
 .pill b{font-variant-numeric:tabular-nums}
 .gen{color:var(--dim);font-size:12px;margin:0 0 22px}
+.tracks{border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin:0 0 20px}
+.tlab{color:var(--dim);font-size:13px;margin-right:8px}
+.tf{border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:20px;
+padding:4px 13px;font-size:13px;cursor:pointer;margin:4px 4px 0 0;font-family:inherit}
+.tf.on{border-color:var(--acc);color:var(--acc);font-weight:600}
+.tdesc{color:var(--dim);font-size:13px;margin:10px 0 0;line-height:1.5}
+.trk{font-size:11px;border-radius:20px;padding:2px 9px;margin-left:8px;vertical-align:2px;
+border:1px solid var(--line);color:var(--dim);font-weight:600;white-space:nowrap}
+.trk.t-clinical-rhythm{border-color:#b3261e;color:#b3261e}
+.trk.t-beyond-weights{border-color:var(--acc);color:var(--acc)}
+tr.hide,div.f.hide{display:none}
 table{width:100%;border-collapse:collapse;margin:0 0 26px;font-size:14px}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
 th{color:var(--dim);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
@@ -95,6 +106,16 @@ h2:first-child{margin-top:0}
 """
 
 JS = """
+// Track filter: a reader who came for one line of work should be able to see only that line.
+document.querySelectorAll('.tf').forEach(b=>b.onclick=()=>{
+  const t=b.dataset.t;
+  document.querySelectorAll('.tf').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  document.querySelectorAll('#findings tbody tr, #findings div.f').forEach(el=>{
+    const own=el.dataset.track||'';
+    el.classList.toggle('hide', t!=='all' && own!==t);
+  });
+});
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('section').forEach(x=>x.classList.remove('on'));
@@ -116,10 +137,15 @@ def e(x):
     return html.escape(str(x))
 
 
+TRACK_LABEL = {"beyond-weights": "architecture", "clinical-rhythm": "cardiac rhythm"}
+
+
 def finding_card(f, rungs):
     cls = STATUS_CLASS[f["status"]]
-    parts = [f'<div class="f {"ret" if f["status"]=="retracted" else ""}">']
-    parts.append(f'<h3><span class="id">{f["id"]}</span>{e(f["title"])}'
+    trk = f.get("track", "")
+    parts = [f'<div class="f {"ret" if f["status"]=="retracted" else ""}" data-track="{e(trk)}">']
+    tlab = (f'<span class="trk t-{e(trk)}">{e(TRACK_LABEL.get(trk, trk))}</span>' if trk else "")
+    parts.append(f'<h3><span class="id">{f["id"]}</span>{e(f["title"])}{tlab}'
                  f'<span class="tag {cls}">{e(f["status"])}</span></h3>')
     rung = f.get("rung")
     rtxt = f' · rung {rung} — {e(rungs.get(str(rung), ""))}' if rung else ""
@@ -168,8 +194,11 @@ def build():
 
     # ---- the status matrix
     rows = "".join(
-        f'<tr><td class="n">{f["id"]}</td>'
-        f'<td>{e(f["title"])}</td>'
+        f'<tr data-track="{e(f.get("track",""))}"><td class="n">{f["id"]}</td>'
+        f'<td>{e(f["title"])}'
+        + (f'<span class="trk t-{e(f["track"])}">{e(TRACK_LABEL.get(f["track"], f["track"]))}'
+           f'</span>' if f.get("track") else "")
+        + f'</td>'
         f'<td><span class="tag {STATUS_CLASS[f["status"]]}">{f["status"]}</span></td>'
         f'<td class="rung">{f.get("rung","–")}</td>'
         f'<td>{e(f["date"])}</td></tr>'
@@ -202,6 +231,18 @@ def build():
     n_ret = counts.get("retracted", 0)
     n_neg = counts.get("negative", 0)
 
+    # ---- track intro: a reader from one field should not have to wade through the other
+    n_clin = sum(1 for f in fs if f.get("track") == "clinical-rhythm")
+    n_arch = sum(1 for f in fs if f.get("track") == "beyond-weights")
+    track_intro = (
+        f"<b>Cardiac rhythm</b> ({n_clin} findings) — per-patient detection of atrial "
+        f"fibrillation from inter-beat intervals. Read these if you came for the medical work; "
+        f"they stand on their own. &nbsp;·&nbsp; <b>Architecture</b> ({n_arch} findings) — the "
+        f"memory-based learning method the cardiac work is built on, measured on speech. "
+        f"&nbsp;·&nbsp; The remaining findings are the underlying distance itself, tested on "
+        f"speech, handwriting and other signals. "
+        f"<b>A result in one line is not a claim about another.</b>")
+
     # ---- papers of record: the DOIs this record underpins, clickable from the byline
     papers_line = ""
     if m.get("papers"):
@@ -230,6 +271,13 @@ def build():
 
 <section id="findings" class="on">
   <div class="counts">{pills}</div>
+  <div class="tracks">
+    <span class="tlab">This record covers two separate lines of work:</span>
+    <button class="tf on" data-t="all">show both</button>
+    <button class="tf" data-t="clinical-rhythm">cardiac rhythm only</button>
+    <button class="tf" data-t="beyond-weights">architecture only</button>
+    <p class="tdesc" id="tdesc">{track_intro}</p>
+  </div>
   <p class="gen">Counts and the table below are generated from <code>manifest.json</code>, so they
      cannot disagree with the record. Newest finding: {max(f['date'] for f in fs)}.</p>
   <table><thead><tr><th></th><th>Finding</th><th>Status</th><th>Rung</th><th>Date</th></tr></thead>

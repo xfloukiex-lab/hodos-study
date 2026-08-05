@@ -50,25 +50,35 @@ Papers of record: [The Afferent Gnosis Model: Self-Knowledge Without Self-Contro
 
 Read **ASSEMBLED** carefully — it is not a lesser category. Nearly every method in this field is a composition; §1 is ASSEMBLED and is where the invention lives.
 
+## Lines of work
+
+This record covers more than one line of work. **A result in one line is not a claim about another.**
+
+- **Cardiac rhythm** — findings 37, 36, 35, 34, 33.
+- **Memory-based learning architecture** — findings 32, 31, 30, 29, 28.
+- **The distance itself** — the remaining 27 findings: how the underlying comparison behaves, tested on speech, handwriting and other signals.
+
+If you came for the cardiac work, findings 37, 36, 35, 34, 33 stand on their own, and 33 and 35 are the ones that went against us.
+
 ## Findings
 
 ### Active
 
-- **[37] The excluded hard cases, scored: 0.966 on the continuous stream, and onset is caught on the first window** — rung 3, 2026-08-05  
+- **[37] The excluded hard cases, scored: 0.966 on the continuous stream, and onset is caught on the first window** `[cardiac rhythm]` — rung 3, 2026-08-05  
   Findings 34 and 36 excluded windows straddling a rhythm change — the onsets and offsets a monitor exists to catch — which made their numbers non-comparable to published detectors evaluated on continuous streams. Scoring every window with nothing excluded, a mixed window labelled by its majority class: accuracy 0.966 across 9 patients, inside the published 95-98% band on the harder protocol. Transition windows do cost accuracy (0.902 on transitions vs 0.969 on pure windows) but they do not move the stream result out of band. Separately, onset is not slow: across 14 AF episodes the loop's first AF call comes on the FIRST window of the episode in every case (median lag 0 windows, 90th percentile 0).
-- **[36] The gap to the published field was data, not a ceiling: 0.983 at 64 examples per state (pure windows only — see finding 37 for the harder protocol)** — rung 3, 2026-08-05  
+- **[36] The gap to the published field was data, not a ceiling: 0.983 at 64 examples per state (pure windows only — see finding 37 for the harder protocol)** `[cardiac rhythm]` — rung 3, 2026-08-05  
   Finding 35 recorded the loop BELOW the published 95-98% band at 0.935. Two follow-ups locate why, and it is not the method. First, a tune-on-dev / judge-on-held-out sweep over window length, sub-window and bin count moved held-out accuracy by exactly nothing (0.940 for both the swept-best and the hand-picked default, while the dev-set best rose 0.925 -> 0.945) — the hyperparameters are not the limit, and the dev gain was overfitting. Second, extending the store past the arbitrary 16 examples per state: accuracy 0.935 (16) -> 0.967 (32) -> 0.983 (64), still rising, with the plain-L2 control trailing at every level (0.898/0.942/0.947). The published comparison was between a tuned literature using full training data and a loop given 16 examples; matched for data, the loop reaches the top of that band.
-- **[34] Same organ, other side of the boundary: the loop works on cardiac RHYTHM, per patient** — rung 3, 2026-08-05  
+- **[34] Same organ, other side of the boundary: the loop works on cardiac RHYTHM, per patient** `[cardiac rhythm]` — rung 3, 2026-08-05  
   Finding 33 failed on single-beat shape. Asked instead about RHYTHM — atrial fibrillation, which is defined by irregularity over time and therefore sits on the temporal-evolution side of the two-lane boundary — the same loop works: per-patient recognition of AF vs that patient's own normal rhythm reaches 0.935 at 16 stored windows per state (chance 0.50), and the decode leg lands in-class 0.89-0.92 at every coverage level — the leg that never rose at all on beat morphology. The geometry beats a plain-L2 control on identical windows at all four coverage levels (+3.0/+5.5/+4.3/+3.7 points).
-- **[32] The decider is coverage-dependent, and blended evaluators suppress decode scores** — rung 3, 2026-08-04  
+- **[32] The decider is coverage-dependent, and blended evaluators suppress decode scores** `[memory-based learning architecture]` — rung 3, 2026-08-04  
   Which decision rule the loop should use depends on the memory regime. Across speakers (sparse, shifted), classification by consolidated barycentre prototypes beats the distance-weighted k-NN vote by 9.7 points mean over 3 seeds (0.672 vs 0.575; per-seed gains +10.5/+3.5/+15.0) — the loop as first measured in finding 28 was mis-wired. At dense personal coverage the ordering REVERSES: the raw vote wins (0.917/0.858/0.925) over prototypes (0.833/0.850/0.833), because the retrieved neighbourhood is the same speaker's own takes. Neither rule is 'the' decider; the loop should choose by regime.
-- **[31] The personal condition: the loop closes end-to-end as a function of coverage, with zero training** — rung 3, 2026-08-04  
+- **[31] The personal condition: the loop closes end-to-end as a function of coverage, with zero training** `[memory-based learning architecture]` — rung 3, 2026-08-04  
   When the store contains the speaker's own examples of each word — the personalization condition the architecture is for — the full retrieve-and-read-out loop crosses both pre-registered bars, on 3 seeds with full query sets: recognition 0.900 mean (0.917/0.858/0.925; bar 0.85) and decoded responses in-class 0.872 mean (0.867/0.850/0.900; bar 0.80, unblended 1-NN judge). Both legs rise monotonically with coverage (recognition 0.575 -> 0.800 -> ~0.9; decode 0.400 -> 0.700 -> ~0.87 as coverage goes none -> 2 -> 4 examples per voice-word pair), and every improvement costs exactly one append — no gradient step exists anywhere in the system.
-- **[30] Composition is task-dependent: blending helps the vote and hurts the artifact; the decode gap is structural** — rung 3, 2026-08-04  
+- **[30] Composition is task-dependent: blending helps the vote and hurts the artifact; the decode gap is structural** `[memory-based learning architecture]` — rung 3, 2026-08-04  
   Three pre-registered follow-ups to finding 28's decode gap. (1) Blending hurts generation monotonically: reading out the single nearest memory verbatim lands in-class 0.475; the barycentre of the vote-winning cohort, 0.400; the consolidated all-members class prototype, 0.325 — the more memories are averaged into the artifact, the worse it gets. (2) The gap is structural, not data-starved: the best strategy swept at 5/10/20 examples per class gives 0.475/0.425/0.575 — no monotone rise, nowhere near the registered 0.70 bar. (3) At fixed shortlist width, index recall@5 degrades as the store grows (width 32: 0.980 -> 0.897 -> 0.797 over stores 50/100/200), yet the index arm's task accuracy is at or above the exact path at every width on the larger stores — the prefilter's misses are net-positive for the vote.
-- **[29] Order-invariance holds exactly through the composed retrieval path** — rung 3, 2026-08-03  
+- **[29] Order-invariance holds exactly through the composed retrieval path** `[memory-based learning architecture]` — rung 3, 2026-08-03  
   Building the identical 50-entry store all at once versus one class at a time produces identical per-class vote accuracy on every one of 10 classes — the end state provably does not depend on arrival order, through the full distance-weighted cohort vote, not just 1-NN recall.
-- **[28] The closed loop as a learner: retrieval and instant learning hold; the decode leg does not close** — rung 3, 2026-08-03  
+- **[28] The closed loop as a learner: retrieval and instant learning hold; the decode leg does not close** `[memory-based learning architecture]` — rung 3, 2026-08-03  
   The full retrieve-compose-decode loop, run end-to-end with pre-registered criteria on across-speaker spoken digits (5 shots/class): a distance-weighted 5-NN vote beats the single nearest memory by +2.7 points (positive on 3/3 seeds); a random-cohort control collapses to 0.175, so the vote is carried by which memories are retrieved; every class is recognisable the instant its five examples are appended, with zero gradient steps. The generation leg is the measured frontier: response trajectories composed from the vote-winning cohort land in-class only 0.400 of the time — below the vote's own accuracy.
 - **[27] The equation predicts the next step better than a trained network, with no training** — rung 5, 2026-07-24  
   Continuing the curve along its geodesic — a closed-form step with zero learned parameters — predicts the next frame of a real signal 3-16x more accurately than a matched dense network that was trained to do it.
@@ -106,9 +116,9 @@ Read **ASSEMBLED** carefully — it is not a lesser category. Nearly every metho
 
 ### Negative
 
-- **[35] Measured against the field: below the published state of the art, and per-patient memory adds little on average** — rung 3, 2026-08-05  
+- **[35] Measured against the field: below the published state of the art, and per-patient memory adds little on average** `[cardiac rhythm]` — rung 3, 2026-08-05  
   Two honest comparisons, both unfavourable. (1) Published RR-interval AF detectors report 95-98% accuracy on this database (sensitivity ~96-97%, specificity ~97-98%); the untuned loop of finding 34 reaches 93.5%, so on raw accuracy this approach is BEHIND the field, not ahead of it. (2) With store size held equal, a store of the patient's OWN windows beats a store built from other patients' windows by only +2.7 points accuracy and +3.7 points specificity on average across 10 patients — both far under the pre-registered 10-point bars. The headline personalisation pitch does not survive its own test.
-- **[33] The coverage law does NOT transfer to heartbeats: direction survives, magnitude does not** — rung 3, 2026-08-05  
+- **[33] The coverage law does NOT transfer to heartbeats: direction survives, magnitude does not** `[cardiac rhythm]` — rung 3, 2026-08-05  
   Asked of a medical signal — one cardiac patient's heartbeats, 5 rhythm classes — the coverage law fails both pre-registered bars. Recognition does rise with coverage (0.370 -> 0.428 -> 0.517 -> 0.517 over stores of 1/2/4/8 examples per class, against a 0.200 chance floor) but plateaus at roughly half the bar of 0.85, and the decode leg never rises at all (0.407/0.450/0.417/0.467). The direction of the law transfers; its magnitude is modality-dependent.
 - **[23] Character spacing is not Riemann level repulsion** — rung 5, 2026-07-25  
   The apparent 'empty band' in character separations is an artifact of one-hot encoding, not a repulsion signature.
