@@ -623,7 +623,25 @@
         "plain-L2 control carried at every coverage level, so the improvement cannot be attributed to more data alone",
         "the hand-picked default retained as a baseline arm rather than discarded once a better dev config existed"
       ],
-      "note": "The methodological content is worth more than the number: a result recorded as 'we are behind the field' turned out to be 'we gave it a sixteenth of the data', and the way that was established was by testing the boring explanation (knobs) before the flattering one (data). Both were run before this was written. The behaviour is also exactly what a memory-based learner should show — accuracy rising monotonically with stored experience, no retraining at any point — and it is the same curve shape as the speech coverage law, in a domain where the shape was in question."
+      "note": "The methodological content is worth more than the number: a result recorded as 'we are behind the field' turned out to be 'we gave it a sixteenth of the data', and the way that was established was by testing the boring explanation (knobs) before the flattering one (data). Both were run before this was written. The behaviour is also exactly what a memory-based learner should show — accuracy rising monotonically with stored experience, no retraining at any point — and it is the same curve shape as the speech coverage law, in a domain where the shape was in question. The exclusion caveat named in this finding's scope is closed by finding 37."
+    },
+    {
+      "id": 37,
+      "date": "2026-08-05",
+      "title": "The excluded hard cases, scored: 0.966 on the continuous stream, and onset is caught on the first window",
+      "status": "active",
+      "rung": 3,
+      "track": "beyond-weights",
+      "claim": "Findings 34 and 36 excluded windows straddling a rhythm change — the onsets and offsets a monitor exists to catch — which made their numbers non-comparable to published detectors evaluated on continuous streams. Scoring every window with nothing excluded, a mixed window labelled by its majority class: accuracy 0.966 across 9 patients, inside the published 95-98% band on the harder protocol. Transition windows do cost accuracy (0.902 on transitions vs 0.969 on pure windows) but they do not move the stream result out of band. Separately, onset is not slow: across 14 AF episodes the loop's first AF call comes on the FIRST window of the episode in every case (median lag 0 windows, 90th percentile 0).",
+      "evidence": "Per-patient stores of 64 pure windows per state (finding 36's configuration); queries are the remainder of that patient's stream IN ORDER with nothing filtered, up to 150 windows each. Per-patient stream accuracy ranged 0.873-1.000, with the weakest patient the one carrying by far the most transitions (28 of 150 windows). Onset lag measured only on true AF runs of at least 3 windows.",
+      "scope": "Per-patient only; no cross-patient claim. One database, seed 0, one window length (64 intervals), majority-label convention for mixed windows. Published detectors differ in episode-level scoring conventions, so this is a fair-protocol comparison rather than an identical-protocol one. 14 episodes is a small sample for the onset claim.",
+      "code": "validate/afib_transitions.py",
+      "controls": [
+        "nothing excluded — the exclusion that made the earlier numbers questionable is precisely what this removes",
+        "transition and pure windows scored separately as well as together, so the cost of the hard cases is a reported number rather than a hidden one",
+        "queries taken in stream order rather than shuffled, matching how a monitor would actually see them"
+      ],
+      "note": "The pattern across findings 33-37 is the useful object: a null on beat shape, a working system on rhythm, a self-inflicted 'we are behind' from data starvation, and now the excluded hard cases scored and survived. Each step was a caveat someone could have raised, tested by us before anyone raised it. What remains genuinely open and unmeasured: cross-patient transfer, longer horizons than these recordings, and whether the onset result holds on episodes shorter than 3 windows."
     }
   ],
   "equations": {

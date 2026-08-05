@@ -14,11 +14,11 @@ Papers of record: [The Afferent Gnosis Model: Self-Knowledge Without Self-Contro
 
 | Status | Count | Meaning |
 |---|---:|---|
-| Active | 21 | Survives the controls it was tested against; currently believed. |
+| Active | 22 | Survives the controls it was tested against; currently believed. |
 | Provisional | 1 | Measured, but on one task or at small scale; not yet replicated. |
 | Negative | 8 | Tested and did NOT hold. Reported because a negative is a result. |
 | Retracted | 6 | We claimed it, then our own measurement refuted it. Original wording kept visible. |
-| **Total** | **36** | |
+| **Total** | **37** | |
 
 **8 negative results and 6 retractions are in here on purpose.** A retraction keeps its original wording visible with the reason it was wrong next to it. `check.py` fails the build if a retraction carries no explanation — that would be a deletion, not a retraction.
 
@@ -54,6 +54,8 @@ Read **ASSEMBLED** carefully — it is not a lesser category. Nearly every metho
 
 ### Active
 
+- **[37] The excluded hard cases, scored: 0.966 on the continuous stream, and onset is caught on the first window** — rung 3, 2026-08-05  
+  Findings 34 and 36 excluded windows straddling a rhythm change — the onsets and offsets a monitor exists to catch — which made their numbers non-comparable to published detectors evaluated on continuous streams. Scoring every window with nothing excluded, a mixed window labelled by its majority class: accuracy 0.966 across 9 patients, inside the published 95-98% band on the harder protocol. Transition windows do cost accuracy (0.902 on transitions vs 0.969 on pure windows) but they do not move the stream result out of band. Separately, onset is not slow: across 14 AF episodes the loop's first AF call comes on the FIRST window of the episode in every case (median lag 0 windows, 90th percentile 0).
 - **[36] The gap to the published field was data, not a ceiling: 0.983 at 64 examples per state** — rung 3, 2026-08-05  
   Finding 35 recorded the loop BELOW the published 95-98% band at 0.935. Two follow-ups locate why, and it is not the method. First, a tune-on-dev / judge-on-held-out sweep over window length, sub-window and bin count moved held-out accuracy by exactly nothing (0.940 for both the swept-best and the hand-picked default, while the dev-set best rose 0.925 -> 0.945) — the hyperparameters are not the limit, and the dev gain was overfitting. Second, extending the store past the arbitrary 16 examples per state: accuracy 0.935 (16) -> 0.967 (32) -> 0.983 (64), still rising, with the plain-L2 control trailing at every level (0.898/0.942/0.947). The published comparison was between a tuned literature using full training data and a loop given 16 examples; matched for data, the loop reaches the top of that band.
 - **[34] Same organ, other side of the boundary: the loop works on cardiac RHYTHM, per patient** — rung 3, 2026-08-05  
