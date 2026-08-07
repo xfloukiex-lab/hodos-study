@@ -238,7 +238,7 @@ def build():
         f"<b>This is the foundation record</b> — the distance itself and the method built on it, "
         f"tested on speech, handwriting and other signals. Nothing here is a clinical claim. "
         f"&nbsp;·&nbsp; The cardiac application has its own record: "
-        f"<a href=\"https://xfloukiex-lab.github.io/recordis-study/\">Recordis — the clinical "
+        f"<a href=\"https://xfloukiex-lab.github.io/cordthym-study/\">Cordthym — the clinical "
         f"study record</a> ({n_clin} findings, per-patient rhythm on public patient data). "
         f"&nbsp;·&nbsp; The {n_arch} <b>architecture</b> findings below are the memory-based "
         f"learning method the cardiac work stands on, measured on speech. "
