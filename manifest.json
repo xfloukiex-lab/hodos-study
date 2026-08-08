@@ -3,6 +3,17 @@
   "subtitle": "Comparing processes as curves of distributions",
   "one_line": "A signal is a curve of probability distributions on a statistical manifold; comparison is a geodesic distance between curves.",
   "byline": "Alexander Parnell · Vektorgeist · vektorgeist.com/research",
+  "premise": {
+    "name": "The Hodos Hypothesis",
+    "named": "2026-08-07",
+    "origin_doi": "10.5281/zenodo.21613155",
+    "origin_date": "2026-07-27",
+    "statement": "Nothing is what it is in isolation. A thing — including a self — is the pattern of its connections, not its substrate. What a system is is constituted by what it stands in relation to; and what it does that exceeds its parts — emergence — arises from that pattern of relation, and is never installed as a component. The relations are not decoration laid over pre-existing things: the things are constituted by relations, and those relations hold between further processes that are themselves so constituted. There is no isolated substrate underneath at which the regress halts.",
+    "why_hypothesis": "It is called a hypothesis, not a theory, because independent outside replication has not happened yet. That is the scientifically correct use of the word: a hypothesis is a stated, testable position; it becomes a theory when others test it and it holds. It graduates to \"the Hodos Theory\" when replication by people with no stake in it has been done and has survived — not when it feels established, and not by the author's decision.",
+    "two_readings": "Hodos-the-hypothesis is the principle (10.5281/zenodo.21613155). Hodos-the-engine is its measurement instantiation — the model-free distance between processes as curves of distributions (10.5281/zenodo.21612829). The dependency runs one way: the engine is downstream of the hypothesis, never the reverse. Cite the full phrase \"the Hodos Hypothesis\" for the principle, plain \"Hodos\" for the engine, and attach the DOI in both cases.",
+    "priority_note": "The name refers back to a premise already published on 2026-07-27; naming it on 2026-08-07 does not create it and does not move its date. The premise is stated in the abstract of 10.5281/zenodo.21613155, given its own section 5, and declared in section 2 to be the one premise all five of the method's commitments are downstream of. It is stated earlier still in Your Past Loves You (begun 2026-07-19), which that paper cites as the plainest statement of the thesis the method is built on.",
+    "boundary": "Relational ontology is older than any of this machinery, and the source paper says so in its own text. The premise has deep ancestry — dependent origination, process philosophy, structural realism, relational quantum mechanics. No one can claim the idea itself and this does not. What is claimed is this formulation as the named premise of a named programme, its instantiation in working measured machinery, and the timestamp."
+  },
   "papers": [
     {
       "title": "The Afferent Gnosis Model: Self-Knowledge Without Self-Control",

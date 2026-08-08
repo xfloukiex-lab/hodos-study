@@ -251,6 +251,26 @@ def build():
             f'<a href="https://doi.org/{e(p["doi"])}">{e(p["title"])}</a>' for p in m["papers"])
         papers_line = f'<p class="byline">Papers of record: {links}</p>'
 
+    # ---- the named premise. Rendered into the thesis tab, NOT as a finding: findings are
+    # measured results with a status, a rung and controls; this is the principle they sit under.
+    # The origin DOI and date are emitted separately from the naming date on purpose — the name
+    # refers back to an already-published premise and must never read as dating it to the day
+    # it was named.
+    premise_block = ""
+    pr = m.get("premise")
+    if pr:
+        premise_block = f"""
+  <h2>{e(pr['name'])}</h2>
+  <p class="lede">{e(pr['statement'])}</p>
+  <p><strong>Published origin:</strong>
+     <a href="https://doi.org/{e(pr['origin_doi'])}">{e(pr['origin_doi'])}</a>
+     ({e(pr['origin_date'])}). <strong>Named:</strong> {e(pr['named'])}.
+     {e(pr['priority_note'])}</p>
+  <p><strong>Why "hypothesis" and not "theory".</strong> {e(pr['why_hypothesis'])}</p>
+  <p><strong>Two readings of the name.</strong> {e(pr['two_readings'])}</p>
+  <p><strong>What is and is not claimed.</strong> {e(pr['boundary'])}</p>
+"""
+
     doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
@@ -351,6 +371,7 @@ def build():
 </section>
 
 <section id="thesis">
+{premise_block}
   <h2>What this claims</h2>
   <p class="lede">{e(m['one_line'])}</p>
 
