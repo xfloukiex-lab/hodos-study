@@ -1080,6 +1080,73 @@
         "A HEADROOM GATE, added because version 1 lacked one. Its validity criterion asked only whether the intact arm beat chance; on the jet engine every arm including the control scored 1.000, so nothing could differ and the comparison measured nothing while the gate passed. Version 2 additionally requires no arm at ceiling and a spread between arms."
       ],
       "note": "⚠ ONE CRITERION FAILED BY FLOATING-POINT EPSILON AND IS KEPT AS A FAIL. The substrate criterion demanded that changing every number, unit and shape cost at most 0.05; the measured cost is 187/200 against 177/200 = exactly 0.05, which the comparison reads as 0.050000000000000044 and rejects by 4.4e-17. This record already contains one criterion missed by 9e-18 and the rule has not changed: a registered bar is not renegotiated after seeing the number. Read plainly, substrate-independence TIED its tolerance on handwriting rather than clearing or missing it. ★ The split between the two modalities is the real content, and it is the same two-lane shape this record keeps finding: where identity lives in how the parts move together, destroying the relation destroys the identity and swapping the substrate costs almost nothing; where the signal is carried by the aggregate of many drifting sensors, the relation between them is not what is doing the work."
+    },
+    {
+      "id": 50,
+      "date": "2026-08-08",
+      "track": "foundations",
+      "domains": [
+        "synthetic-pairs",
+        "handwriting",
+        "jet-engine"
+      ],
+      "title": "Hodos Symploke: a quantity for what a relationship creates, with the control built into the equation",
+      "status": "active",
+      "rung": 3,
+      "claim": "What two processes do together, compared against what the same two would do if they did not interact, is a computable quantity in the same geometry the distance uses. At each instant the joint distribution of the pair is compared with the outer product of its own marginals; the surplus is read through the engine's master distance. If the parts genuinely do not interact the two are identical and the surplus vanishes — the control is a term in the equation rather than an arm bolted beside it.",
+      "evidence": "Four criteria fixed before running. Independent parts sit inside the quantity's own shuffle null (z = +0.06, p 0.46). Sweeping coupling from 0 to 0.95 gives z = +0.1 / +3.4 / +9.6 / +24.9 / +39.5 — monotone. On y = x squared, where Pearson correlation reads -0.095, it fires at z = +18.8, so it is not a correlation proxy. And on real data it reproduces a split measured by a different method before this equation existed: mean surplus z = +8.08 across handwriting part-pairs against +1.32 across jet-engine sensor pairs, a gap of +6.75 against a pre-registered bar of 5.0.",
+      "scope": "Pairwise by construction; a K-part total carries a higher-order remainder this does not compute. The estimator needs many more samples than the joint has cells — a first version at 8 bins over a 16-sample window scored an INDEPENDENT pair at 1.29 against a coupled pair's 1.98, because a joint that sparse cannot resemble a smooth outer product whatever the parts are doing. Reported throughout as a z against its own null, never as a raw surplus: a finite window makes the quantity positive even for independent parts.",
+      "code": "hodos/emergence.py · validate/emergence_known_answer.py",
+      "controls": [
+        "THE NON-INTERACTION TERM IS INSIDE THE EQUATION. If the joint factorises at every instant the surplus vanishes by arithmetic. Measured at 2.98e-08 rather than exactly 0, because the ground is 2*arccos(BC) and arccos has an infinite derivative at 1 — that is the ground metric's conditioning, eight orders below a coupled pair's value, and the claim on the record is 'zero to the numerical floor' rather than 'exactly zero'.",
+        "RELABELLING EITHER PART'S OWN BINS LEAVES IT UNCHANGED, asserted in tests. It reads the relation and not the substrate, and that is provable here rather than measured.",
+        "THE KNOWN-ANSWER ARM IS THE ONE THAT COULD HAVE KILLED IT — the handwriting-versus-engine split was established by destroying couplings in a separate experiment, before this quantity existed, so agreement is not something the design could have arranged.",
+        "The shuffle null preserves the shuffled part's marginal EXACTLY, so any drop is attributable to the relation and to nothing else."
+      ],
+      "note": "PROVENANCE, unsoftened: a divergence between a joint and the product of its marginals IS mutual information in general form, and total correlation, interaction information, transfer entropy and integrated information all occupy this neighbourhood. Tagged ASSEMBLED. The contribution is the composition — the quantity computed with the Fisher-Rao geodesic rather than a Kullback-Leibler divergence, as a trajectory rather than a scalar, inside a process geometry that already supplies the alignment. The literature check behind that was six web sources with no multi-source corroboration, which is weak evidence of absence and is stated as such."
+    },
+    {
+      "id": 51,
+      "date": "2026-08-08",
+      "track": "foundations",
+      "domains": [
+        "handwriting",
+        "jet-engine"
+      ],
+      "title": "Hodos Systasis: frames derived from relations really are relational — and lose to simply using the window",
+      "status": "negative",
+      "rung": 3,
+      "claim": "Every domain this engine touches gets its frame from a hand-built adapter, so an engineer picks the axis each time. Building the frame instead from nothing but relations — locating each window by its normalised similarity to a set of reference windows, so no bin means a frequency or a sensor — produces a genuine relational encoding and a worse one. On handwriting it beat the hand-built adapter (0.960 against 0.935) and still lost to a frame built from the window's own absolute values, referencing nothing at all (0.980).",
+      "evidence": "Handwriting, 20 classes, 200 items: adapter 0.935 / relational 0.960 / absolute 0.980 / per-item references 0.215. Jet engine, healthy against mid-life, 100 items: adapter 0.800 / relational 0.580 / absolute 0.590, with the relational arm failing its validity bar against a 0.500 floor. One setting across both domains, never tuned per domain.",
+      "scope": "One construction of a relational frame, two domains, one downstream engine. It bounds this construction, not the idea that representations can be derived.",
+      "code": "hodos/constitution.py · validate/constitution_vs_adapters.py",
+      "controls": [
+        "THE SHARED-FRAME CONTROL PASSED DECISIVELY AND IS WHAT MAKES THE NEGATIVE INTERPRETABLE: giving every item its OWN reference set, destroying the common coordinate system while changing nothing else, collapses handwriting from 0.960 to 0.215 — a drop of 0.745. So the frames genuinely were being compared relationally. The construction is relational AND lossy, which is a far more precise result than 'it does not work'.",
+        "THE DECIDING CONTROL is a frame that is forbidden the relation entirely — built from the window's own values with no reference to anything else — rather than an arbitrary variant of the relational one. It wins by 0.020 on handwriting and 0.010 on the engine.",
+        "A DIAGNOSTIC WORTH RECORDING: replacing the data-derived references with pure NOISE changes almost nothing (-0.010 and -0.040). That is the expected result rather than a defect — a reference set is a coordinate system, not content, and locating something against arbitrary landmarks is still a relational encoding, in the way that a + b = c and one-half plus one-half carry the same relation in different symbols."
+      ],
+      "note": "The mechanism is the useful part: projecting a window onto a set of landmarks discards more than it organises. The window's own values already contain the local relations among its samples, and the landmark projection is a lossy summary of them. A derived representation is not thereby refuted — this particular derivation is."
+    },
+    {
+      "id": 52,
+      "date": "2026-08-08",
+      "track": "foundations",
+      "domains": [
+        "synthetic-pairs",
+        "jet-engine"
+      ],
+      "title": "Hodos Chronos: intrinsic time is well posed on smooth processes and diverges on real sensor data",
+      "status": "negative",
+      "rung": 2,
+      "claim": "Every other quantity here takes the time axis as given. Defining duration instead as distance travelled through the process geometry gives a process its own clock: a system that sits still accrues no time however long the wall clock runs. The construction is defined by nothing but successive relations between states — but it is only a clock where the process is smooth. On noisy data the reading depends on how often you looked.",
+      "evidence": "Relative change in total duration when the sampling rate is halved: smooth curve 0.003, random walk 0.325, real turbofan sensor trajectory 0.500 — rising to 0.022 / 0.690 / 0.884 at stride 8. On real telemetry, halving the sampling rate roughly halves the measured duration. A still process accrues exactly 0.000.",
+      "scope": "One ground metric, one estimator, synthetic curves plus one real sensor trajectory. It says nothing about processes observed finely enough to be smooth at the scale of interest.",
+      "code": "hodos/chronos.py · tests/test_chronos.py",
+      "controls": [
+        "THE MACHINE CHECK IS THE SAMPLING-RATE TEST and it is the right one: a clock that depends on how often you consulted it is not a clock. It is asserted in the tests for BOTH outcomes — that it holds on a smooth curve and fails on a noisy one — so the boundary cannot be quietly forgotten later.",
+        "A still process is verified to accrue exactly zero time, which is the arithmetic half of the claim."
+      ],
+      "note": "The mechanism is the coastline problem: discrete arc length converges for a smooth curve and diverges for a noise-perturbed one, whose true length is unbounded. Smoothing first, or declaring a resolution, would make the check pass — and would reintroduce exactly the kind of unjustified knob that retired the excursion claim on this record. Doing that after seeing the failure would be fitting the control, so it was not done. The useful half of the result is the other column: an intrinsic clock is meaningful precisely where the process is smooth, which is a statement about which processes have one at all."
     }
   ],
   "equations": {
@@ -1218,6 +1285,10 @@
       "label": "spacecraft telemetry",
       "desc": "Real ESA mission telemetry (ESA Anomaly Dataset, CC BY 3.0 IGO), with channel-level ground truth and real, unequal subsystems.",
       "show_when_empty": true
+    },
+    "synthetic-pairs": {
+      "label": "synthetic pairs",
+      "desc": "Constructed pairs of processes with a known coupling, used where the right answer has to be known in advance."
     }
   }
 }
