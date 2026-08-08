@@ -1058,6 +1058,28 @@
         "The layered decider is reported at its actual value, in the wrong direction, rather than dropped for being inconvenient."
       ],
       "note": "Marked provisional rather than active on purpose. An operator receiving an alarm on 82% of rare-but-normal events is receiving an alarm on almost everything unusual, and the registered margin does not change that — a statistically significant difference between 0.98 and 0.82 is not an operationally useful separation. The honest reading is that the thesis 'learn the individual vehicle so rare-but-normal does not alarm' is SUPPORTED IN DIRECTION and UNSUPPORTED IN MAGNITUDE by this measurement. ESA Anomaly Dataset (Mission1), Zenodo record 15237121, CC BY 3.0 IGO — attribution required, redistribution permitted."
+    },
+    {
+      "id": 49,
+      "date": "2026-08-08",
+      "track": "foundations",
+      "domains": [
+        "handwriting",
+        "jet-engine"
+      ],
+      "title": "The premise made falsifiable: destroy the relations and identity goes on handwriting, but not on a jet engine",
+      "status": "negative",
+      "rung": 3,
+      "claim": "The principle this record sits under says a thing is the pattern of its connections rather than its substrate. Stated as an empirical prediction it can fail, and it does — on one of two modalities. Three surgeries were applied to the same data: destroy temporal ORDER, destroy CROSS-PART COUPLING while leaving every part's own values byte-identical, and destroy the SUBSTRATE with per-part monotone unit changes while leaving every relation intact. On handwriting the prediction lands hard. On jet-engine telemetry it does not: the parts must be POOLED, but they need not INTERACT.",
+      "evidence": "HANDWRITING (20 classes, 200 items, majority floor 0.050): intact 0.935. Destroying cross-part coupling — every part keeping its exact values and the representation's time-average exactly unchanged — collapses it to 0.315 (−0.620, p 0.0001). Destroying order alone: 0.400 (−0.535, p 0.0001). Replacing the substrate with per-part monotone transforms that change every number, unit and distributional shape: 0.885, a difference of exactly 10 items in 200. Non-interacting controls, each part classified in ISOLATION and merged assuming no interaction: 0.565 (vote) and 0.755 (independent likelihoods multiplied) — the intact method beats the better of them by +0.180, p 0.0001. JET ENGINE at 55% of life (120 items, floor 0.500): intact 0.775, coupling destroyed 0.758 — a difference of +0.017 at p 0.42, so the cross-part relation carries essentially nothing there — while the non-interacting controls reach only 0.608 and 0.567, so the intact method still beats them by +0.167 (p 0.0059).",
+      "scope": "Two modalities, one representation each, leave-one-out nearest-neighbour. This tests the premise's PREDICTION on these data; it does not establish the general ontological claim, and it is not a promotion of the principle to a theory — that requires replication by people with no stake in it. Neither dataset supports the premise on all five pre-registered criteria, so no rung is earned for it.",
+      "code": "validate/relational_premise_test_v2.py",
+      "controls": [
+        "EVERY SURGERY'S INVARIANTS ARE ASSERTED IN CODE BEFORE ANY ACCURACY EXISTS. The order surgery is checked to leave the multiset of frames bit-identical; the coupling surgery to leave each part's sorted values identical AND the time-average unchanged to 1e-12; the substrate surgery to leave the rank order inside every part identical while provably changing the numbers. A control that is only approximately blind has already cost this project a result.",
+        "THE CONTROL THAT DECIDES IT, and the first version got it WRONG. Version 1 built ONE feature vector holding every part's statistics and ran nearest-neighbour across it — which can read how the parts sit relative to each other, so it was a relational method with time removed, not a non-relational one. It scored 0.922 and the run concluded, wrongly, that the parts alone already sufficed. Version 2 forbids the parts from being combined: each is classified alone, and the per-part answers are merged under an explicit no-interaction assumption. Those controls score 0.565 and 0.755 on the same task.",
+        "A HEADROOM GATE, added because version 1 lacked one. Its validity criterion asked only whether the intact arm beat chance; on the jet engine every arm including the control scored 1.000, so nothing could differ and the comparison measured nothing while the gate passed. Version 2 additionally requires no arm at ceiling and a spread between arms."
+      ],
+      "note": "⚠ ONE CRITERION FAILED BY FLOATING-POINT EPSILON AND IS KEPT AS A FAIL. The substrate criterion demanded that changing every number, unit and shape cost at most 0.05; the measured cost is 187/200 against 177/200 = exactly 0.05, which the comparison reads as 0.050000000000000044 and rejects by 4.4e-17. This record already contains one criterion missed by 9e-18 and the rule has not changed: a registered bar is not renegotiated after seeing the number. Read plainly, substrate-independence TIED its tolerance on handwriting rather than clearing or missing it. ★ The split between the two modalities is the real content, and it is the same two-lane shape this record keeps finding: where identity lives in how the parts move together, destroying the relation destroys the identity and swapping the substrate costs almost nothing; where the signal is carried by the aggregate of many drifting sensors, the relation between them is not what is doing the work."
     }
   ],
   "equations": {
