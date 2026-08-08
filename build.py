@@ -29,22 +29,32 @@ STATUS_CLASS = {"active": "ok", "provisional": "prov", "negative": "neg",
                 "retracted": "ret", "untested": "unt"}
 
 CSS = """
+/* Light, warm-paper palette.
+   This commits to ONE look on purpose rather than flipping with the reader's OS setting: a
+   research record that renders differently for different readers is harder to talk about, and
+   half the palette below (the parchment retraction block, the cream equation slab) only reads
+   correctly on paper-coloured ground. Headings are a serif on purpose — the page is a scientific
+   record, not a product page. */
 :root{
-  --bg:#0f1417; --panel:#161d21; --line:#243036; --ink:#dfe7ea; --dim:#8ea3ac;
-  --ok:#4fbf87; --prov:#d2a24c; --neg:#7f97a3; --ret:#d4685f; --unt:#5c6f79; --acc:#5aa9c9;
-}
-@media(prefers-color-scheme:light){
-  :root{ --bg:#f7f9fa; --panel:#fff; --line:#dde5e9; --ink:#17242a; --dim:#5d727c; }
+  --bg:#f5f1e8;        /* warm paper */
+  --panel:#fffdf8;     /* card stock, a shade lighter than the page */
+  --line:#e0d7c6;      /* warm rule */
+  --ink:#221f1a;       /* warm near-black */
+  --dim:#6e665a;       /* warm grey for secondary text */
+  --ok:#2f6b4a; --prov:#8f6415; --neg:#6b6357; --ret:#a3392c; --unt:#8a8275; --acc:#2d5a78;
+  --slab:#efe9dc;      /* equation / code ground */
+  --warn:#f6e7e2;      /* retraction + notice ground */
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
   font:15px/1.65 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif}
 .wrap{max-width:960px;margin:0 auto;padding:0 22px 80px}
 header{border-bottom:1px solid var(--line);margin-bottom:0;padding:34px 0 0}
-h1{margin:0 0 4px;font-size:27px;letter-spacing:-.3px}
+h1{margin:0 0 4px;font:600 30px/1.2 var(--serif);letter-spacing:-.2px}
 .sub{color:var(--dim);margin:0 0 4px}
 .byline{color:var(--dim);font-size:13px;margin:0 0 18px}
-.private{background:#3a2320;border:1px solid #6d3a33;color:#f0c9c3;
+.private{background:var(--warn);border:1px solid #d8b3aa;color:#7d2f24;
   padding:9px 13px;border-radius:7px;font-size:13px;margin:14px 0 20px}
 nav{display:flex;gap:2px;margin-top:8px}
 nav button{background:none;border:0;border-bottom:2px solid transparent;color:var(--dim);
@@ -68,6 +78,13 @@ padding:4px 13px;font-size:13px;cursor:pointer;margin:4px 4px 0 0;font-family:in
 border:1px solid var(--line);color:var(--dim);font-weight:600;white-space:nowrap}
 .trk.t-clinical-rhythm{border-color:#b3261e;color:#b3261e}
 .trk.t-beyond-weights{border-color:var(--acc);color:var(--acc)}
+.trk.t-machine-telemetry{border-color:#8f6415;color:#8f6415}
+.trk.t-foundations{border-color:var(--dim);color:var(--dim)}
+.dm{font-size:11px;border-radius:20px;padding:2px 8px;margin-left:6px;vertical-align:2px;
+border:1px dashed var(--line);color:var(--dim);white-space:nowrap}
+.frow{margin:9px 0 0}
+.tleg{margin:12px 0 0;color:var(--dim);font-size:13px;line-height:1.55}
+.tleg b{color:var(--ink)}
 tr.hide,div.f.hide{display:none}
 table{width:100%;border-collapse:collapse;margin:0 0 26px;font-size:14px}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -79,9 +96,10 @@ td.n{font-variant-numeric:tabular-nums;color:var(--dim);width:34px}
 .tag.neg{color:var(--neg);border-color:var(--neg)} .tag.ret{color:var(--ret);border-color:var(--ret)}
 .tag.unt{color:var(--unt);border-color:var(--unt)}
 .f{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:17px 19px;
-  margin:0 0 15px}
-.f.ret{border-color:#6d3a33}
-.f h3{margin:0 0 3px;font-size:16.5px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+  margin:0 0 15px;box-shadow:0 1px 2px rgba(60,50,35,.05)}
+.f.ret{border-color:#d8b3aa}
+.f h3{margin:0 0 3px;font:600 17px/1.35 var(--serif);display:flex;gap:10px;align-items:baseline;
+  flex-wrap:wrap}
 .f h3 .id{color:var(--dim);font-variant-numeric:tabular-nums;font-weight:400;font-size:14px}
 .meta{color:var(--dim);font-size:12.5px;margin:0 0 11px}
 .lab{color:var(--dim);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;
@@ -89,32 +107,53 @@ td.n{font-variant-numeric:tabular-nums;color:var(--dim);width:34px}
 .f p{margin:0}
 .eqtag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 10px}
 .eqtag.own{color:var(--ok);font-weight:700}
-.eqf{background:#11171b;border:1px solid var(--line);border-radius:6px;padding:12px 14px;
+.eqf{background:var(--slab);border:1px solid var(--line);border-radius:6px;padding:12px 14px;
   margin:0 0 12px;overflow-x:auto;font-size:12.5px;line-height:1.65;white-space:pre;
-  font-family:'Cascadia Code',Consolas,monospace;color:#cfe0e6}
+  font-family:'Cascadia Code',Consolas,monospace;color:#2c2820}
 .eqprov{color:var(--dim);font-size:13.5px}
-.retr{background:#3a2320;border-left:3px solid var(--ret);padding:11px 14px;margin:12px 0 0;
+.retr{background:var(--warn);border-left:3px solid var(--ret);padding:11px 14px;margin:12px 0 0;
   border-radius:0 6px 6px 0}
 .note{border-left:3px solid var(--acc);padding:9px 14px;margin:12px 0 0;color:var(--dim);
-  background:rgba(90,169,201,.06);border-radius:0 6px 6px 0}
+  background:rgba(45,90,120,.06);border-radius:0 6px 6px 0}
 ul.ctl{margin:3px 0 0;padding-left:19px} ul.ctl li{margin:2px 0}
-code{background:rgba(127,151,163,.16);padding:1px 5px;border-radius:4px;font-size:12.5px}
+code{background:var(--slab);padding:1px 5px;border-radius:4px;font-size:12.5px}
 .rung{color:var(--dim);font-size:12px}
-h2{font-size:19px;margin:30px 0 10px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h2{font:600 21px/1.3 var(--serif);margin:30px 0 10px;padding-bottom:7px;
+  border-bottom:1px solid var(--line)}
 h2:first-child{margin-top:0}
-.lede{font-size:16px;color:var(--ink)}
+.lede{font-size:16.5px;color:var(--ink)}
+tbody tr:hover{background:rgba(45,90,120,.045)}
+tr[data-jump]{cursor:pointer}
+a{color:var(--acc)}
 """
 
 JS = """
-// Track filter: a reader who came for one line of work should be able to see only that line.
-document.querySelectorAll('.tf').forEach(b=>b.onclick=()=>{
-  const t=b.dataset.t;
-  document.querySelectorAll('.tf').forEach(x=>x.classList.remove('on'));
-  b.classList.add('on');
+// TWO independent filters, because they answer different questions. The TRACK is the line of
+// work a finding belongs to; the DOMAIN is the field the data actually came from. A single
+// finding often spans several fields (finding 13 is speech AND handwriting -- that is the whole
+// point of it), so domain is a LIST, and the two filters combine with AND rather than one
+// resetting the other.
+let curTrack='all', curDomain='all';
+function applyFilters(){
   document.querySelectorAll('#findings tbody tr, #findings div.f').forEach(el=>{
-    const own=el.dataset.track||'';
-    el.classList.toggle('hide', t!=='all' && own!==t);
+    const trk=el.dataset.track||'';
+    const doms=(el.dataset.domains||'').split(' ').filter(Boolean);
+    const okT = curTrack==='all' || trk===curTrack;
+    const okD = curDomain==='all' || doms.includes(curDomain);
+    el.classList.toggle('hide', !(okT && okD));
   });
+}
+document.querySelectorAll('.tf').forEach(b=>b.onclick=()=>{
+  const g=b.dataset.g;
+  document.querySelectorAll('.tf[data-g="'+g+'"]').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  if(g==='track'){ curTrack=b.dataset.t; } else { curDomain=b.dataset.t; }
+  applyFilters();
+});
+// The coverage table doubles as a filter: clicking a field row shows only that field.
+document.querySelectorAll('tr[data-jump]').forEach(r=>r.onclick=()=>{
+  const b=document.querySelector('.tf[data-g="domain"][data-t="'+r.dataset.jump+'"]');
+  if(b){ b.click(); b.scrollIntoView({block:'center'}); }
 });
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));
@@ -137,16 +176,59 @@ def e(x):
     return html.escape(str(x))
 
 
-TRACK_LABEL = {"beyond-weights": "architecture", "clinical-rhythm": "cardiac rhythm"}
+def normalise(section):
+    """Manifest section -> {key: {"label":.., "desc":..}}, accepting either shape.
+
+    Tracks and domains both live in the manifest now rather than in this file. The page used to
+    hardcode two track names here, which meant adding a third line of work was a CODE change and
+    was therefore quietly never done -- the record grew a whole jet-engine lane while the page
+    still said "two separate lines of work".
+
+    The older manifest shape is {key: "description string"}; the richer one is
+    {key: {"label":.., "desc":.., "show_when_empty":..}}. Both are accepted so a half-migrated
+    manifest renders rather than crashing the build -- a build that dies takes the whole record
+    offline, which is a worse failure than a plain label.
+    """
+    out = {}
+    for k, v in (section or {}).items():
+        out[k] = {"label": k, "desc": v} if isinstance(v, str) else dict(v)
+        out[k].setdefault("label", k)
+        out[k].setdefault("desc", "")
+    return out
 
 
-def finding_card(f, rungs):
+def labels_of(section):
+    """{key: label} for the normalised section."""
+    return {k: v["label"] for k, v in section.items()}
+
+
+# A retraction is not one thing, and lumping them together is misleading in the UNFLATTERING
+# direction. Withdrawing a claim that something WORKED is a loss; withdrawing a claim that
+# something FAILED is a correction in the method's favour. The page reported six retractions with
+# no way to tell which was which, so a reader counted six failures. They are not six failures.
+RETRACTION_KIND = {
+    "positive": ("retracted — positive claim",
+                 "We claimed this WORKED. Our own later measurement showed it did not, so the "
+                 "claim was withdrawn. The correction goes against the method."),
+    "negative": ("retracted — negative claim",
+                 "We claimed this did NOT work, or that it was a limit of the method. Our own "
+                 "later measurement showed otherwise, so the claim was withdrawn. The correction "
+                 "goes in the method's favour — it was recorded against ourselves and was wrong."),
+}
+
+
+def finding_card(f, rungs, tlabels, dlabels):
     cls = STATUS_CLASS[f["status"]]
     trk = f.get("track", "")
-    parts = [f'<div class="f {"ret" if f["status"]=="retracted" else ""}" data-track="{e(trk)}">']
-    tlab = (f'<span class="trk t-{e(trk)}">{e(TRACK_LABEL.get(trk, trk))}</span>' if trk else "")
-    parts.append(f'<h3><span class="id">{f["id"]}</span>{e(f["title"])}{tlab}'
-                 f'<span class="tag {cls}">{e(f["status"])}</span></h3>')
+    doms = f.get("domains", [])
+    parts = [f'<div class="f {"ret" if f["status"]=="retracted" else ""}" data-track="{e(trk)}"'
+             f' data-domains="{e(" ".join(doms))}">']
+    tlab = (f'<span class="trk t-{e(trk)}">{e(tlabels.get(trk, trk))}</span>' if trk else "")
+    dlab = "".join(f'<span class="dm">{e(dlabels.get(d, d))}</span>' for d in doms)
+    kind = RETRACTION_KIND.get(f.get("retraction_kind"))
+    badge = kind[0] if kind else f["status"]
+    parts.append(f'<h3><span class="id">{f["id"]}</span>{e(f["title"])}{tlab}{dlab}'
+                 f'<span class="tag {cls}">{e(badge)}</span></h3>')
     rung = f.get("rung")
     rtxt = f' · rung {rung} — {e(rungs.get(str(rung), ""))}' if rung else ""
     parts.append(f'<p class="meta">{e(f["date"])}{rtxt}</p>')
@@ -160,8 +242,9 @@ def finding_card(f, rungs):
         items = "".join(f"<li>{e(c)}</li>" for c in f["controls"])
         parts.append(f'<p class="lab">Controls that could have killed it</p><ul class="ctl">{items}</ul>')
     if f.get("retraction"):
+        gloss = f'<p class="meta" style="margin:0 0 8px">{e(kind[1])}</p>' if kind else ""
         parts.append(f'<div class="retr"><p class="lab">Why this was wrong</p>'
-                     f'<p>{e(f["retraction"])}</p></div>')
+                     f'{gloss}<p>{e(f["retraction"])}</p></div>')
     if f.get("note"):
         parts.append(f'<div class="note">{e(f["note"])}</div>')
 
@@ -192,19 +275,27 @@ def build():
         for s in STATUS_ORDER if counts.get(s))
     pills += f'<span class="pill">total <b>{len(fs)}</b></span>'
 
+    tracks = normalise(m.get("tracks", {}))
+    domains = normalise(m.get("domains", {}))
+    tlabels, dlabels = labels_of(tracks), labels_of(domains)
+
     # ---- the status matrix
     rows = "".join(
-        f'<tr data-track="{e(f.get("track",""))}"><td class="n">{f["id"]}</td>'
+        f'<tr data-track="{e(f.get("track",""))}"'
+        f' data-domains="{e(" ".join(f.get("domains", [])))}">'
+        f'<td class="n">{f["id"]}</td>'
         f'<td>{e(f["title"])}'
-        + (f'<span class="trk t-{e(f["track"])}">{e(TRACK_LABEL.get(f["track"], f["track"]))}'
+        + (f'<span class="trk t-{e(f["track"])}">{e(tlabels.get(f["track"], f["track"]))}'
            f'</span>' if f.get("track") else "")
         + f'</td>'
+        f'<td>{", ".join(e(dlabels.get(d, d)) for d in f.get("domains", [])) or "–"}</td>'
         f'<td><span class="tag {STATUS_CLASS[f["status"]]}">{f["status"]}</span></td>'
         f'<td class="rung">{f.get("rung","–")}</td>'
         f'<td>{e(f["date"])}</td></tr>'
         for f in fs)
 
-    cards = "".join(finding_card(f, rungs) for f in sorted(fs, key=lambda x: -x["id"]))
+    cards = "".join(finding_card(f, rungs, tlabels, dlabels)
+                    for f in sorted(fs, key=lambda x: -x["id"]))
 
     # The equations tab. Tags come straight from EQUATIONS.md and are NOT softened on the way
     # here -- ASSEMBLED / KNOWN / OURS being stated plainly is the entire point of that sheet.
@@ -230,19 +321,59 @@ def build():
 
     n_ret = counts.get("retracted", 0)
     n_neg = counts.get("negative", 0)
+    kinds = Counter(f.get("retraction_kind") for f in fs if f["status"] == "retracted")
+    n_ret_pos, n_ret_neg = kinds.get("positive", 0), kinds.get("negative", 0)
 
-    # ---- track intro: a reader from one field should not have to wade through the other
-    n_clin = sum(1 for f in fs if f.get("track") == "clinical-rhythm")
-    n_arch = sum(1 for f in fs if f.get("track") == "beyond-weights")
-    track_intro = (
-        f"<b>This is the foundation record</b> — the distance itself and the method built on it, "
-        f"tested on speech, handwriting and other signals. Nothing here is a clinical claim. "
-        f"&nbsp;·&nbsp; The cardiac application has its own record: "
-        f"<a href=\"https://xfloukiex-lab.github.io/cordthym-study/\">Cordthym — the clinical "
-        f"study record</a> ({n_clin} findings, per-patient rhythm on public patient data). "
-        f"&nbsp;·&nbsp; The {n_arch} <b>architecture</b> findings below are the memory-based "
-        f"learning method the cardiac work stands on, measured on speech. "
-        f"<b>A result in one line is not a claim about another.</b>")
+    # ---- the two filter rows and the coverage table, ALL generated from the manifest.
+    # Why a FIELD axis exists at all: the record was carrying speech, handwriting, activity,
+    # spectra, sonar, turbulence, cardiac rhythm, jet-engine telemetry and the zeta zeros, and the
+    # page named exactly two of them. A reader could not tell what had been tried. The table below
+    # is the answer to "what has this actually been measured on", and because it is generated it
+    # cannot drift away from the findings underneath it.
+    def n_track(k):
+        return sum(1 for f in fs if f.get("track") == k)
+
+    def n_domain(k):
+        return sum(1 for f in fs if k in f.get("domains", []))
+
+    def buttons(group, section, allword, counter):
+        bs = [f'<button class="tf on" data-g="{group}" data-t="all">{allword}</button>']
+        for k, v in section.items():
+            n = counter(k)
+            if not n and not v.get("show_when_empty"):
+                continue
+            bs.append(f'<button class="tf" data-g="{group}" data-t="{e(k)}">'
+                      f'{e(v.get("label", k))} <b>{n}</b></button>')
+        return "".join(bs)
+
+    track_buttons = buttons("track", tracks, "all lines", n_track)
+    domain_buttons = buttons("domain", domains, "all fields", n_domain)
+
+    track_legend = "".join(
+        f'<p><b>{e(v.get("label", k))}</b> ({n_track(k)}) — {e(v.get("desc", ""))}</p>'
+        for k, v in tracks.items() if n_track(k) or v.get("show_when_empty"))
+
+    def dom_row(k, v):
+        sel = [f for f in fs if k in f.get("domains", [])]
+        c = Counter(f["status"] for f in sel)
+        mix = " ".join(f'<span class="tag {STATUS_CLASS[s]}">{c[s]} {s}</span>'
+                       for s in STATUS_ORDER if c.get(s))
+        return (f'<tr data-jump="{e(k)}"><td><b>{e(v.get("label", k))}</b></td>'
+                f'<td class="n">{len(sel)}</td><td>{mix or "—"}</td>'
+                f'<td>{e(v.get("desc", ""))}</td></tr>')
+
+    domain_table = ("<table><thead><tr><th>Field</th><th></th><th>Status mix</th>"
+                    "<th>What the data is</th></tr></thead><tbody>"
+                    + "".join(dom_row(k, v) for k, v in domains.items()
+                              if n_domain(k) or v.get("show_when_empty"))
+                    + "</tbody></table>")
+
+    record_note = e(m.get("record_note", ""))
+    if m.get("related_record"):
+        r = m["related_record"]
+        record_note += (f' &nbsp;·&nbsp; {e(r.get("lead", ""))} '
+                        f'<a href="{e(r["url"])}">{e(r["title"])}</a>. '
+                        f'<b>A result in one line is not a claim about another.</b>')
 
     # ---- papers of record: the DOIs this record underpins, clickable from the byline
     papers_line = ""
@@ -259,13 +390,30 @@ def build():
     premise_block = ""
     pr = m.get("premise")
     if pr:
+        opt = "".join(
+            f'\n  <p><strong>{e(h)}</strong> {e(pr[k])}</p>'
+            for k, h in (("mechanism", "Why the method works, stated as a mechanism."),
+                         ("testable_form", "The falsifiable form."),
+                         ("test_status", "Where that test currently stands."))
+            if pr.get(k))
+
+        # A clarification of the premise, carrying ITS OWN date. It is rendered as a separately
+        # dated statement rather than folded into the premise text, because the premise has a
+        # published origin date and a later clarification must never read as having been there
+        # all along -- that would make the origin date unciteable.
+        if pr.get("recursion"):
+            opt += (f'\n  <p><strong>The regress does not halt.</strong> {e(pr["recursion"])}</p>'
+                    f'\n  <p class="meta">Clarification of the premise published '
+                    f'{e(pr["origin_date"])}; first stated in writing '
+                    f'{e(pr.get("recursion_stated", ""))}. It amplifies the published premise and '
+                    f'does not re-date it: the origin date above is unchanged.</p>')
         premise_block = f"""
   <h2>{e(pr['name'])}</h2>
   <p class="lede">{e(pr['statement'])}</p>
   <p><strong>Published origin:</strong>
      <a href="https://doi.org/{e(pr['origin_doi'])}">{e(pr['origin_doi'])}</a>
      ({e(pr['origin_date'])}). <strong>Named:</strong> {e(pr['named'])}.
-     {e(pr['priority_note'])}</p>
+     {e(pr['priority_note'])}</p>{opt}
   <p><strong>Why "hypothesis" and not "theory".</strong> {e(pr['why_hypothesis'])}</p>
   <p><strong>Two readings of the name.</strong> {e(pr['two_readings'])}</p>
   <p><strong>What is and is not claimed.</strong> {e(pr['boundary'])}</p>
@@ -293,15 +441,24 @@ def build():
 <section id="findings" class="on">
   <div class="counts">{pills}</div>
   <div class="tracks">
-    <span class="tlab">This record covers two separate lines of work:</span>
-    <button class="tf on" data-t="all">show both</button>
-    <button class="tf" data-t="clinical-rhythm">cardiac rhythm only</button>
-    <button class="tf" data-t="beyond-weights">architecture only</button>
-    <p class="tdesc" id="tdesc">{track_intro}</p>
+    <p class="frow"><span class="tlab">Line of work</span>{track_buttons}</p>
+    <p class="frow"><span class="tlab">Field measured on</span>{domain_buttons}</p>
+    <p class="tdesc">{record_note}</p>
+    <div class="tleg">{track_legend}</div>
   </div>
+
+  <h2>Where this has been measured</h2>
+  <p class="gen">The same representation is applied in every field below. Whether it <em>helps</em>
+     is a separate question, measured case by case — the fields where it did not are on this page
+     with the same weight as the fields where it did. Generated from <code>manifest.json</code>,
+     so it cannot disagree with the record underneath it. Click a row to filter.</p>
+  {domain_table}
+
+  <h2>Every finding, by number</h2>
   <p class="gen">Counts and the table below are generated from <code>manifest.json</code>, so they
      cannot disagree with the record. Newest finding: {max(f['date'] for f in fs)}.</p>
-  <table><thead><tr><th></th><th>Finding</th><th>Status</th><th>Rung</th><th>Date</th></tr></thead>
+  <table><thead><tr><th></th><th>Finding</th><th>Field</th><th>Status</th><th>Rung</th>
+  <th>Date</th></tr></thead>
   <tbody>{rows}</tbody></table>
   <h2>The record, newest first</h2>
   {cards}
@@ -358,10 +515,18 @@ def build():
      turned finding 3 from a sound trick into a claim. And per finding 21, a second dataset is not
      only confirmation — it is a different defect detector.</p>
 
-  <h2>Retractions stay visible</h2>
+  <h2>Retractions stay visible — and they are not all the same thing</h2>
   <p>{n_ret} findings on this page are retracted, with the original wording kept and labelled.
      {n_neg} more are outright negatives. Deleting them would make the record look stronger and be
      worth less.</p>
+  <p><strong>A retraction count on its own is misleading, so each one is typed.</strong> Withdrawing
+     a claim that something <em>worked</em> and withdrawing a claim that something <em>failed</em>
+     are opposite events, and lumping them together makes a record of self-correction read as a
+     record of failure. Of the {n_ret} here, <strong>{n_ret_pos} withdrew a positive claim</strong>
+     — we said it worked and our own later measurement said otherwise — and
+     <strong>{n_ret_neg} withdrew a negative one</strong>: we had recorded a failure or a limit of
+     the method against ourselves, and we were wrong about it. The second kind is the more common
+     on this page. Both are on it for the same reason.</p>
 
   <h2>Status meanings</h2>
   <table><tbody>{meanings}</tbody></table>

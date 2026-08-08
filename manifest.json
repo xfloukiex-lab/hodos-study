@@ -9,6 +9,8 @@
     "origin_doi": "10.5281/zenodo.21613155",
     "origin_date": "2026-07-27",
     "statement": "Nothing is what it is in isolation. A thing — including a self — is the pattern of its connections, not its substrate. What a system is is constituted by what it stands in relation to; and what it does that exceeds its parts — emergence — arises from that pattern of relation, and is never installed as a component. The relations are not decoration laid over pre-existing things: the things are constituted by relations, and those relations hold between further processes that are themselves so constituted. There is no isolated substrate underneath at which the regress halts.",
+    "recursion": "A part is prior to the whole it composes, and that priority is real — but it is local, not fundamental. Two halves must exist before one exists; the one is what their relation constitutes. Each half, in turn, is what the relation of two quarters constitutes. The series does not terminate in an unrelated object: at every level the thing exists because two or more further things stand in relation, and the same holds of those. So conceding that the components precede the emergence concedes nothing about substance — the components are themselves emergences of the same form, one level down. There is no floor at which relation stops and bare substrate begins, which is precisely why the premise applies at every scale rather than at a chosen one, and why an engine built on it is not restricted to any particular kind of matter or signal.",
+    "recursion_stated": "2026-08-08",
     "why_hypothesis": "It is called a hypothesis, not a theory, because independent outside replication has not happened yet. That is the scientifically correct use of the word: a hypothesis is a stated, testable position; it becomes a theory when others test it and it holds. It graduates to \"the Hodos Theory\" when replication by people with no stake in it has been done and has survived — not when it feels established, and not by the author's decision.",
     "two_readings": "Hodos-the-hypothesis is the principle (10.5281/zenodo.21613155). Hodos-the-engine is its measurement instantiation — the model-free distance between processes as curves of distributions (10.5281/zenodo.21612829). The dependency runs one way: the engine is downstream of the hypothesis, never the reverse. Cite the full phrase \"the Hodos Hypothesis\" for the principle, plain \"Hodos\" for the engine, and attach the DOI in both cases.",
     "priority_note": "The name refers back to a premise already published on 2026-07-27; naming it on 2026-08-07 does not create it and does not move its date. The premise is stated in the abstract of 10.5281/zenodo.21613155, given its own section 5, and declared in section 2 to be the one premise all five of the method's commitments are downstream of. It is stated earlier still in Your Past Loves You (begun 2026-07-19), which that paper cites as the plainest statement of the thesis the method is built on.",
@@ -38,7 +40,7 @@
     "active": "Survives the controls it was tested against; currently believed.",
     "provisional": "Measured, but on one task or at small scale; not yet replicated.",
     "negative": "Tested and did NOT hold. Reported because a negative is a result.",
-    "retracted": "We claimed it, then our own measurement refuted it. Original wording kept visible.",
+    "retracted": "We claimed it, then our own measurement refuted it. Original wording kept visible. Each retraction is labelled by WHAT it withdrew: a positive claim (we said it worked) or a negative one (we said it did not work, or that it was a limit of the method).",
     "untested": "Stated but never measured. Carries no weight."
   },
   "rungs": {
@@ -61,7 +63,11 @@
       "evidence": "2·geodesic == fisher_rao to 1e-9; chi² ≈ ¼·d_FR² with correlation 0.987 on real audio frames.",
       "scope": "Mathematical identity, not an empirical claim. Prior art (information geometry); reused, not invented.",
       "code": "hodos/sphere.py",
-      "controls": []
+      "controls": [],
+      "domains": [
+        "theory"
+      ],
+      "track": "foundations"
     },
     {
       "id": 2,
@@ -75,7 +81,11 @@
       "code": "hodos/",
       "controls": [
         "novelty check vs literature, 2026-07-22"
-      ]
+      ],
+      "domains": [
+        "theory"
+      ],
+      "track": "foundations"
     },
     {
       "id": 3,
@@ -90,7 +100,11 @@
       "controls": [
         "confirm-at-scale with a fresh seed",
         "binomial standard errors"
-      ]
+      ],
+      "domains": [
+        "speech"
+      ],
+      "track": "foundations"
     },
     {
       "id": 4,
@@ -106,7 +120,11 @@
         "paired McNemar",
         "fresh seed"
       ],
-      "note": "This is what took finding 3 from 'a sound trick' to a modality-independent claim. The method was never about sound."
+      "note": "This is what took finding 3 from 'a sound trick' to a modality-independent claim. The method was never about sound.",
+      "domains": [
+        "handwriting"
+      ],
+      "track": "foundations"
     },
     {
       "id": 5,
@@ -120,7 +138,12 @@
       "code": "validate/nn_har_orientation.py",
       "controls": [],
       "retraction": "The adapter fed gravity-removed acceleration reduced to a MAGNITUDE — a representation with direction deleted. Sitting and standing are both 'at rest, no direction', so under that input they were identical BY CONSTRUCTION. The method was not failing on static identity; it was succeeding on an input from which the answer had already been removed. A null produced by a crippled representation is not a boundary.",
-      "superseded_by": 6
+      "superseded_by": 6,
+      "domains": [
+        "activity"
+      ],
+      "track": "foundations",
+      "retraction_kind": "negative"
     },
     {
       "id": 6,
@@ -135,7 +158,11 @@
       "controls": [
         "subject-disjoint split"
       ],
-      "supersedes": 5
+      "supersedes": 5,
+      "domains": [
+        "activity"
+      ],
+      "track": "foundations"
     },
     {
       "id": 7,
@@ -151,7 +178,11 @@
         "theorem verified |ΔD| = 4.4e-16",
         "W1 claim self-corrected mid-build"
       ],
-      "note": "Shipped into Auris, closing that project's own documented pitch-sensitivity limit."
+      "note": "Shipped into Auris, closing that project's own documented pitch-sensitivity limit.",
+      "domains": [
+        "speech"
+      ],
+      "track": "foundations"
     },
     {
       "id": 8,
@@ -166,7 +197,13 @@
       "controls": [
         "18/class robustness re-check after a 6/class small-sample artifact reversed the apparent result"
       ],
-      "note": "This killed the universal-distinctiveness claim. It is the reason the paper's claim is narrow."
+      "note": "This killed the universal-distinctiveness claim. It is the reason the paper's claim is narrow.",
+      "domains": [
+        "spectra",
+        "sonar",
+        "turbulence"
+      ],
+      "track": "foundations"
     },
     {
       "id": 9,
@@ -182,7 +219,13 @@
         "mechanism investigation, scratchpad/diag_minmean.py"
       ],
       "retraction": "min-mean degenerates into long, padded, cheap-repeat paths (path padding 0.00 for standard DTW vs 0.61 for min-mean) which makes it behave MORE like plain averaging (correlation with mean-pool 0.779 → 0.845). Light is precisely the task where averaging wins — so it 'won' for the wrong reason, and the same collapse HURT on echo where timing is the signal. The object is Marzal–Vidal's Normalized Edit Distance (1993), proven non-metric. RETIRED.",
-      "note": "An unexplained win-here/lose-there is a red flag, not a result. Explain the mechanism BEFORE banking a win."
+      "note": "An unexplained win-here/lose-there is a red flag, not a result. Explain the mechanism BEFORE banking a win.",
+      "domains": [
+        "spectra",
+        "sonar"
+      ],
+      "track": "foundations",
+      "retraction_kind": "positive"
     },
     {
       "id": 10,
@@ -197,7 +240,11 @@
       "controls": [
         "matched-filter baseline",
         "flat-α baseline"
-      ]
+      ],
+      "domains": [
+        "sonar"
+      ],
+      "track": "foundations"
     },
     {
       "id": 11,
@@ -212,7 +259,12 @@
       "controls": [
         "both warps × both grounds × both modalities"
       ],
-      "note": "The claim survived contact with the field and got narrower and stronger."
+      "note": "The claim survived contact with the field and got narrower and stronger.",
+      "domains": [
+        "speech",
+        "handwriting"
+      ],
+      "track": "foundations"
     },
     {
       "id": 12,
@@ -226,7 +278,12 @@
       "code": "validate/nn_decompose.py",
       "controls": [
         "L2-on-RAW-frames arm — the earlier L2-on-sqrt arm was a BAD control (≈ Hellinger, same geometry) and produced a spurious 'FR doesn't help'"
-      ]
+      ],
+      "domains": [
+        "speech",
+        "handwriting"
+      ],
+      "track": "foundations"
     },
     {
       "id": 13,
@@ -245,7 +302,12 @@
         "all arms on identical splits and shots"
       ],
       "result_file": "kaggle_pack/out/hodos_science_result.json",
-      "note": "A pre-registered criterion predicted the gap would SHRINK with data (the signature of a prior). On handwriting it does, monotonically (+0.098→+0.018). On speech it RISES to a peak at 10 shots then falls — the local 5-shot sweep had only seen the rising half. Describing it as a 'prior' without that check would have been wrong."
+      "note": "A pre-registered criterion predicted the gap would SHRINK with data (the signature of a prior). On handwriting it does, monotonically (+0.098→+0.018). On speech it RISES to a peak at 10 shots then falls — the local 5-shot sweep had only seen the rising half. Describing it as a 'prior' without that check would have been wrong.",
+      "domains": [
+        "speech",
+        "handwriting"
+      ],
+      "track": "foundations"
     },
     {
       "id": 14,
@@ -263,7 +325,12 @@
         "ORDER INVARIANCE: building the store in REVERSE gives byte-identical answers, 1.000 on every seed"
       ],
       "result_file": "frontier/forgetting_result.json",
-      "note": "Order invariance at 1.000 is what makes this structural rather than lucky: the final state provably cannot depend on the sequence, so forgetting is impossible rather than merely absent. Two of our own errors were caught here — see findings 20 and 21."
+      "note": "Order invariance at 1.000 is what makes this structural rather than lucky: the final state provably cannot depend on the sequence, so forgetting is impossible rather than merely absent. Two of our own errors were caught here — see findings 20 and 21.",
+      "domains": [
+        "speech",
+        "handwriting"
+      ],
+      "track": "foundations"
     },
     {
       "id": 15,
@@ -279,7 +346,11 @@
         "parameter matching to within 1% — without it, a small-K model is simply a SMALLER model",
         "sharp-readout arm to separate the readout from the dimension"
       ],
-      "note": "The first version of this measured through a broken readout (see finding 16) and reached the right conclusion for the wrong reason."
+      "note": "The first version of this measured through a broken readout (see finding 16) and reached the right conclusion for the wrong reason.",
+      "domains": [
+        "language"
+      ],
+      "track": "foundations"
     },
     {
       "id": 16,
@@ -294,7 +365,11 @@
       "controls": [
         "mixture vs logit readout — identical, proving form is not the variable"
       ],
-      "note": "The same disease the distance-attention layer had in June, and the same cure: start as identity so a layer can only refine, never replace."
+      "note": "The same disease the distance-attention layer had in June, and the same cure: start as identity so a layer can only refine, never replace.",
+      "domains": [
+        "language"
+      ],
+      "track": "foundations"
     },
     {
       "id": 17,
@@ -314,7 +389,12 @@
       "result_file": "frontier/lm_memory_temp_result.json",
       "note": "This is a MECHANISM for the demarcation rather than an observation: rigid aligned windows have no timing to align away, so warping can only manufacture false matches. Actionable: on discrete aligned data, use the ground WITHOUT the warp.",
       "retraction": "Both of these were measured in a space where the Fisher-Rao ground is a CONSTANT FUNCTION. Contexts were built as label-smoothed one-hot rows, and on the actual vocabulary (V=65, eps=0.03) the Fisher-Rao distance between every pair of distinct characters is identical: min 2.9971, mean 2.9971, max 2.9971 -- spread exactly 0.0000. In that space Fisher-Rao and L2 induce the SAME ranking, so 'the ground ties L2' was an algebraic identity, not a measurement, and the warp was the only thing left that could move. The experiment could not have produced any other answer. Re-measured in a non-degenerate metric (finding 25) both conclusions reverse: the ground beats L2 and the warp HELPS.",
-      "superseded_by": 25
+      "superseded_by": 25,
+      "domains": [
+        "language"
+      ],
+      "track": "foundations",
+      "retraction_kind": "negative"
     },
     {
       "id": 18,
@@ -330,7 +410,12 @@
         "bin-wise smoothing control — MATCHED it exactly, which is what killed it",
         "length-matched subsampling control"
       ],
-      "note": "A clean kill by a control built specifically so it could kill the idea."
+      "note": "A clean kill by a control built specifically so it could kill the idea.",
+      "domains": [
+        "speech",
+        "handwriting"
+      ],
+      "track": "foundations"
     },
     {
       "id": 19,
@@ -347,7 +432,12 @@
         "naive-autocast dtype check"
       ],
       "retraction": "Both halves were wrong. The premise is BACKWARDS: characters are label-smoothed one-hots, so two DIFFERENT consecutive characters are nearly ORTHOGONAL (real-text mean inner product 0.096), nowhere near 1.0. The fp16 danger band contains 0.0000 of real pairs and zero pairs lose real motion. And naive autocast never reaches the geometry anyway — the manifold tensors come out float32. The 'safety' code written to guard this imaginary hazard then introduced the only real bug the run found.",
-      "note": "The clearest example in this project of why reasoning is not evidence."
+      "note": "The clearest example in this project of why reasoning is not evidence.",
+      "domains": [
+        "language"
+      ],
+      "track": "foundations",
+      "retraction_kind": "negative"
     },
     {
       "id": 20,
@@ -362,7 +452,13 @@
       "controls": [
         "comparison against the joint-trained ceiling"
       ],
-      "retraction": "In class-incremental learning the LABEL SPACE GROWS: task 1 is a 2-way choice when first learned and a 10-way choice at the end. Comparing those two numbers makes the task getting harder look like memory degrading. Measuring against the joint-trained ceiling makes the growing label space cancel, leaving only the cost of having learned in sequence — which for this system is exactly zero. The file's own docstring warned about this trap before the first version was written that way anyway."
+      "retraction": "In class-incremental learning the LABEL SPACE GROWS: task 1 is a 2-way choice when first learned and a 10-way choice at the end. Comparing those two numbers makes the task getting harder look like memory degrading. Measuring against the joint-trained ceiling makes the growing label space cancel, leaving only the cost of having learned in sequence — which for this system is exactly zero. The file's own docstring warned about this trap before the first version was written that way anyway.",
+      "domains": [
+        "speech",
+        "handwriting"
+      ],
+      "track": "foundations",
+      "retraction_kind": "negative"
     },
     {
       "id": 21,
@@ -375,7 +471,11 @@
       "scope": "Speech divides evenly into pairs, so nothing was orphaned there and the flaw could ONLY surface on a second modality.",
       "code": "validate/catastrophic_forgetting.py",
       "controls": [],
-      "note": "After the fix the net's forgetting ROSE from 0.692 to 0.801 — the bug had been FLATTERING the opponent. Replication on a second modality is not just confirmation of a number; it is a different defect detector."
+      "note": "After the fix the net's forgetting ROSE from 0.692 to 0.801 — the bug had been FLATTERING the opponent. Replication on a second modality is not just confirmation of a number; it is a different defect detector.",
+      "domains": [
+        "handwriting"
+      ],
+      "track": "foundations"
     },
     {
       "id": 22,
@@ -390,7 +490,11 @@
       "controls": [
         "density-matched sharp control — this is what killed the 4σ result"
       ],
-      "note": "Catching the artifact via the fair control IS the result. Kept as an honest appendix, not a claim."
+      "note": "Catching the artifact via the fair control IS the result. Kept as an honest appendix, not a claim.",
+      "domains": [
+        "zeta"
+      ],
+      "track": "foundations"
     },
     {
       "id": 23,
@@ -406,7 +510,12 @@
         "coordinate-shuffle matched null",
         "the repulsion statistic turned out to have NO dynamic range — a dead measurement, not a null"
       ],
-      "note": "Reported as a failed measurement rather than a null result. A z of 0 against a null with zero spread means the instrument could not move."
+      "note": "Reported as a failed measurement rather than a null result. A z of 0 against a null with zero spread means the instrument could not move.",
+      "domains": [
+        "zeta",
+        "language"
+      ],
+      "track": "foundations"
     },
     {
       "id": 24,
@@ -425,7 +534,12 @@
       ],
       "note": "Reported as it came out. An H1 pass alone would have been enough to claim a Hodos win; the control is what prevented that.",
       "retraction": "Both of these were measured in a space where the Fisher-Rao ground is a CONSTANT FUNCTION. Contexts were built as label-smoothed one-hot rows, and on the actual vocabulary (V=65, eps=0.03) the Fisher-Rao distance between every pair of distinct characters is identical: min 2.9971, mean 2.9971, max 2.9971 -- spread exactly 0.0000. In that space Fisher-Rao and L2 induce the SAME ranking, so 'the ground ties L2' was an algebraic identity, not a measurement, and the warp was the only thing left that could move. The experiment could not have produced any other answer. Re-measured in a non-degenerate metric (finding 25) both conclusions reverse: the ground beats L2 and the warp HELPS. The H1 half of this finding -- that memory helps a language model at all -- survives and is carried into finding 25. Only the control's verdict on the geometry is withdrawn.",
-      "superseded_by": 25
+      "superseded_by": 25,
+      "domains": [
+        "language"
+      ],
+      "track": "foundations",
+      "retraction_kind": "negative"
     },
     {
       "id": 25,
@@ -451,7 +565,11 @@
       "supersedes": [
         17,
         24
-      ]
+      ],
+      "domains": [
+        "language"
+      ],
+      "track": "foundations"
     },
     {
       "id": 26,
@@ -468,7 +586,11 @@
         "PERMUTATION NULL -- 10,000 shuffles of the class labels, so 'looks clustered' cannot be eyeballed into a result.",
         "INTERNAL NEGATIVE CONTROL -- the grab-bag 'other' category (digits, quotes, $, &) is not a linguistic class, and it is the ONE category with a POSITIVE residual (+0.117): its members are FURTHER apart than frequency predicts. The non-class is the one that does not cluster."
       ],
-      "note": "This is what the 4,225 parameters buy, and it is worth 7x perplexity on its own: the same architecture with characters pinned to one-hot corners scores 37.63 against 5.29 with the positions learned, at matched parameters and identical steps."
+      "note": "This is what the 4,225 parameters buy, and it is worth 7x perplexity on its own: the same architecture with characters pinned to one-hot corners scores 37.63 against 5.29 with the positions learned, at matched parameters and identical steps.",
+      "domains": [
+        "language"
+      ],
+      "track": "foundations"
     },
     {
       "id": 27,
@@ -486,7 +608,12 @@
         "matched parameter budget across arms",
         "paired per-sequence statistics rather than a difference of means"
       ],
-      "note": "This is the result that separates PREDICTING from RECOGNISING, and it is the strongest form of the project's central claim: the prediction is not learned, it falls out of the geometry. Note what it does NOT say — one step ahead on smooth continuous signals is a long way from language, where the same continuation currently costs 16% perplexity against an ordinary recurrent net (finding 24's successor)."
+      "note": "This is the result that separates PREDICTING from RECOGNISING, and it is the strongest form of the project's central claim: the prediction is not learned, it falls out of the geometry. Note what it does NOT say — one step ahead on smooth continuous signals is a long way from language, where the same continuation currently costs 16% perplexity against an ordinary recurrent net (finding 24's successor).",
+      "domains": [
+        "speech",
+        "handwriting"
+      ],
+      "track": "foundations"
     },
     {
       "id": 28,
@@ -504,7 +631,10 @@
         "one fixed temperature rule for every weighted arm — weights = exp(-d/median(d)) — so no arm gets a peakier weighting than another (the per-arm temperature confound documented in the retrieval findings)",
         "exact (exhaustive) retrieval in the composition arms, so composition quality is measured separately from index quality"
       ],
-      "note": "The pre-registered retention criterion failing because of its own baseline design is reported as what it is: a registration error, kept visible for the same reason retractions are. The decode gap is the working frontier — follow-up arms (consolidated-prototype decode, shot sweep, index scaling) are the next entries."
+      "note": "The pre-registered retention criterion failing because of its own baseline design is reported as what it is: a registration error, kept visible for the same reason retractions are. The decode gap is the working frontier — follow-up arms (consolidated-prototype decode, shot sweep, index scaling) are the next entries.",
+      "domains": [
+        "speech"
+      ]
     },
     {
       "id": 29,
@@ -521,7 +651,10 @@
         "identical entry set both ways (same seed, same sampling), so the comparison isolates arrival order",
         "evaluated through the same k=5 weighted vote as the main experiment, not through a simpler recall path"
       ],
-      "note": "The earlier order-invariance result (finding 14's protocol) measured 1-NN recall; this extends it through cohort composition. It also converts finding 28's registered retention FAIL from an open question into a closed one: nothing was forgotten, the baseline was degenerate."
+      "note": "The earlier order-invariance result (finding 14's protocol) measured 1-NN recall; this extends it through cohort composition. It also converts finding 28's registered retention FAIL from an open question into a closed one: nothing was forgotten, the baseline was degenerate.",
+      "domains": [
+        "speech"
+      ]
     },
     {
       "id": 30,
@@ -539,7 +672,10 @@
         "the same fixed exp(-d/median) weighting everywhere; exact retrieval in the decode arms so index quality is not confounded with composition quality",
         "the shot sweep reuses the same base sampling per grid point rather than resampling, so store growth is the only variable"
       ],
-      "note": "Together with finding 28's L1 (the cohort vote beats the single nearest for classification), this is an architecture rule, not a defect report: composition belongs on the recognition side of the loop — blend evidence to decide, read out the nearest memory to produce. The saturating exact accuracy (0.483 at both 50 and 200 entries) says the across-speaker ceiling is set by the speaker shift, not by memory size, consistent with the shot sweep. Provenance: two background runs were killed externally mid-flight; store-50/100 index rows are transcribed from the first run's line-buffered console output (same seed and protocol), the rest computed live by the resume-capable finisher — noted in the result JSON."
+      "note": "Together with finding 28's L1 (the cohort vote beats the single nearest for classification), this is an architecture rule, not a defect report: composition belongs on the recognition side of the loop — blend evidence to decide, read out the nearest memory to produce. The saturating exact accuracy (0.483 at both 50 and 200 entries) says the across-speaker ceiling is set by the speaker shift, not by memory size, consistent with the shot sweep. Provenance: two background runs were killed externally mid-flight; store-50/100 index rows are transcribed from the first run's line-buffered console output (same seed and protocol), the rest computed live by the resume-capable finisher — noted in the result JSON.",
+      "domains": [
+        "speech"
+      ]
     },
     {
       "id": 31,
@@ -557,7 +693,10 @@
         "the judge is 1-NN over raw held-out clips — no blended prototypes anywhere in the evaluator (see finding 32's judge note)",
         "full query sets rather than the subsample that first hit the bar exactly; per-seed results reported individually"
       ],
-      "note": "This is the architecture's core promise measured: accuracy grows with every example remembered, both legs cross their bars at 4 examples per word, and learning is memory formation alone. The open frontier is transfer to unseen speakers, which is a representation problem (disentangling voice from content), not a memory problem."
+      "note": "This is the architecture's core promise measured: accuracy grows with every example remembered, both legs cross their bars at 4 examples per word, and learning is memory formation alone. The open frontier is transfer to unseen speakers, which is a representation problem (disentangling voice from content), not a memory problem.",
+      "domains": [
+        "speech"
+      ]
     },
     {
       "id": 32,
@@ -574,7 +713,10 @@
         "identical splits and seeds across both deciders, so the comparison isolates the decision rule",
         "the judge comparison re-scores the SAME 40 decoded responses under both judges rather than resampling"
       ],
-      "note": "Two practical rules fall out: consolidate for transfer, vote for personalization; and never put a blended artifact on either side of a decode evaluation. The second one bit this project's own pre-registered criterion before it was caught."
+      "note": "Two practical rules fall out: consolidate for transfer, vote for personalization; and never put a blended artifact on either side of a decode evaluation. The second one bit this project's own pre-registered criterion before it was caught.",
+      "domains": [
+        "speech"
+      ]
     },
     {
       "id": 33,
@@ -592,7 +734,10 @@
         "chance floor stated (0.200) so a weak-but-real effect is not read as failure",
         "both deciders reported at every coverage point rather than the better one"
       ],
-      "note": "This is COHERENT with the record's older domain nulls rather than a surprise: an earlier cross-domain test already found ECG a non-result for this metric (Fisher-Rao edging plain L2 by ~0.5 sigma) and named the confound — those domains ran a generic sliding-window frontend rather than a tuned one. The standing two-lane finding predicts it: the geometry earns its keep where identity lives in temporal EVOLUTION, and the identity of a single heartbeat is closer to a shape than to a motion. So the honest statement of the coverage law is now conditional: it holds where the metric holds. The methodological lesson is ours to keep — the prior null was in the record before this experiment was chosen, and reading it first would have predicted the outcome. Finding 34 asks the same organ the OTHER question and gets the opposite answer."
+      "note": "This is COHERENT with the record's older domain nulls rather than a surprise: an earlier cross-domain test already found ECG a non-result for this metric (Fisher-Rao edging plain L2 by ~0.5 sigma) and named the confound — those domains ran a generic sliding-window frontend rather than a tuned one. The standing two-lane finding predicts it: the geometry earns its keep where identity lives in temporal EVOLUTION, and the identity of a single heartbeat is closer to a shape than to a motion. So the honest statement of the coverage law is now conditional: it holds where the metric holds. The methodological lesson is ours to keep — the prior null was in the record before this experiment was chosen, and reading it first would have predicted the outcome. Finding 34 asks the same organ the OTHER question and gets the opposite answer.",
+      "domains": [
+        "cardiac"
+      ]
     },
     {
       "id": 34,
@@ -610,7 +755,10 @@
         "transition windows excluded — a window's label must be pure, or a mixed window would score as an error for either arm arbitrarily",
         "judge is 1-NN over held-out windows of the same patient, no blended prototypes (per finding 32)"
       ],
-      "note": "The scientific content is the CONTRAST with finding 33, not the accuracy alone: the same organ, the same patients' data, the same loop, and the same encoder family give a null on beat shape and a working system on rhythm dynamics — which is what the two-lane boundary predicts and is the sharpest confirmation of it so far. The registered failures are kept because they are the honest ones: a criterion that demands strict monotonicity across noisy coverage points, and a 5-point margin demand that a consistent 3-5 point advantage does not meet at the single point where it was checked. Finding 35 places this against the published state of the art and against a population-memory control, and the answer there is not flattering."
+      "note": "The scientific content is the CONTRAST with finding 33, not the accuracy alone: the same organ, the same patients' data, the same loop, and the same encoder family give a null on beat shape and a working system on rhythm dynamics — which is what the two-lane boundary predicts and is the sharpest confirmation of it so far. The registered failures are kept because they are the honest ones: a criterion that demands strict monotonicity across noisy coverage points, and a 5-point margin demand that a consistent 3-5 point advantage does not meet at the single point where it was checked. Finding 35 places this against the published state of the art and against a population-memory control, and the answer there is not flattering.",
+      "domains": [
+        "cardiac"
+      ]
     },
     {
       "id": 35,
@@ -628,7 +776,10 @@
         "population store balanced per class and drawn from all other patients",
         "specificity reported separately from accuracy, because the clinical complaint about existing monitors is false alarms, and an accuracy gain carried by sensitivity would not answer it"
       ],
-      "note": "SUPERSEDED IN PART BY FINDING 36: the accuracy half of this finding was a data-starvation artifact, not a ceiling — at 64 examples per state the same loop reaches 0.983. The personalisation-gain half stands. POST-HOC OBSERVATION, explicitly not a claim and not pre-registered: the gains are not spread evenly. Personalisation gain correlates strongly NEGATIVELY with how well the population store already does (r = -0.86 for accuracy, -0.87 for specificity). For the three patients the population store handles poorly (<0.90) the mean gains are +0.100 accuracy and +0.189 specificity, and for the single worst case the population store's specificity of 0.387 — a majority-false-alarm regime — rises to 0.871 with that patient's own memories. For the seven it already handles well, the mean gain is -0.005. That pattern, IF it survives a pre-registered test on held-out patients, would reframe the architecture's role from 'a better detector' to 'a rescue layer for the atypical patients population models fail' — which is a narrower and more defensible claim than the one this finding refutes. Until that test exists, it is a hypothesis, and the recorded result is the negative one."
+      "note": "SUPERSEDED IN PART BY FINDING 36: the accuracy half of this finding was a data-starvation artifact, not a ceiling — at 64 examples per state the same loop reaches 0.983. The personalisation-gain half stands. POST-HOC OBSERVATION, explicitly not a claim and not pre-registered: the gains are not spread evenly. Personalisation gain correlates strongly NEGATIVELY with how well the population store already does (r = -0.86 for accuracy, -0.87 for specificity). For the three patients the population store handles poorly (<0.90) the mean gains are +0.100 accuracy and +0.189 specificity, and for the single worst case the population store's specificity of 0.387 — a majority-false-alarm regime — rises to 0.871 with that patient's own memories. For the seven it already handles well, the mean gain is -0.005. That pattern, IF it survives a pre-registered test on held-out patients, would reframe the architecture's role from 'a better detector' to 'a rescue layer for the atypical patients population models fail' — which is a narrower and more defensible claim than the one this finding refutes. Until that test exists, it is a hypothesis, and the recorded result is the negative one.",
+      "domains": [
+        "cardiac"
+      ]
     },
     {
       "id": 36,
@@ -646,7 +797,10 @@
         "plain-L2 control carried at every coverage level, so the improvement cannot be attributed to more data alone",
         "the hand-picked default retained as a baseline arm rather than discarded once a better dev config existed"
       ],
-      "note": "The methodological content is worth more than the number: a result recorded as 'we are behind the field' turned out to be 'we gave it a sixteenth of the data', and the way that was established was by testing the boring explanation (knobs) before the flattering one (data). Both were run before this was written. The behaviour is also exactly what a memory-based learner should show — accuracy rising monotonically with stored experience, no retraining at any point — and it is the same curve shape as the speech coverage law, in a domain where the shape was in question. The exclusion caveat named in this finding's scope is closed by finding 37, and 0.966 there — measured with nothing excluded — is the number that should be quoted, not the 0.983 in this title. The two differ because this one skips the windows where the rhythm changes mid-window, which are the hard ones."
+      "note": "The methodological content is worth more than the number: a result recorded as 'we are behind the field' turned out to be 'we gave it a sixteenth of the data', and the way that was established was by testing the boring explanation (knobs) before the flattering one (data). Both were run before this was written. The behaviour is also exactly what a memory-based learner should show — accuracy rising monotonically with stored experience, no retraining at any point — and it is the same curve shape as the speech coverage law, in a domain where the shape was in question. The exclusion caveat named in this finding's scope is closed by finding 37, and 0.966 there — measured with nothing excluded — is the number that should be quoted, not the 0.983 in this title. The two differ because this one skips the windows where the rhythm changes mid-window, which are the hard ones.",
+      "domains": [
+        "cardiac"
+      ]
     },
     {
       "id": 37,
@@ -664,7 +818,246 @@
         "transition and pure windows scored separately as well as together, so the cost of the hard cases is a reported number rather than a hidden one",
         "queries taken in stream order rather than shuffled, matching how a monitor would actually see them"
       ],
-      "note": "The pattern across findings 33-37 is the useful object: a null on beat shape, a working system on rhythm, a self-inflicted 'we are behind' from data starvation, and now the excluded hard cases scored and survived. Each step was a caveat someone could have raised, tested by us before anyone raised it. What remains genuinely open and unmeasured: cross-patient transfer, longer horizons than these recordings, and whether the onset result holds on episodes shorter than 3 windows."
+      "note": "The pattern across findings 33-37 is the useful object: a null on beat shape, a working system on rhythm, a self-inflicted 'we are behind' from data starvation, and now the excluded hard cases scored and survived. Each step was a caveat someone could have raised, tested by us before anyone raised it. What remains genuinely open and unmeasured: cross-patient transfer, longer horizons than these recordings, and whether the onset result holds on episodes shorter than 3 windows.",
+      "domains": [
+        "cardiac"
+      ]
+    },
+    {
+      "id": 38,
+      "date": "2026-08-05",
+      "track": "machine-telemetry",
+      "domains": [
+        "jet-engine"
+      ],
+      "title": "Matched pairs on jet engines: something beyond present distance predicts which unit fails sooner — but the differential operators are not what reads it",
+      "status": "negative",
+      "rung": 4,
+      "claim": "Given two engines equally far from their own baseline at the same age, one of which will fail much sooner, the differential-operator family built for exactly this question (velocity, acceleration, curvature as a three-vector) does NOT tell them apart on a fleet it has never seen. A single path statistic does.",
+      "evidence": "45 disjoint matched pairs, same cycle, distance-from-own-baseline matched to 0.091%; sooner-failing engine has mean remaining life 76 cycles against 149. On the held-out fleet FD003 — 100 engines untouched by any earlier choice — the dynamics three-vector scores 0.594 with a sign-flip permutation p = 0.2675, which is chance. Dynamics minus the path baseline is −0.156. A curvature direction FIXED IN ADVANCE scored 0.562 held-out against 0.737 on the fleet it was first spotted in. What did carry the signal is one number off the distance curve: how far above its current position the engine had already been.",
+      "scope": "Simulated run-to-failure data from one engine family (NASA C-MAPSS). This is not flight telemetry and a result here is not a claim about spacecraft. One window size; the ordering between arms flips across the window sweep.",
+      "code": "validate/turbofan_matched_pairs.py · validate/turbofan_replication.py",
+      "controls": [
+        "THE CONTROL IS BLIND BY CONSTRUCTION, not by hope: matching equalises distance-from-baseline, so a distance-only decider must score 0.500 — and it does, EXACTLY 0.500, on four fleets and 482 engines.",
+        "Pairs additionally SIGN-BALANCED. Matching equalises magnitude but not sign, and a one-feature rule reads only the sign; the unbalanced version's control sat at 0.578, which is the residual-sign rate to three decimals.",
+        "The curvature direction was pre-registered before the held-out run — which is the only reason its collapse from 0.737 to 0.562 counts as a refutation instead of an anecdote.",
+        "Held-out fleet never used for any design choice."
+      ],
+      "note": "An earlier version of this run PASSED at 0.711 (p = 0.0075) and was withdrawn, twice, both times because of a control rather than a result. The first control had TIME baked into it — it measured distance travelled over a fixed number of cycles, which is speed under another name, so it was the thing it was supposed to be blind to. The second was only approximately blind. The honest programme claim after all of it is narrower than the one this work set out to make: velocity generalises as a DETECTOR; the operators do not characterise change."
+    },
+    {
+      "id": 39,
+      "date": "2026-08-05",
+      "track": "machine-telemetry",
+      "domains": [
+        "jet-engine"
+      ],
+      "title": "Per-condition normalisation makes multi-regime fleets measurable at all — and a count caught the defect that would have hidden it",
+      "status": "active",
+      "rung": 4,
+      "claim": "On fleets that operate in six different flight conditions, treating the vehicle as one regime scores at chance. Giving each engine its own baseline PER CONDITION, read from operational settings alone, recovers the measurement — and the excursion replicates on two fleets that had never been touched.",
+      "evidence": "Control blind at 0.500 EXACTLY on 4 of 4 fleets (482 engines, 6 conditions, 2 fault modes). The naive single-regime treatment collapses to 0.516 and 0.509 — chance — against 0.721 and 0.764 for the per-condition version, permutation p < 0.0001 on both. The margin over the dynamics operators is +0.048 on FD002 against a pre-registered +0.10 bar, so 'decisively beats the operators' is NOT claimed and was recorded as a fail.",
+      "scope": "Simulated run-to-failure data, one engine family. Baselines are set from an engine's first 8 flights in each condition; nothing is borrowed from another engine or a population model.",
+      "code": "validate/turbofan_conditions.py",
+      "controls": [
+        "Distance-only control blind by construction, verified at 0.500 exactly on every fleet.",
+        "A CONDITION-COUNT CHECK THAT GATES. The detector found 7 operating conditions where the documentation says 6, and the first version PRINTED the mismatch and scored anyway. Cause: one condition's second setting sits near a rounding boundary, so noise split it in two. Re-keying took FD002 from 146 to 241 usable engines and flipped the registered criterion from FAIL to PASS. The script now REFUSES to score a fleet whose condition map disagrees with the documentation.",
+        "Criteria fixed in the file before any FD002/FD004 number existed."
+      ],
+      "note": "The rule this earned is worth more than the result: a check that reports and does not gate is not a check. It had been printing a real defect into the log for as long as the pipeline existed."
+    },
+    {
+      "id": 40,
+      "date": "2026-08-07",
+      "track": "machine-telemetry",
+      "domains": [
+        "jet-engine"
+      ],
+      "title": "The excursion replicated pre-registered on two unseen fleets — and is retired anyway, because part of it was a modelling choice",
+      "status": "retracted",
+      "retraction_kind": "positive",
+      "rung": 4,
+      "claim": "ORIGINAL WORDING, NOW WITHDRAWN: 'How far above its current position an engine had already been — one number, the excursion — predicts which of two matched engines fails sooner, and it replicates pre-registered on two unseen fleets at 0.721 and 0.764, p < 0.0001, against a control blind at exactly 0.500.'",
+      "evidence": "The replication is real and its numbers stand. What was missing was a test of whether the quantity survives the arbitrary choice inside it.",
+      "scope": "RETIRED as a claim 2026-08-07. The measurement is not disowned; the interpretation is.",
+      "code": "validate/excursion_baseline_free.py · validate/turbofan_fragility.py",
+      "controls": [
+        "The insight that made it testable: the baseline does TWO jobs — it standardises each sensor AND supplies the reference the excursion is measured from — and varying its length moved both at once, which is why 'baseline-sensitive' was never localised.",
+        "Dropping the REFERENCE role alone collapses the spread across the baseline grid from 0.262 to 0.022, which locates the sensitivity precisely.",
+        "Three baseline-free formulations built and scored against a pre-registered 0.65 bar."
+      ],
+      "retraction": "The excursion moves with a knob nobody has justified. Across blind configurations of the baseline it spans 0.533 to 0.795 on one fleet — a range that contains both 'strong result' and 'nothing'. The sensitivity was then localised to the REFERENCE distribution, and no baseline-free formulation recovers the signal: 0.535 and 0.604 against a 0.65 bar, with the radius forms sitting near chance at 0.51–0.57. So stability and signal turned out to live in different places — the form that is stable carries nothing, and the form that carries something is unstable. A pre-registered replication and an unresolved dependence on a modelling choice travel together or neither does. ⚠ This does NOT prove the effect is pure artefact: a radius upper-bounds a signed overshoot, so the failure of the baseline-free version proves only that no baseline-free version has been found. Those are different statements and merging them would be a second error.",
+      "note": "This is a retraction of a POSITIVE claim — the rarer kind on this page, and the uncomfortable one. It removed the single best number the machine-telemetry track had."
+    },
+    {
+      "id": 41,
+      "date": "2026-08-07",
+      "track": "machine-telemetry",
+      "domains": [
+        "jet-engine"
+      ],
+      "title": "Attribution on real engines: the null control holds on hardware, and the binary question turns out to be the wrong one",
+      "status": "active",
+      "rung": 3,
+      "claim": "The per-channel permutation null — built after an earlier version named channels on pure noise — holds on real degrading hardware: on engines that have NOT degraded the module names a sensor on 4 of 100 and 1 of 100. But on degraded engines it names 89–92% of all sensors, and that is CORRECT rather than broken, which makes the binary 'is this channel significant' question useless on coupled machinery.",
+      "evidence": "400 engine-runs (100 fault + 100 healthy on each of two fleets), 15 sensors common to both, permutation count sized from the corrected threshold it has to resolve (401 against a Bonferroni bar of 0.00333, margin ×1.34, checked before running). On unit 1, 14 of the 15 sensors have genuinely moved more than 1 sd from their own baseline — NRf +8.2, T50 +7.5, Ps30 +6.0, Nf +5.8, P30 −5.7. Across all 200 degraded engines the naming rate is 0.89 and 0.92.",
+      "scope": "Simulated run-to-failure data, one engine family, no per-sensor ground truth — the dataset labels fault MODES, not sensors. The series is truncated to the healthy reference plus the scored window, so nothing here speaks to WHEN divergence started.",
+      "code": "validate/turbofan_attribution.py · hodos/attribution.py",
+      "controls": [
+        "T1, the healthy-engine null, gates everything else and is the load-bearing arm: an earlier uncalibrated version named a channel on 3 of 5 pure-noise seeds, which is what made the null non-optional.",
+        "The saturation was CHECKED AGAINST THE DATA before anything was built on it. Flagging 14 of 15 sensors looked like a broken control; the sensors had genuinely moved. The saturation is the machine, not the method.",
+        "Two criteria (within-mode consistency and between-mode discrimination) were expected to fail for that structural reason, were kept anyway, and did fail. Deleting a pre-registered criterion after watching it fail would have been the dishonest move."
+      ],
+      "note": "The generalisation is the part that matters: every attribution result before this one was measured with ONE faulted channel among healthy ones. That is the easy regime and it is not the regime real hardware is in. A turbofan is thermodynamically coupled — at end of life the true answer to 'which channels diverged' really is 'almost all of them', and a monitor that says so has told an operator nothing. The answerable question on coupled hardware is ORDERING, not significance."
+    },
+    {
+      "id": 42,
+      "date": "2026-08-08",
+      "track": "machine-telemetry",
+      "domains": [
+        "jet-engine"
+      ],
+      "title": "Ordering measured against the right null: nine-tenths of the apparent concentration was the representation, not the fault",
+      "status": "negative",
+      "rung": 3,
+      "claim": "Asked which sensor leads on a degrading engine, the method looks strikingly consistent — until it is scored against how consistent it is on HEALTHY engines instead of against a uniform ideal. Against the healthy population's own concentration the honest gap is +0.102, not the 0.95 the weaker comparison implied. What does survive is narrower and real: WHICH sensor leads differs between the two fault modes, even though neither arm concentrates.",
+      "evidence": "Validity arm passes on 100 held-out healthy engines with 12 sensors reaching at least 5% of top-1. Primary arm: healthy top-1 entropy 2.509, fault 2.407, gap +0.102 against a pre-registered ≥0.40 bar, p = 0.0105 — FAIL. Discrimination arm: total-variation distance between the two fault modes' leading-sensor distributions 0.280, p = 0.0330 against a ≥0.25 bar — PASS. A third arm on a single marker sensor fails at p = 0.1231.",
+      "scope": "Simulated data, two fleets, one engine family. Rankings are read from the cached attribution state rather than recomputed, so this run and the run it corrects are comparable on representation. The p of 0.0105 is NOT to be rounded into significance — the criterion failed as registered and the effect size misses by four times regardless.",
+      "code": "validate/ordering_healthy_null_run.py",
+      "controls": [
+        "THE CONTROL THAT VOIDED THE BEST RESULT OF ITS DAY, and it was written against that result before there was one. Asked whether any sensor ranks first on HEALTHY engines anyway, the answer is yes — one does, on 24 of 200. So concentration in the fault arm is partly a property of the representation, and the two arms that depended on it were declared VOID by the rule fixed before the run.",
+        "What that voided: a table showing one sensor ranked first on 41 of 100 engines with an entropy of 1.605 against a 2.557 bar. Enormous, clean, and meaningless. Without the control it would have entered this record as 'the method consistently identifies T50'.",
+        "The pre-registration named the wrong sensors and is kept as written. The sharpest fault-mode difference in the data is a bypass-duct pressure named on 1 of 100 engines of one mode against 17 of 100 of the other — excluded from the declared list precisely because it is constant in the first fleet, which is exactly what makes it the cleanest marker."
+      ],
+      "note": "This is the corrected form of a result that looked far better before it was controlled properly. The rule it earned: the null must be the method's own behaviour on null data, not a uniform ideal — a method that ALWAYS names the same sensor concentrates perfectly whether or not anything is wrong. The surviving positive is worth stating plainly on its own: ordering discriminates fault modes but does not concentrate."
+    },
+    {
+      "id": 43,
+      "date": "2026-08-07",
+      "track": "machine-telemetry",
+      "domains": [
+        "synthetic-telemetry"
+      ],
+      "title": "Mixed units are not the blocker they were assumed to be — plain z-scoring beats both distributional standardisers on channels built to break it",
+      "status": "negative",
+      "rung": 2,
+      "claim": "For months the record carried an untested assumption: that pressures, temperatures, voltages and rates must each become a distribution before this geometry applies. Measured, it is unsupported. On ten channels chosen to be awkward — lognormal flow, heavy-tailed bus voltage, a valve pinned at its rail, an integer counter — plain per-channel z-scoring wins by a wide margin at equal false alarm.",
+      "evidence": "At a 20-frame baseline, detection 0.69 for z-score against 0.28 (median/MAD) and 0.27 (probability integral transform), thresholds fitted on held-out no-fault seeds so the comparison is at equal false alarm. Across baseline lengths 20 to 200 z-score runs 0.89 → 0.97 and never once fails its false-alarm gate. A saturation prediction written before the run landed exactly: the PIT is bounded by its baseline sample, so it goes flat at 0.10–0.12 from drift 3 upward while z-score climbs 0.48 → 0.94.",
+      "scope": "Synthetic channels designed to be awkward, not real telemetry. The claim is 'not the bottleneck on data built to break it', NOT 'will never be the bottleneck'. z-score handled them at 0.89–0.97, so they may be milder than real mixed-unit hardware.",
+      "code": "hodos/hetero.py · validate/hetero_channels.py · validate/hetero_baseline_length.py",
+      "controls": [
+        "The fault size was defined in Z-SCORE'S OWN NATIVE SCALE, so a win for the alternatives could not come from a flattering fault definition — the comparison is rigged AGAINST the incumbent, and the incumbent still wins.",
+        "An all-gaussian control arm gates adoption: a standardiser that wins on messy channels by wrecking clean ones is a different failure, not an improvement.",
+        "A CONFOUND OF OURS, found and measured rather than argued away: every arm used a 20-frame baseline, and 20 points do not punish the three methods equally — z-score estimates two numbers, the PIT estimates a whole distribution. Re-running across baseline lengths NARROWED the refutation: at 200 frames the PIT reaches z-score to within 0.04. It was starved, not useless. Its false-alarm control is still unstable across lengths (2 of 8 cells out of band), so it is not adoptable either way."
+      ],
+      "note": "A second hypothesis of ours was proposed and refuted the same hour. Noticing the PIT could only reach six of twelve bins, we built a stretched version to fill the range — and it scored WORSE, 0.72 against 0.93, because stretching moves the baseline noise out in the same proportion as the signal. It is kept in the module marked measured-worse so nobody re-derives it. Three hypotheses were tested that day and two were refuted by their own runs; that ratio is the point of running them."
+    },
+    {
+      "id": 44,
+      "date": "2026-08-07",
+      "track": "machine-telemetry",
+      "domains": [
+        "synthetic-telemetry"
+      ],
+      "title": "The layered architecture was refuted too broadly: it was the pooled statistic, not the hierarchy",
+      "status": "active",
+      "rung": 2,
+      "claim": "Testing a subsystem by pooling its channels' distributions was measured at 0.03 detection against a flat test's 0.50, and the conclusion drawn was that the layered subsystem-then-channel architecture is refuted. That was too broad. Asking instead whether a subsystem CONTAINS a diverging channel — a maximum over its channels rather than a pooled statistic — recovers it: 0.67 detection at zero false alarms and 4.4 times cheaper.",
+      "evidence": "4 subsystems × 5 channels, 30 seeds, criteria fixed before the run. Two-stage MAX 20/30 = 0.67 [0.49, 0.81] with 0/30 false alarms, against flat Bonferroni 0.50 [0.33, 0.67], flat FDR 0.53, and the pooled two-stage version it replaces at 0.03 [0.01, 0.17]. The registered prediction landed: mean subsystems flagged on a fault vehicle goes from 0.033 to 0.867 — stage one now fires at all, which is the whole finding. Cost 219,330 permutation-divergences against 961,200.",
+      "scope": "Synthetic vehicles with EQUAL, INVENTED subsystems of five channels each, one faulted channel, all channels standard normal. On real hardware a raw maximum is dominated by the noisiest channel unless it is standardised first — and real subsystems are not equal sizes, which changes the null a maximum is scored against.",
+      "code": "validate/attribution_max_group.py · validate/attribution_max_paired.py",
+      "controls": [
+        "The MAX null takes the maximum over the SAME channels after shuffling each in time, so the largest-of-k inflation appears identically in the statistic and in its null and cancels. The null must contain the artefact or it cannot remove it — the same reasoning that fixed the constant-offset artefact.",
+        "A POST-HOC PAIRED TEST THAT CUTS AGAINST THE HEADLINE, run because the point estimates looked too good: McNemar on the same 30 vehicles gives 6 versus 1 discordant, p = 0.125. Not significant. The Wilson intervals overlap heavily too.",
+        "The comparison arms were reused from the prior run after verifying its recorded configuration identical, which is what made the test PAIRED and the McNemar possible at all."
+      ],
+      "note": "The honest claim is therefore 'matches flat at equal false alarm and is 4.4 times cheaper', NOT 'beats it'. The point estimates say otherwise and are wrong to. Against the pooled version it replaces the comparison is not close: 19 versus 0 discordant, p = 0.000004 — that is the comparison carrying this finding.",
+      "superseded_by": 47
+    },
+    {
+      "id": 45,
+      "date": "2026-08-08",
+      "track": "machine-telemetry",
+      "domains": [
+        "spacecraft"
+      ],
+      "title": "First contact with real spacecraft telemetry: the obvious instrument alarms on everything",
+      "status": "negative",
+      "rung": 3,
+      "claim": "Asking whether a channel's distribution over a window differs from the window before it — a two-sample permutation test, the textbook construction — flags at least one channel on EVERY event-free window of real mission telemetry. False-alarm rate 1.000. It is not broken; it is correct and useless.",
+      "evidence": "150 event-free control windows drawn from stretches with no annotated event anywhere in them or in their reference, 76 channels, 2,000 permutations per channel, permutation count checked against the corrected threshold it must resolve (0.000500 against a 0.000658 bar, margin ×1.32). All three deciders — flat Bonferroni, flat FDR, two-stage — flagged 150 of 150. The pre-registered gate declared every other arm of that run VOID rather than failed, and they are reported nowhere.",
+      "scope": "One mission, real flight telemetry, 5.5-hour windows on a fixed resampling grid.",
+      "code": "validate/esa_layered_test.py",
+      "controls": [
+        "The null control was the FIRST criterion in the file and it gated everything behind it. Without it this run would have reported detection of 1.000 on anomalies — a perfect score — and it would have been meaningless, because the same instrument scores 1.000 on windows where nothing happened.",
+        "Held to the pre-registered rule: a decider failing the null control has its other numbers voided, not merely marked weak."
+      ],
+      "note": "The diagnosis is the value, and it is the same shape as the saturation already recorded on jet engines. On a real spacecraft every channel genuinely differs between any two adjacent stretches — orbital period, eclipse, thermal cycling, telecommands all move it — so a test with enough power finds a real difference every time. The exchangeability null answers 'did this window differ from the last one', and a monitor needs to ask 'is this unusual for this vehicle'. Those are different questions and only the second one is useful. ESA Anomaly Dataset (Mission1), Zenodo record 15237121, CC BY 3.0 IGO — attribution required, redistribution permitted."
+    },
+    {
+      "id": 46,
+      "date": "2026-08-08",
+      "track": "machine-telemetry",
+      "domains": [
+        "spacecraft"
+      ],
+      "title": "With the channel's own normal variability as the null, it works — and names the right channels at 4.5× the base rate against real ground truth",
+      "status": "active",
+      "rung": 3,
+      "claim": "Replacing the null with an empirical, per-channel one — how far does THIS channel move between two normal stretches, measured over 1,600 event-free windows of its own history — turns the instrument of finding 45 into a working one. It holds its false-alarm rate on held-out event-free windows, detects 97.5% of annotated anomalies, and identifies which channels were involved at four and a half times the base rate.",
+      "evidence": "False alarm 0.025 (flat Bonferroni), 0.028 (FDR), 0.018 (two-stage) on 400 HELD-OUT event-free windows that played no part in building the null. Detection 0.975 of 118 annotated anomalies for both flat deciders. Attribution against the dataset's own channel-level labels: flat Bonferroni recall 0.429 at precision 0.591 — 4.54× the 0.130 base rate — with a channel-label shuffle p of 0.0010; FDR recall 0.562 at precision 0.528 (4.06× base). 76 channels, 200 annotated events, empirical null of 1,600 windows per channel with the resolution checked against the corrected bar before scoring.",
+      "scope": "One mission. Windows are resampled to a fixed 256-point grid, so transients shorter than the grid are not resolved. Recall of 0.43 means the majority of labelled channels are still missed; this identifies SOME of the right channels well above chance, not all of them. Real flight telemetry, but one vehicle and one annotation scheme.",
+      "code": "validate/esa_channel_null_test.py",
+      "controls": [
+        "THE HELD-OUT SPLIT IS THE GATE. 400 of the 2,000 event-free windows are reserved and never used to build the null, because scoring the false-alarm rate on the same windows that defined the null would pass by construction. This is what separates a real gate from a self-check.",
+        "The null is built from THAT CHANNEL'S OWN history, so its noise scale, its binning regime and its quirks appear identically in the statistic and in the null and cancel.",
+        "Attribution is scored against a channel-label shuffle, so 'flags a lot of channels and hits some by luck' cannot pass.",
+        "Resolution checked before scoring: the smallest reachable p from the empirical null is compared with the Bonferroni bar, because a bar below the instrument's own resolution manufactures a guaranteed zero."
+      ],
+      "note": "This is the first attribution result in this record measured against REAL per-channel ground truth. Every previous one was either synthetic with a planted answer, or on hardware where the dataset labels fault modes rather than sensors and no per-sensor truth exists at all. The correction that produced it is the project's own standing rule turned on itself: the null must be the method's behaviour on null data, not an idealisation. ESA Anomaly Dataset (Mission1), Zenodo record 15237121, CC BY 3.0 IGO — attribution required, redistribution permitted."
+    },
+    {
+      "id": 47,
+      "date": "2026-08-08",
+      "track": "machine-telemetry",
+      "domains": [
+        "spacecraft"
+      ],
+      "title": "The layered architecture does NOT transfer to real, unequal subsystems — flat wins on 40 events and loses on none",
+      "status": "negative",
+      "rung": 3,
+      "claim": "Every previous test of the subsystem-then-channel hierarchy used four invented subsystems of five channels each. This mission's subsystems are real and unequal — 42, 17, 11 and 6 channels. There the layered test is strictly worse than testing every channel flat: it detects 0.636 of anomalies against 0.975, and the paired comparison is one-sided.",
+      "evidence": "Paired McNemar on the same 118 anomaly events: 40 events the flat test catches and the layered one misses, ZERO the other way, p < 0.0001. Attribution follows the same order — layered recall 0.217 at 3.19× base against flat 0.429 at 4.54×. Mechanism measured rather than argued: mean subsystems reaching stage one is 1.271 of 4 on anomalies against 0.020 on held-out nominal windows, so the stage-one gate is specific but far too conservative on the large subsystem.",
+      "scope": "One mission, one subsystem partition. This does not refute hierarchy in general — it refutes it for THIS correction on THESE group sizes.",
+      "code": "validate/esa_channel_null_test.py",
+      "controls": [
+        "Both deciders scored on the SAME null draws and the same events, so the comparison is paired and a McNemar test is available rather than two intervals that happen not to overlap.",
+        "Equal false alarm: 0.018 layered against 0.025 flat on held-out windows, so the flat arm's advantage is not bought with alarms.",
+        "REGISTERED PREDICTION, written before the run: 'two-stage will LOSE ground here, because subsystem_6 holds 42 channels and a maximum over 42 must clear a higher bar than a maximum over 6.' It held."
+      ],
+      "note": "This is the correction the synthetic finding asked for. A maximum over 42 channels needs a far larger excursion to clear its own null than a maximum over 6, so a real event inside the largest subsystem never passes stage one and is never drilled into — the asymmetry that equal-size invented subsystems hid completely. The general lesson is not about hierarchies: a result measured on groups of equal size carries no information about groups of unequal size, and the synthetic version could not have revealed this. ESA Anomaly Dataset (Mission1), Zenodo record 15237121, CC BY 3.0 IGO — attribution required, redistribution permitted.",
+      "supersedes": 44
+    },
+    {
+      "id": 48,
+      "date": "2026-08-08",
+      "track": "machine-telemetry",
+      "domains": [
+        "spacecraft"
+      ],
+      "title": "Rare-but-normal events do alarm less than anomalies — by a registered margin, and still far too often to be useful",
+      "status": "provisional",
+      "rung": 3,
+      "claim": "82 of this mission's 200 annotated events are rare but NORMAL, and the dataset's authors state that not alarming on them is of high practical importance. Measured: the flat decider alarms on 0.975 of anomalies and 0.817 of rare-nominal events — a difference of +0.158, clearing a pre-registered 0.15 bar at p = 0.0005. The direction is real and registered. The absolute number is not usable.",
+      "evidence": "118 anomalies against 82 rare-nominal events, same instrument, same held-out-validated false-alarm rate of 0.025. Flat Bonferroni and FDR both give +0.158 at p = 0.0005 on a label-shuffle permutation. The layered decider goes the WRONG WAY, −0.133 at p = 0.98, and fails.",
+      "scope": "One mission, one annotation scheme, and the events are labelled by ESA operators rather than by us. Being 'rare nominal' is a judgement about operational meaning, not a property of the signal, so a method reading the signal alone has no principled route to the distinction beyond magnitude.",
+      "code": "validate/esa_channel_null_test.py",
+      "controls": [
+        "Pre-registered margin and alpha, both fixed before the run.",
+        "Label-shuffle permutation, so a difference between two high rates cannot pass on point estimates alone.",
+        "The layered decider is reported at its actual value, in the wrong direction, rather than dropped for being inconvenient."
+      ],
+      "note": "Marked provisional rather than active on purpose. An operator receiving an alarm on 82% of rare-but-normal events is receiving an alarm on almost everything unusual, and the registered margin does not change that — a statistically significant difference between 0.98 and 0.82 is not an operationally useful separation. The honest reading is that the thesis 'learn the individual vehicle so rare-but-normal does not alarm' is SUPPORTED IN DIRECTION and UNSUPPORTED IN MAGNITUDE by this measurement. ESA Anomaly Dataset (Mission1), Zenodo record 15237121, CC BY 3.0 IGO — attribution required, redistribution permitted."
     }
   ],
   "equations": {
@@ -733,7 +1126,76 @@
     "summary": "We assembled a real, working, model-free engine — DTW plus an information-geometry (Fisher–Rao √-sphere) ground over sequences of distributions — with clean geodesic operators and a quotient extension for pitch invariance. The composition in §1 and the quotient in §6 are the parts that are ours. §5 was demoted on 2026-07-26 when the literature check it had been flagged for was finally run. The strongest results in this project are not in this tab at all — they are the MEASUREMENTS (findings 13, 14 and 27), which were built with controls designed to kill them and survived."
   },
   "tracks": {
-    "beyond-weights": "Memory-based learning architecture: the loop, composition, coverage.",
-    "clinical-rhythm": "Cardiac rhythm application of the architecture; evidence base for a per-patient monitor. Application results, NOT architecture claims."
+    "foundations": {
+      "label": "foundations",
+      "desc": "The distance itself, its operators, and what they were measured against. The results the rest of the record stands on."
+    },
+    "beyond-weights": {
+      "label": "architecture",
+      "desc": "Memory-based learning: the retrieve-compose-decode loop, composition, and the coverage law. An architecture claim, not an application result."
+    },
+    "clinical-rhythm": {
+      "label": "cardiac rhythm",
+      "desc": "Cardiac rhythm application of the architecture, on public patient recordings. Application results, NOT architecture claims, and no clinical claim."
+    },
+    "machine-telemetry": {
+      "label": "machine telemetry",
+      "desc": "Prognostics and anomaly attribution on machine sensor data. Method and negatives, not a predictor and not a product."
+    }
+  },
+  "domains": {
+    "theory": {
+      "label": "mathematics",
+      "desc": "Identities and proofs. No dataset — these either hold or they do not."
+    },
+    "speech": {
+      "label": "speech",
+      "desc": "Real recorded spoken digits, six speakers. The across-speaker split is the hard one: the same word through a voice the system has never heard."
+    },
+    "handwriting": {
+      "label": "handwriting",
+      "desc": "Real pen motion from a graphics tablet. No audio, no shared sensor with speech — which is what makes it a replication rather than a second look."
+    },
+    "language": {
+      "label": "text",
+      "desc": "Character-level English. Discrete and already aligned, which is the regime the method is measured to be WEAKEST in."
+    },
+    "activity": {
+      "label": "human activity",
+      "desc": "Body-worn accelerometer windows — sitting, standing, walking."
+    },
+    "spectra": {
+      "label": "light",
+      "desc": "Emission spectra of materials."
+    },
+    "sonar": {
+      "label": "sonar",
+      "desc": "Sonar range profiles and Doppler returns."
+    },
+    "turbulence": {
+      "label": "turbulence",
+      "desc": "Turbulent versus calm flow."
+    },
+    "cardiac": {
+      "label": "cardiac rhythm",
+      "desc": "Inter-beat intervals from public patient recordings, per patient."
+    },
+    "jet-engine": {
+      "label": "jet engine",
+      "desc": "NASA C-MAPSS turbofan run-to-failure. Simulated, one engine family — it is not flight telemetry and a result here is not a claim about one."
+    },
+    "synthetic-telemetry": {
+      "label": "synthetic vehicles",
+      "desc": "Multi-channel systems built deliberately to break the machinery — mixed units, awkward distributions, planted faults with a known answer."
+    },
+    "zeta": {
+      "label": "zeta zeros",
+      "desc": "The Riemann zeta zeros and candidate operator spectra. An honest appendix: everything here reproduces known mathematics and proves nothing new."
+    },
+    "spacecraft": {
+      "label": "spacecraft telemetry",
+      "desc": "Real ESA mission telemetry (ESA Anomaly Dataset, CC BY 3.0 IGO), with channel-level ground truth and real, unequal subsystems.",
+      "show_when_empty": true
+    }
   }
 }
