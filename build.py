@@ -387,6 +387,25 @@ def build():
     # The origin DOI and date are emitted separately from the naming date on purpose — the name
     # refers back to an already-published premise and must never read as dating it to the day
     # it was named.
+    # ---- the named equations. Rendered at the TOP of the findings tab, not only on the thesis
+    # tab, because the findings are what a reader actually reads and none of them names an
+    # equation: they were written before the equations were named and speak of "the distance" or
+    # "the ground". Without this block the record can be read end to end without ever learning
+    # that the thing being measured is called Hodos Diastema — which is the exact confusion the
+    # coinage exists to end (one word doing two jobs, so nobody reached the hypothesis).
+    family_block = ""
+    fam = m.get("family")
+    if fam:
+        cards_f = "".join(
+            f'\n  <p><strong>{e(i["name"])}</strong> <span class="meta">({e(i["greek"])})</span>'
+            f' — {e(i["question"])}<br>{e(i["note"])}'
+            f' <a href="https://doi.org/{e(i["doi"])}">{e(i["doi"])}</a></p>'
+            for i in fam.get("items", []))
+        family_block = f"""
+  <h2>The four named equations</h2>
+  <p class="gen">{e(fam.get('lede', ''))}</p>{cards_f}
+"""
+
     premise_block = ""
     pr = m.get("premise")
     if pr:
@@ -447,6 +466,7 @@ def build():
     <div class="tleg">{track_legend}</div>
   </div>
 
+{family_block}
   <h2>Where this has been measured</h2>
   <p class="gen">The same representation is applied in every field below. Whether it <em>helps</em>
      is a separate question, measured case by case — the fields where it did not are on this page

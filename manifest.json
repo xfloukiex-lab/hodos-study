@@ -1338,5 +1338,38 @@
   "lead": "Work applying this engine in a specific domain keeps its own record, its own numbering and its own evidence ladder. Nothing on this page is a clinical claim, and the lane below is not cleared or approved by any regulator:",
   "title": "Cordthym — cardiac rhythm",
   "url": "https://xfloukiex-lab.github.io/cordthym-study/"
+ },
+ "family": {
+  "lede": "The hypothesis is the premise; each equation it generates carries its own name, and the name is Hodos plus one word. This matters for reading the record below: the findings were written before the equations were named, so they speak of \"the distance\", \"the ground\" or \"the surplus\". Those are the objects named here.",
+  "items": [
+   {
+    "name": "Hodos Diastema",
+    "greek": "διάστημα, interval",
+    "question": "How far apart are two processes?",
+    "note": "The model-free distance between processes as curves of distributions. It is the equation nearly every finding on this page is measured with — where a finding says \"the distance\", \"D\", or \"the Fisher–Rao ground\", this is what it means.",
+    "doi": "10.5281/zenodo.21612829"
+   },
+   {
+    "name": "Hodos Symploke",
+    "greek": "συμπλοκή, interweaving",
+    "question": "What does a relationship create?",
+    "note": "The emergence surplus: the joint against the product of the marginals. Cleared all four criteria fixed before it ran.",
+    "doi": "10.5281/zenodo.21850666"
+   },
+   {
+    "name": "Hodos Systasis",
+    "greek": "σύστασις, composition",
+    "question": "What are the parts made of?",
+    "note": "Relational and lossy. It genuinely is relational — destroying the shared coordinate system collapses it — but it loses to the window's own values.",
+    "doi": "10.5281/zenodo.21850666"
+   },
+   {
+    "name": "Hodos Chronos",
+    "greek": "χρόνος, duration",
+    "question": "How much time has a process lived?",
+    "note": "Clears four of its five pre-registered bars. The fifth, sampling invariance, still fails at 0.759 against a bar of 0.05, and the paper says so on the same page that announces the other four.",
+    "doi": "10.5281/zenodo.21861429"
+   }
+  ]
  }
 }
