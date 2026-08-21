@@ -1491,7 +1491,7 @@
     "name": "Hodos Systasis",
     "greek": "σύστασις, composition",
     "question": "What are the parts made of?",
-    "note": "Relational and lossy. It genuinely is relational — destroying the shared coordinate system collapses it — but it loses to the window's own values.",
+    "note": "Relational — and the 'lossy' half is WITHDRAWN. It genuinely is relational: destroying the shared coordinate system collapses it. The earlier claim that it loses to the window's own values was withdrawn on 2026-08-15/16 by our own measurement, not by argument — the paired leave-one-out gap is 4 items of 200, then 4 to 12 of 600, sign-stable but below what this design can resolve, and a gap the design cannot resolve is withdrawn rather than kept as a null.",
     "doi": "10.5281/zenodo.21850666"
    },
    {

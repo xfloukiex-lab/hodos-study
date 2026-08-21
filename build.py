@@ -438,6 +438,17 @@ def build():
   <p><strong>What is and is not claimed.</strong> {e(pr['boundary'])}</p>
 """
 
+    # ⛔ THE BANNER SAID "PRIVATE" ON A PUBLIC PAGE, AND THE MANIFEST ALREADY SAID OTHERWISE.
+    # `"private": false` has been in manifest.json the whole time and this template ignored it,
+    # hard-coding the word. So the served record opened by telling every reader it was private
+    # while sitting on a public repo with live Pages — a page contradicting its own data.
+    # ★ The NOTE itself was never wrong and is untouched — the shared-but-unannounced,
+    # negatives-on-purpose, not-indexed stance is exactly right, and the not-indexed half is
+    # verifiably true: this document emits <meta name="robots" content="noindex,nofollow"> a few
+    # lines below. Unlisted is not private, and only the label was ever the error.
+    # Only the label moves; the stance, the wording and the noindex all stay as the owner set them.
+    visibility_label = "PRIVATE" if m.get("private") else "UNLISTED"
+
     doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
@@ -448,7 +459,7 @@ def build():
   <p class="sub">{e(m['subtitle'])}</p>
   <p class="byline">{e(m['byline'])}</p>
   {papers_line}
-  <div class="private">PRIVATE — {e(m['private_note'])}</div>
+  <div class="private">{visibility_label} — {e(m['private_note'])}</div>
   <nav>
     <button class="on" data-t="findings">Findings</button>
     <button data-t="equations">The equations</button>
